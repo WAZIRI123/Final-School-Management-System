@@ -26,6 +26,7 @@ return new class extends Migration
             $table->string('current_address');
             $table->string('permanent_address');
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

@@ -105,12 +105,23 @@
                     @enderror
                 </div>
             </div>
-         <div class="grid grid-cols-2 gap-8">
+         <div class="grid grid-cols-2 gap-8" x-data="{ isUploading: false, progress: 0 }" x-on:livewire-upload-start="isUploading = true" x-on:livewire-upload-finish="isUploading = false" x-on:livewire-upload-error="isUploading = false" x-on:livewire-upload-progress="progress = $event.detail.progress">
             <div class="mt-4">
-                <x-tall-crud-label>Profile_picture</x-tall-crud-label>
-                <x-tall-crud-input class="block mt-1 w-full" type="file"
-                    wire:model.defer="profile_picture" />
-                @error('item.profile_picture') <x-tall-crud-error-message>{{$message}}</x-tall-crud-error-message>
+                <input wire:model.defer="profile_picture" class="block mt-1 w-full text-gray-900 bg-gray-50 rounded-lg border border-gray-300 cursor-pointer dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 hidden" id="large_size1" type="file">
+                <label class="block w-full text-lg text-gray-900 py-1.5 bg-blue-50 rounded-lg border border-gray-300 cursor-pointer dark:text-gray-400 focus:outline-none shadow-sm" for="large_size1">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class=" inline feather feather-file"><path d="M13 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z"></path><polyline points="13 2 13 9 20 9"></polyline></svg>
+                    <span class="inline">
+                        @if ($profile_picture)
+                            {{ $profile_picture->getClientOriginalName() }}
+                            @else
+                            Choose Image
+                        @endif
+
+                    </span>
+                </label>
+
+                    <span max="100" class="w-full" x-show="isUploading" x-bind:value="progress">Uploading......</span>
+                @error('profile_picture') <x-tall-crud-error-message>{{$message}}</x-tall-crud-error-message>
                 @enderror
             </div>
          </div>
@@ -212,6 +223,30 @@
                     @enderror
                 </div>
             </div>
+        <div class="grid grid-cols-2 gap-8" x-data="{ isUploading: false, progress: 0 }" x-on:livewire-upload-start="isUploading = true" x-on:livewire-upload-finish="isUploading = false" x-on:livewire-upload-error="isUploading = false" x-on:livewire-upload-progress="progress = $event.detail.progress">
+            <div class="mt-4">
+                <input wire:model.defer="profile_picture" class="block mt-1 w-full text-gray-900 bg-gray-50 rounded-lg border border-gray-300 cursor-pointer dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 hidden" id="large_size" type="file">
+                <label class="block w-full text-lg text-gray-900 py-1.5 bg-blue-50 rounded-lg border border-gray-300 cursor-pointer dark:text-gray-400 focus:outline-none shadow-sm" for="large_size">
+
+                    <span class="inline">
+                        @if ($profile_picture)
+                            {{ $profile_picture->getClientOriginalName() }}
+                        @else         
+                        @if ( str_contains($oldImage,'img/profile_picture/upload/'))
+                        <img src="{{ asset('storage/' . $oldImage) }}" alt="profile photo" class=" inline w-10 h-10 rounded-full">
+                        Change image
+                        @else
+                        <img src="{{$oldImage}}" alt="profile photo" class=" inline w-10 h-10 rounded-full">
+                        Change image
+                        @endif
+                        @endif
+                    </span>
+                </label>
+                    <span max="100" class="w-full" wire:target='profile_picture' x-show="isUploading" x-bind:value="progress">Uploading......</span>
+                @error('profile_picture') <x-tall-crud-error-message>{{$message}}</x-tall-crud-error-message>
+                @enderror
+            </div>
+    </div>
         </x-slot>
 
         <x-slot name="footer">

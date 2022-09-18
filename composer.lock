@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "34db0f40750e5146616875f93faa5376",
+    "content-hash": "df665abe75c6c8fe6f9542cf6fefaa14",
     "packages": [
         {
             "name": "ascsoftw/livewire-toast",
@@ -1515,6 +1515,52 @@
                 }
             ],
             "time": "2022-01-18T15:43:28+00:00"
+        },
+        {
+            "name": "dyrynda/laravel-cascade-soft-deletes",
+            "version": "4.2.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/michaeldyrynda/laravel-cascade-soft-deletes.git",
+                "reference": "6a4826c26954b83f3c11e08c5b4a63867c36b0a0"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/michaeldyrynda/laravel-cascade-soft-deletes/zipball/6a4826c26954b83f3c11e08c5b4a63867c36b0a0",
+                "reference": "6a4826c26954b83f3c11e08c5b4a63867c36b0a0",
+                "shasum": ""
+            },
+            "require": {
+                "illuminate/database": "^8.12|^9.0",
+                "illuminate/events": "^8.12|^9.0",
+                "php": "^7.3|^8.0"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "^9.3"
+            },
+            "type": "utility",
+            "autoload": {
+                "psr-4": {
+                    "Dyrynda\\Database\\Support\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Michael Dyrynda",
+                    "email": "michael@dyrynda.com.au",
+                    "homepage": "https://dyrynda.com.au"
+                }
+            ],
+            "description": "Cascading deletes for Eloquent models that implement soft deletes",
+            "support": {
+                "issues": "https://github.com/michaeldyrynda/laravel-cascade-soft-deletes/issues",
+                "source": "https://github.com/michaeldyrynda/laravel-cascade-soft-deletes/tree/4.2.0"
+            },
+            "time": "2022-01-26T03:50:42+00:00"
         },
         {
             "name": "egulias/email-validator",
@@ -10335,6 +10381,61 @@
                 "source": "https://github.com/webmozarts/assert/tree/1.11.0"
             },
             "time": "2022-06-03T18:03:27+00:00"
+        },
+        {
+            "name": "wildside/userstamps",
+            "version": "2.2.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/WildsideUK/Laravel-Userstamps.git",
+                "reference": "a54e057de179cd575ef839935d068cf21ce85960"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/WildsideUK/Laravel-Userstamps/zipball/a54e057de179cd575ef839935d068cf21ce85960",
+                "reference": "a54e057de179cd575ef839935d068cf21ce85960",
+                "shasum": ""
+            },
+            "require": {
+                "illuminate/support": "^5.2|^6.0|^7.0|^8.0|^9.0",
+                "php": ">=5.5.9"
+            },
+            "require-dev": {
+                "illuminate/database": "^5.2|^6.0|^7.0|^8.0|^9.0",
+                "orchestra/testbench": "^3.1|^4.0|^5.0|^6.0|^7.0",
+                "phpunit/phpunit": "^5.0|^6.0|^7.0|^8.4|^9.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Wildside\\Userstamps\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "WILDSIDE",
+                    "email": "hello@wildside.uk",
+                    "homepage": "https://wildside.uk"
+                }
+            ],
+            "description": "Laravel Userstamps provides an Eloquent trait which automatically maintains `created_by` and `updated_by` columns on your model, populated by the currently authenticated user in your application.",
+            "keywords": [
+                "created_by",
+                "deleted_by",
+                "eloquent",
+                "laravel",
+                "updated_by",
+                "userstamps"
+            ],
+            "support": {
+                "issues": "https://github.com/WildsideUK/Laravel-Userstamps/issues",
+                "source": "https://github.com/WildsideUK/Laravel-Userstamps/tree/2.2.0"
+            },
+            "time": "2022-02-09T08:47:54+00:00"
         },
         {
             "name": "zbateson/mail-mime-parser",

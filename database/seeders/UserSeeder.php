@@ -22,6 +22,7 @@ class UserSeeder extends Seeder
             'school_id'         => 1,
             'email'         => 'admin@demo.com',
             'password'      => bcrypt('12345678'),
+            'email_verified_at' => now(),
             'created_at'    => date("Y-m-d H:i:s")
         ]);
         $user->assignRole('Admin');
@@ -30,6 +31,7 @@ class UserSeeder extends Seeder
             'name'          => 'Teacher',
             'school_id'         => 1,
             'email'         => 'teacher@demo.com',
+            'email_verified_at' => now(),
             'password'      => bcrypt('12345678'),
             'created_at'    => date("Y-m-d H:i:s")
         ]);
@@ -40,6 +42,7 @@ class UserSeeder extends Seeder
             'school_id'         => 1,
             'email'         => 'parent@demo.com',
             'password'      => bcrypt('12345678'),
+            'email_verified_at' => now(),
             'created_at'    => date("Y-m-d H:i:s")
         ]);
         $user3->assignRole('Parent');
@@ -48,6 +51,7 @@ class UserSeeder extends Seeder
             'name'          => 'Student',
             'school_id'         => 1,
             'email'         => 'student@demo.com',
+            'email_verified_at' => now(),
             'password'      => bcrypt('12345678'),
             'created_at'    => date("Y-m-d H:i:s")
         ]);

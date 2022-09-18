@@ -2,16 +2,19 @@
 
 namespace App\Models;
 
-// use Illuminate\Contracts\Auth\MustVerifyEmail;
+use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\SoftDeletes;
+use Dyrynda\Database\Support\CascadeSoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 use Spatie\Permission\Traits\HasRoles;
 
-class User extends Authenticatable
+class User extends Authenticatable implements MustVerifyEmail
 {
-    use HasApiTokens, HasFactory, Notifiable,HasRoles;
+    use HasApiTokens, HasFactory, Notifiable,HasRoles,SoftDeletes,CascadeSoftDeletes;
+
 
     /**
      * The attributes that are mass assignable.
@@ -49,8 +52,8 @@ class User extends Authenticatable
     {
         return $this->hasOne(Student::class);
     }
-    public function avatarUrl(){
-        return 'https://www.gravatar.com/avatar/'.md5(trim('wazirially1994@gmail.com'));
+    public function avatarUrl($email=null){
+        return 'https://www.gravatar.com/avatar/'.md5(trim($email));
     }
 
     public function parent()

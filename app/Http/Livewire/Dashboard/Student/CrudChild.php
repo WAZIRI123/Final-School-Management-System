@@ -11,6 +11,8 @@ use App\Models\Parents;
 use App\Models\User;
 use Haruncpi\LaravelIdGenerator\IdGenerator;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Validation\Rule;
 use Livewire\WithFileUploads;
 
 class CrudChild extends Component
@@ -23,6 +25,7 @@ class CrudChild extends Component
     public  $user;
     public $admission_no;
     public $profile_picture;
+    public $oldImage;
     /**
      * @var array
      */
@@ -54,9 +57,8 @@ class CrudChild extends Component
         return [
         'item.admission_no' => 'required',
         'item.parent_id' => 'required',
-        'profile_picture' => 'image|mimes:jpeg,png',
         'item.name' => 'required',
-        'item.email' => 'required|unique:users,email,'.$this->user->id,
+        'item.email' =>['required','email',Rule::unique('users','email')->ignore($this->user->id)->whereNull('deleted_at')],
         'item.class_id' => 'required',
         'item.gender' => 'required',
         'item.phone' => 'required|regex:/^([0-9\s\-\+\(\)]*)$/|min:10',
@@ -119,8 +121,9 @@ public function mount(User $user)
         $this->student = $student;
     }
 
-    public function deleteItem(): void
+    public function deleteItem(Student $student): void
     {
+        $this->authorize('delete student', [$student, 'student']);
         User::find($this->student->user_id)->delete();
         $this->student->delete();
         $this->confirmingItemDeletion = false;
@@ -130,29 +133,32 @@ public function mount(User $user)
         $this->emitTo('livewire-toast', 'show', 'Record Deleted Successfully');
     }
 
-    public function showCreateForm(): void
+    public function showCreateForm(Student $student): void
     {
+        $this->authorize('create student', [$student, 'student']);
         $this->confirmingItemCreation = true;
         $this->resetErrorBag();
-        $this->reset(['item']);
+        $this->reset(['item','profile_picture']);
         $this->admission_no = $this->item['admission_no'] = IdGenerator::generate(['table' => 'students', 'field' => 'admission_no', 'length' => 5, 'prefix' => 'ST']);
         $this->parents = Parents::orderBy('id')->get();
         $this->classes = Classes::orderBy('class_name')->get();
         $this->users = User::orderBy('name')->get();
     }
 
-    public function createItem(): void
+    public function createItem(Student $student): void
     {
+        $this->authorize('create student', [$student, 'student']);
         if ($this->profile_picture) {
-           $profile_picture=$this->profile_picture->store('img/profile_picture/upload');
-        }else {
-            $profile_picture=$this->profile_picture=" ";
+            $rule['profile_picture'] = 'image|mimes:jpeg,png';
         }
         $this->validate();
+        if ($this->profile_picture) {
+            $profile_picture=$this->profile_picture->store('img/profile_picture/upload','public');
+         }
         DB::beginTransaction();
         $user = User::create([
             'name' => $this->item['name'],
-            'profile_picture' => $profile_picture,
+            'profile_picture' => $profile_picture?? auth()->user()->avatarUrl($this->item['email']) ,
             'email' => $this->item['email'],
             'school_id' => auth()->user()->school->id,
         ]);
@@ -178,6 +184,7 @@ public function mount(User $user)
     {
         $this->authorize('update student', [$student, 'student']);
         $this->resetErrorBag();
+        $this->reset(['profile_picture']);
         $this->student=$student;
         $this->user=$student->user;
         $this->item['admission_no'] = $student->admission_no;
@@ -190,8 +197,8 @@ public function mount(User $user)
         $this->item['permanent_address']=$student->permanent_address;
         $this->item['name']=$student->user->name;
         $this->item['email']=$student->user->email;
+        $this->oldImage=$student->user->profile_picture;
         $this->confirmingItemEdit = true;
-
         $this->parents = Parents::orderBy('id')->get();
 
         $this->classes = Classes::orderBy('class_name')->get();
@@ -199,13 +206,26 @@ public function mount(User $user)
         $this->users = User::orderBy('name')->get();
     }
 
-    public function editItem(): void
+    public function editItem(Student $student): void
     {
+        $this->authorize('update student', [$student, 'student']);
         $this->validate();
+        if ($this->profile_picture) {
+            $profile_picture=$this->profile_picture->store('img/profile_picture/upload','public');
+            if ($this->oldImage!=null) {
+                Storage::delete($this->oldImage);
+            }
+         
+        }
+         else{
+            $profile_picture=$this->oldImage;
+         }
+        
         DB::beginTransaction();
         $this->user->update([
             'name' => $this->item['name'],
             'email' => $this->item['email'],
+            'profile_picture' => $profile_picture?? auth()->user()->avatarUrl($this->item['email']) ,
         ]);
         $this->student->update([
             'admission_no' => $this->item['admission_no'],

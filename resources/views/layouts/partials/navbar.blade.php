@@ -18,7 +18,14 @@
                 <!-- start::Main link -->
                 <div @click="linkActive = !linkActive" class="cursor-pointer">
                     {{-- src="{{ asset('storage/' . auth()->user()->avatar) }}" --}}
-                    <img src="{{auth()->user()->avatarUrl()}}" alt="profile photo" class="w-10 rounded-full">
+                    
+                    @if ( str_contains(auth()->user()->profile_picture,'img/profile_picture/upload/'))
+                    <img src="{{ asset('storage/' . auth()->user()->profile_picture) }}" alt="profile photo" class="w-10 h-10 rounded-full">
+                    @else
+                    <img src="{{auth()->user()->profile_picture}}" alt="profile photo" class="w-10 h-10 rounded-full">
+                    
+                    @endif
+                    
                 </div>
                 <!-- end::Main link -->
 
