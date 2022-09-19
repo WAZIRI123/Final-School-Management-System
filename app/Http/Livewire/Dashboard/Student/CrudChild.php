@@ -153,7 +153,7 @@ public function mount(User $user)
         }
         $this->validate();
         if ($this->profile_picture) {
-            $profile_picture=$this->profile_picture->store('img/profile_picture/upload','public');
+            $profile_picture=$this->profile_picture->storeAs('img/profile_picture/upload',$this->profile_picture->getClientOriginalName(),'public');
          }
         DB::beginTransaction();
         $user = User::create([
@@ -211,7 +211,7 @@ public function mount(User $user)
         $this->authorize('update student', [$student, 'student']);
         $this->validate();
         if ($this->profile_picture) {
-            $profile_picture=$this->profile_picture->store('img/profile_picture/upload','public');
+            $profile_picture=$this->profile_picture->storeAs('img/profile_picture/upload',$this->profile_picture->getClientOriginalName(),'public');
             if ($this->oldImage!=null) {
                 Storage::delete($this->oldImage);
             }
