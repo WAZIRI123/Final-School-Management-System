@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Livewire\Dashboard\Student;
+namespace App\Http\Livewire\Dashboard\Teacher;
 
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Livewire\Component;
@@ -8,11 +8,11 @@ use Livewire\WithPagination;
 use Illuminate\Database\Eloquent\Builder;
 use \Illuminate\View\View;
 
-use App\Models\Student;
+use App\Models\Teacher;
 
 class Crud extends Component
 {
-    use AuthorizesRequests, WithPagination;
+    use AuthorizesRequests,WithPagination;
 
     /**
      * @var array
@@ -29,6 +29,11 @@ class Crud extends Component
     public $sortAsc = true;
 
     /**
+     * @var string
+     */
+    public $q;
+
+    /**
      * @var int
      */
     public $per_page = 15;
@@ -36,25 +41,29 @@ class Crud extends Component
 
     public function mount(): void
     {
+
     }
 
     public function render(): View
     {
-        $this->authorize('viewAny', [User::class, 'student']);
+        $this->authorize('viewAny', [User::class, 'teacher']);
 
-        $filterOnlyStudentWithinSchool= function($query)  {
+        $filterOnlyTeacherWithinSchool= function($query)  {
             $query->where('school_id', auth()->user()->school_id);
         };
 
         $results = $this->query()
-            ->with('user')
-            ->with('parent')
-            ->whereHas('user', $filterOnlyStudentWithinSchool)
+           ->with(['user'])
+           ->whereHas('user', $filterOnlyTeacherWithinSchool)
+            ->when($this->q, function ($query) {
+                return $query->where(function ($query) {
+                    $query->where('admission_no', 'like', '%' . $this->q . '%');
+                });
+            })
             ->orderBy($this->sortBy, $this->sortAsc ? 'ASC' : 'DESC')
-            ->with('class')
             ->paginate($this->per_page);
 
-        return view('livewire.dashboard.student.crud', [
+        return view('livewire.dashboard.teacher.crud', [
             'results' => $results
         ]);
     }
@@ -67,6 +76,11 @@ class Crud extends Component
         $this->sortBy = $field;
     }
 
+    public function updatingQ(): void
+    {
+        $this->resetPage();
+    }
+
     public function updatingPerPage(): void
     {
         $this->resetPage();
@@ -74,6 +88,6 @@ class Crud extends Component
 
     public function query(): Builder
     {
-        return Student::query();
+        return Teacher::query();
     }
 }

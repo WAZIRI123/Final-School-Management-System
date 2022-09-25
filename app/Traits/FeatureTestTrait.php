@@ -18,7 +18,7 @@ trait FeatureTestTrait
         $user = User::factory()->create();
 
         $user->givePermissionTo($permission);
-        
+    /** @var \Illuminate\Contracts\Auth\Authenticatable $user */
         return $this->actingAs($user);
     }
 }

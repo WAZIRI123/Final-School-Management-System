@@ -20,12 +20,21 @@ class UserSeeder extends Seeder
         $user = User::create([
             'name'          => 'Admin',
             'school_id'         => 1,
+            'email'         => 'super-admin@demo.com',
+            'password'      => bcrypt('12345678'),
+            'email_verified_at' => now(),
+            'created_at'    => date("Y-m-d H:i:s")
+        ]);
+        $user->assignRole('super-admin');
+        $user = User::create([
+            'name'          => 'Admin',
+            'school_id'         => 1,
             'email'         => 'admin@demo.com',
             'password'      => bcrypt('12345678'),
             'email_verified_at' => now(),
             'created_at'    => date("Y-m-d H:i:s")
         ]);
-        $user->assignRole('Admin');
+        $user->assignRole('admin');
 
         $user2 = User::create([
             'name'          => 'Teacher',
@@ -62,6 +71,7 @@ class UserSeeder extends Seeder
             [
                 'user_id'           => $user2->id,
                 'gender'            => 'male',
+                'class_id'          => 1,
                 'phone'             => '0123456789',
                 'dateofbirth'       => '1993-04-11',
                 'admission_no'       => $faker->numerify('###-###-####'),

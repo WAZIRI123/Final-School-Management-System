@@ -29,17 +29,19 @@
                 <td  class="py-2 pl-2" >Parent Id</td>
                 <td  class="py-2 pl-2" >User Id</td>
                 <td  class="py-2 pl-2" >Admission No</td>
+                <td class="py-2 pl-2" >Permanent Address</td>
                 <td  class="py-2 pl-2" >Class Id</td>
                 <td  class="py-2 pl-2" >Gender</td>
                 <td  class="py-2 pl-2" >Actions</td>
             </thead>
-            <tbody class="text-sm">
+            <tbody class="divide-y divide-blue-400">
             @foreach($results as $result)
                 <tr class="hover:bg-blue-300 {{ ($loop->even ) ? "bg-blue-100" : ""}}">
                     <td class="py-3 pl-2 capitalize" >{{ $loop->iteration }}</td>
                     <td class="py-3 pl-2 capitalize" >{{ $result->parent->user->name }}</td>
                     <td class="py-3 pl-2 capitalize" >{{ $result->user->name }}</td>
                     <td class="py-3 pl-2 capitalize" >{{ $result->admission_no }}</td>
+                    <td class="py-3 capitalize pl-2" >{{ $result->permanent_address }}</td>
                     <td class="py-3 pl-2 capitalize" >{{ $result->class->class_name }}</td>
                     <td class="py-3 pl-2 capitalize" >{{ $result->gender }}</td>
                     <td class="py-3 pl-2 capitalize" >

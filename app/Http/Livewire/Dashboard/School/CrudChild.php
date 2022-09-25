@@ -6,6 +6,7 @@ use Livewire\Component;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use \Illuminate\View\View;
 use App\Models\School;
+use Haruncpi\LaravelIdGenerator\IdGenerator;
 
 class CrudChild extends Component
 {
@@ -34,8 +35,6 @@ class CrudChild extends Component
             'item.address' => 'required|min:8',
             'item.email' => '',
             'item.phone' => 'nullable|regex:/^([0-9\s\-\+\(\)]*)$/|min:5',
-            'item.semester_id' => '',
-            'item.academic_year_id' => '',
             'item.code' => '',
         ];
     }
@@ -49,8 +48,6 @@ class CrudChild extends Component
         'item.address' => 'Address',
         'item.email' => 'Email',
         'item.phone' => 'Phone',
-        'item.semester_id' => 'Semester Id',
-        'item.academic_year_id' => 'Academic Year Id',
         'item.code' => 'Code',
     ];
 
@@ -84,16 +81,16 @@ class CrudChild extends Component
         return view('livewire.dashboard.school.crud-child');
     }
 
-    public function showDeleteForm(int $id): void
+    public function showDeleteForm(school $school): void
     {
         $this->confirmingItemDeletion = true;
-        $this->primaryKey = $id;
+        $this->school = $school;
     }
 
-    public function deleteItem(): void
+    public function deleteItem(school $school): void
     {
-        $this->authorize('delete', $this->school);
-        School::destroy($this->primaryKey);
+        $this->authorize('delete school', [$school, 'school']);
+        $this->school->delete();
         $this->confirmingItemDeletion = false;
         $this->primaryKey = '';
         $this->reset(['item']);
@@ -106,6 +103,7 @@ class CrudChild extends Component
         $this->confirmingItemCreation = true;
         $this->resetErrorBag();
         $this->reset(['item']);
+        $this->code = $this->item['code'] = IdGenerator::generate(['table' => 'schools', 'field' => 'code', 'length' => 5, 'prefix' => 'SC']);
     }
 
     public function createItem(): void

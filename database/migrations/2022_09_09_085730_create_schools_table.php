@@ -24,6 +24,7 @@ return new class extends Migration
             $table->foreignId('academic_year_id')->nullable()->constrained()->onDelete('set null')->onUpdate('set null');
             $table->string('code');
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

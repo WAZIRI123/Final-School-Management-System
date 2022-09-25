@@ -74,7 +74,9 @@
         <!-- end::Stats -->
         <!-- start::Table -->
         <div class="bg-white rounded-lg px-8 py-6 my-16 overflow-x-scroll custom-scrollbar">
+            @can('read student')
             @livewire('dashboard.student.crud')
+            @endcan
         </div>
         <!-- end::Table -->
     </div>

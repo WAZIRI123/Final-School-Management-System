@@ -17,6 +17,7 @@ return new class extends Migration
         Schema::create('teachers', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->foreignId('user_id')->constrained()->onDelete('cascade');
+            $table->foreignId('class_id')->constrained()->onDelete('cascade');
             $table->string('gender')->default(GenderEnum::Male->value);
             $table->string('admission_no')->unique();
             $table->string('phone');
@@ -24,6 +25,7 @@ return new class extends Migration
             $table->string('current_address');
             $table->string('permanent_address');
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

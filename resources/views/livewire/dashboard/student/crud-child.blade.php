@@ -12,7 +12,7 @@
 
         <x-slot name="footer">
             <x-tall-crud-button wire:click="$set('confirmingItemDeletion', false)">Cancel</x-tall-crud-button>
-            <x-tall-crud-button mode="delete" wire:loading.attr="disabled" wire:click="deleteItem()">Delete
+            <x-tall-crud-button mode="delete" wire:loading.attr="disabled" wire:click="deleteItem({{ $student }})">Delete
             </x-tall-crud-button>
         </x-slot>
     </x-tall-crud-confirmation-dialog>
@@ -132,7 +132,7 @@
             <x-tall-crud-button mode="add" wire:loading.attr="disabled" wire:click="createItem()">Save
             </x-tall-crud-button>
         </x-slot>
-    </x-tall-crud-dialog-modal>
+     </x-tall-crud-dialog-modal>
 
     <x-tall-crud-dialog-modal wire:model="confirmingItemEdit">
         <x-slot name="title">
@@ -251,7 +251,7 @@
 
         <x-slot name="footer">
             <x-tall-crud-button wire:click="$set('confirmingItemEdit', false)">Cancel</x-tall-crud-button>
-            <x-tall-crud-button mode="edit" wire:loading.attr="disabled" wire:click="editItem()">Save
+            <x-tall-crud-button mode="edit" wire:loading.attr="disabled" wire:click="editItem( {{ $student}})">Save
             </x-tall-crud-button>
         </x-slot>
     </x-tall-crud-dialog-modal>

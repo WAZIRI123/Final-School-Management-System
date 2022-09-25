@@ -59,6 +59,10 @@ class PermissionSeeder extends Seeder
         Permission::firstOrCreate([
             'name' => 'create class',
         ]);
+        // Permissions for class
+        Permission::firstOrCreate([
+            'name' => 'setSchool',
+        ]);
         Permission::firstOrCreate([
             'name' => 'read class',
         ]);
@@ -131,6 +135,9 @@ class PermissionSeeder extends Seeder
         //Permission for parent
         Permission::firstOrCreate([
             'name' => 'create parent',
+        ]);
+        Permission::firstOrCreate([
+            'name' => 'read parent',
         ]);
         Permission::firstOrCreate([
             'name' => 'read teacher',
@@ -369,7 +376,9 @@ class PermissionSeeder extends Seeder
             'menu-exam',
             'menu-grade-system',
             'menu-notice',
+            'delete parent',
             'menu-parent',
+            'create parent',
             'manage school settings',
             'create section',
             'read section',
@@ -385,6 +394,8 @@ class PermissionSeeder extends Seeder
             'delete class group',
             'create student',
             'read student',
+            'read parent',
+            'update parent',
             'update student',
             'delete student',
             'create academic year',

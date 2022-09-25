@@ -1,0 +1,53 @@
+<div class="mt-8 min-h-screen px-2">
+            Schoool Setting
+
+        @livewire('livewire-toast')
+        <div class="grid grid-cols-2 gap-8">
+            <div class="mt-4">
+                <x-tall-crud-label>Name</x-tall-crud-label>
+                <x-tall-crud-input class="block mt-1 w-full" type="text" wire:model.defer="item.name" />
+                @error('item.name') <x-tall-crud-error-message>{{$message}}</x-tall-crud-error-message> @enderror
+            </div>
+            <div class="mt-4">
+                <x-tall-crud-label>Initials</x-tall-crud-label>
+                <x-tall-crud-input class="block mt-1 w-full" type="text" wire:model.defer="item.initials" />
+                @error('item.initials') <x-tall-crud-error-message>{{$message}}</x-tall-crud-error-message> @enderror
+            </div>
+        </div>
+        <div class="grid grid-cols-2 gap-8">
+            <div class="mt-4">
+                <x-tall-crud-label>Address</x-tall-crud-label>
+                <x-tall-crud-input class="block mt-1 w-full" type="text" wire:model.defer="item.address" />
+                @error('item.address') <x-tall-crud-error-message>{{$message}}</x-tall-crud-error-message> @enderror
+            </div>
+            <div class="mt-4">
+                <x-tall-crud-label>Email</x-tall-crud-label>
+                <x-tall-crud-input class="block mt-1 w-full" type="text" wire:model.defer="item.email" />
+                @error('item.email') <x-tall-crud-error-message>{{$message}}</x-tall-crud-error-message> @enderror
+            </div>
+        </div>
+        <div class="grid grid-cols-2 gap-8">
+            <div class="mt-4">
+                <x-tall-crud-label>Phone</x-tall-crud-label>
+                <x-tall-crud-input class="block mt-1 w-full" type="text" wire:model.defer="item.phone" />
+                @error('item.phone') <x-tall-crud-error-message>{{$message}}</x-tall-crud-error-message> @enderror
+            </div>
+            <div class="mt-4">
+                <x-tall-crud-label>Code</x-tall-crud-label>
+                <x-tall-crud-input class="block mt-1 w-full" type="text" wire:model.defer="item.code" disabled />
+                @error('item.code') <x-tall-crud-error-message>{{$message}}</x-tall-crud-error-message> @enderror
+            </div>
+        </div>
+        <div class="flex items-center justify-end px-4">
+            <div class="mt-4 mx-4">
+                <x-tall-crud-button wire:click="$set('confirmingItemEdit', false)">Cancel</x-tall-crud-button>
+            </div>
+            <div class="mt-4 ">
+                <x-tall-crud-button mode="add" wire:loading.attr="disabled" wire:click="editItem()">Save</x-tall-crud-button>
+            </div>
+        </div>
+           
+
+    
+
+</div>
