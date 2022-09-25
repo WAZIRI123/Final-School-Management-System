@@ -62,7 +62,11 @@ Route::namespace('App\Http\Livewire')->group(function () {
 
                     Route::get('/', Index::class)->name('index');
                 });
-                
+                // for  Classes
+                Route::prefix('/class')->namespace('Classes')->name('classes.')->group(function () {
+
+                    Route::get('/', Index::class)->name('index');
+                });
             });
         });
     });

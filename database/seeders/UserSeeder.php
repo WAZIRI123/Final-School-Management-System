@@ -93,14 +93,6 @@ class UserSeeder extends Seeder
             ]
         ]);
 
-        DB::table('classes')->insert([
-            'teacher_id'        => 1,
-            'class_numeric'     => $faker->numerify('###-###-####'),
-            'class_name'        => 'One',
-            'class_description' => 'class one',
-            'created_at'        => date("Y-m-d H:i:s")
-        ]);
-
         DB::table('students')->insert([
             [
                 'user_id'           => $user4->id,
@@ -108,6 +100,7 @@ class UserSeeder extends Seeder
                 'class_id'          => 1,
                 'admission_no'       => $faker->numerify('###-###-####'),
                 'gender'            => 'male',
+                'status'            => 'active',
                 'phone'             => '0123456789',
                 'dateofbirth'       => '1993-04-11',
                 'current_address'   => 'Dhaka-1215',

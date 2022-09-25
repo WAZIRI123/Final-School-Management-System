@@ -17,6 +17,7 @@ class Student extends Model
         'admission_no',
         'class_id',
         'gender',
+        'status',
         'phone',
         'dateofbirth',
         'current_address',

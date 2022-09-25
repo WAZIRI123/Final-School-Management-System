@@ -66,5 +66,4 @@
         {{ $results->links() }}
     </div>
     @livewire('dashboard.parent.crud-child')
-    @livewire('livewire-toast')
 </div>

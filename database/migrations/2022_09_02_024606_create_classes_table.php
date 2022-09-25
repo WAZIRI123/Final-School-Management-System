@@ -15,11 +15,12 @@ return new class extends Migration
     {
         Schema::create('classes', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('teacher_id')->constrained()->onDelete('cascade');
-            $table->string('class_numeric')->unique();
+            $table->foreignId('school_id')->constrained()->onDelete('cascade');
+            $table->string('class_code');
             $table->string('class_name');
             $table->string('class_description');
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

@@ -35,9 +35,9 @@ class CreateStudentTest extends TestCase
  
          // make fake user && assign role && acting as that user && parent create
          $user = User::factory()->create();
-         Student::factory()->for($user)->create(['permanent_address'=> 'Waziribig']);
+         Student::factory()->for($user)->create(['permanent_address'=> 'Waziribig','status'=>\App\Enums\StudentStatusEnum::Active]);
          $user1 = User::factory()->create(['school_id'=>2]);
-         Student::factory()->for($user1)->create(['permanent_address'=> 'notttty']);
+         Student::factory()->for($user1)->create(['permanent_address'=> 'notttty','status'=>\App\Enums\StudentStatusEnum::Inactive]);
  
          $user->assignRole('Admin');
  

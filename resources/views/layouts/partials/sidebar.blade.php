@@ -114,6 +114,25 @@
         </a>
         @endcan
         <!-- end::Menu link -->
+
+                <!-- start::Menu link -->
+                @can('menu-class')
+
+                <a x-data="{ linkHover: false }" @mouseover="linkHover = true" @mouseleave="linkHover = false"
+                    href="{{ route('dashboard.classes.index') }}"
+                    class="{{ !Route::currentRouteNamed('dashboard.classes.index') ? '' : 'bg-black bg-opacity-30' }} flex items-center text-gray-400 px-6 py-3 cursor-pointer hover:bg-black hover:bg-opacity-30 transition duration-200">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 transition duration-200"
+                        :class="linkHover ? 'text-gray-100' : ''" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                    </svg>
+                    <span class="ml-3 transition duration-200" :class="linkHover ? 'text-gray-100' : ''">
+                        Classes
+                    </span>
+                </a>
+                @endcan
+                <!-- end::Menu link -->
+
         <!-- start::Menu link -->
         <a x-data="{ linkHover: false }" @mouseover="linkHover = true" @mouseleave="linkHover = false"
             class="{{ !Route::currentRouteNamed('dashboard.car-reservations.index') ? '' : 'bg-black bg-opacity-30' }} flex items-center text-gray-400 px-6 py-3 cursor-pointer hover:bg-black hover:bg-opacity-30 transition duration-200">
