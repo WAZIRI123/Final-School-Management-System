@@ -98,6 +98,7 @@ class UserSeeder extends Seeder
                 'user_id'           => $user4->id,
                 'parent_id'         => 1,
                 'class_id'          => 1,
+                'section'          => 'A',
                 'admission_no'       => $faker->numerify('###-###-####'),
                 'gender'            => 'male',
                 'status'            => 'active',

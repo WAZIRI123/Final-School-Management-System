@@ -104,6 +104,7 @@ class CreateStudentTest extends TestCase
             ->set('item.permanent_address', 'moshi')
             ->set('item.parent_id', 1)
             ->set('item.class_id', 1)
+            ->set('item.section',  \App\Enums\ClassSectionEnum::A)
             ->call('createItem');
 
         // test if image exist
@@ -132,6 +133,7 @@ class CreateStudentTest extends TestCase
             ->set('item.permanent_address', 'moshi')
             ->set('item.parent_id', 1)
             ->set('item.class_id', 1)
+            ->set('item.section', \App\Enums\ClassSectionEnum::A)
             ->call('createItem')
             ->assertForbidden();
     }

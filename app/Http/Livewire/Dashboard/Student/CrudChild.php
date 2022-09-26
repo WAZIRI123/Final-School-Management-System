@@ -58,6 +58,7 @@ class CrudChild extends Component
         'item.admission_no' => 'required',
         'item.parent_id' => 'required',
         'item.name' => 'required',
+        'item.section' => 'required',
         'item.email' =>['required','email',Rule::unique('users','email')->ignore($this->user->id)->whereNull('deleted_at')],
         'item.class_id' => 'required',
         'item.gender' => 'required',
@@ -76,6 +77,7 @@ class CrudChild extends Component
         'item.admission_no' => 'Admission No',
         'item.parent_id' => 'Parent Id',
         'item.class_id' => 'Class Id',
+        'item.section' =>'Section',
         'item.gender' => 'Gender',
         'item.phone' => 'Phone',
         'profile_picture' => 'profile',
@@ -170,6 +172,7 @@ class CrudChild extends Component
             'admission_no' => $this->item['admission_no'],
             'parent_id' => $this->item['parent_id'],
             'class_id' => $this->item['class_id'],
+            'section' => $this->item['section'],
             'gender' => $this->item['gender'],
             'phone' => $this->item['phone'],
             'dateofbirth' => $this->item['dateofbirth'],
@@ -192,6 +195,7 @@ class CrudChild extends Component
         $this->item['admission_no'] = $student->admission_no;
         $this->item['parent_id']=$student->parent_id;
         $this->item['class_id']=$student->class_id;
+        $this->item['section']=$student->section;
         $this->item['gender']=$student->gender;
         $this->item['phone']=$student->phone;
         $this->item['dateofbirth']=$student->dateofbirth;
@@ -233,6 +237,7 @@ class CrudChild extends Component
             'admission_no' => $this->item['admission_no'],
             'parent_id' => $this->item['parent_id'],
             'class_id' => $this->item['class_id'],
+            'section' => $this->item['section'],
             'gender' => $this->item['gender'],
             'phone' => $this->item['phone'],
             'dateofbirth' => $this->item['dateofbirth'],

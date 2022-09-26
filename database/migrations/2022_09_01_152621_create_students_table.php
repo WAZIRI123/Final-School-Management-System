@@ -1,5 +1,6 @@
 <?php
 
+use App\Enums\ClassSectionEnum;
 use App\Enums\GenderEnum;
 use App\Enums\StudentStatusEnum;
 use Illuminate\Database\Migrations\Migration;
@@ -22,6 +23,7 @@ return new class extends Migration
             $table->foreignId('parent_id')->constrained()->onDelete('cascade');
             $table->foreignId('class_id')->constrained()->onDelete('cascade');
             $table->string('gender')->default(GenderEnum::Male->value);
+            $table->string('section')->default(ClassSectionEnum::A->value);
             $table->string('Status')->default(StudentStatusEnum::Active->value);
             $table->string('phone');
             $table->date('dateofbirth');

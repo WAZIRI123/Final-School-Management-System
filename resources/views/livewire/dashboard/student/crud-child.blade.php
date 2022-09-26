@@ -81,7 +81,7 @@
                     @enderror
                 </div>
             </div>
-            <div class="grid grid-cols-2 gap-8">
+            <div class="grid grid-cols-3 gap-8">
                 <div class="mt-4">
                     <x-tall-crud-label>Parent</x-tall-crud-label>
                     <x-tall-crud-select class="block mt-1 w-full" wire:model.defer="item.parent_id">
@@ -103,6 +103,15 @@
                     </x-tall-crud-select>
                     @error('item.class_id') <x-tall-crud-error-message>{{$message}}</x-tall-crud-error-message>
                     @enderror
+                </div>
+                <div class="mt-4">
+                    <x-tall-crud-label>Section</x-tall-crud-label>
+                    <x-tall-crud-select class="block mt-1 w-full" wire:model.defer="item.section">
+                        <option value="">Please Select</option>
+                        <option value="{{App\Enums\ClassSectionEnum::A->value}}">A</option>
+                        <option value="{{App\Enums\ClassSectionEnum::B->value}}">B</option>
+                    </x-tall-crud-select>
+                    @error('item.section') <x-tall-crud-error-message>{{$message}}</x-tall-crud-error-message> @enderror
                 </div>
             </div>
          <div class="grid grid-cols-2 gap-8" x-data="{ isUploading: false, progress: 0 }" x-on:livewire-upload-start="isUploading = true" x-on:livewire-upload-finish="isUploading = false" x-on:livewire-upload-error="isUploading = false" x-on:livewire-upload-progress="progress = $event.detail.progress">
@@ -198,7 +207,7 @@
                     @enderror
                 </div>
             </div>
-            <div class="grid grid-cols-2 gap-8">
+            <div class="grid grid-cols-3 gap-8">
 
                 <div class="mt-4">
                     <x-tall-crud-label>Parent</x-tall-crud-label>
@@ -221,6 +230,15 @@
                     </x-tall-crud-select>
                     @error('item.class_id') <x-tall-crud-error-message>{{$message}}</x-tall-crud-error-message>
                     @enderror
+                </div>
+                <div class="mt-4">
+                    <x-tall-crud-label>Section</x-tall-crud-label>
+                    <x-tall-crud-select class="block mt-1 w-full" wire:model.defer="item.section">
+                        <option value="">Please Select</option>
+                        <option value="{{App\Enums\ClassSectionEnum::A->value}}">A</option>
+                        <option value="{{App\Enums\ClassSectionEnum::B->value}}">B</option>
+                    </x-tall-crud-select>
+                    @error('item.section') <x-tall-crud-error-message>{{$message}}</x-tall-crud-error-message> @enderror
                 </div>
             </div>
         <div class="grid grid-cols-2 gap-8" x-data="{ isUploading: false, progress: 0 }" x-on:livewire-upload-start="isUploading = true" x-on:livewire-upload-finish="isUploading = false" x-on:livewire-upload-error="isUploading = false" x-on:livewire-upload-progress="progress = $event.detail.progress">
@@ -246,7 +264,17 @@
                 @error('profile_picture') <x-tall-crud-error-message>{{$message}}</x-tall-crud-error-message>
                 @enderror
             </div>
+                        <div class="mt-4">
+                <x-tall-crud-label>Section</x-tall-crud-label>
+                <x-tall-crud-select class="block mt-1 w-full" wire:model.defer="item.section">
+                    <option value="">Please Select</option>
+                    <option value="{{App\Enums\ClassSectionEnum::A->value}}">A</option>
+                    <option value="{{App\Enums\ClassSectionEnum::B->value}}">B</option>
+                </x-tall-crud-select>
+                @error('item.section') <x-tall-crud-error-message>{{$message}}</x-tall-crud-error-message> @enderror
+            </div>
     </div>
+
         </x-slot>
 
         <x-slot name="footer">

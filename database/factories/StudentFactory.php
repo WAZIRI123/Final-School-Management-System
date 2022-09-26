@@ -21,6 +21,7 @@ class StudentFactory extends Factory
             'user_id'           => 1,
             'parent_id'         => 1,
             'class_id'          => 1,
+            'section'          => 'A',
             'admission_no'       => $faker->numerify('###-###-####'),
             'gender'            => 'male',
             'phone'             => '0123456789',
