@@ -264,15 +264,6 @@
                 @error('profile_picture') <x-tall-crud-error-message>{{$message}}</x-tall-crud-error-message>
                 @enderror
             </div>
-                        <div class="mt-4">
-                <x-tall-crud-label>Section</x-tall-crud-label>
-                <x-tall-crud-select class="block mt-1 w-full" wire:model.defer="item.section">
-                    <option value="">Please Select</option>
-                    <option value="{{App\Enums\ClassSectionEnum::A->value}}">A</option>
-                    <option value="{{App\Enums\ClassSectionEnum::B->value}}">B</option>
-                </x-tall-crud-select>
-                @error('item.section') <x-tall-crud-error-message>{{$message}}</x-tall-crud-error-message> @enderror
-            </div>
     </div>
 
         </x-slot>
