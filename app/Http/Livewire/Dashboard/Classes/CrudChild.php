@@ -7,10 +7,6 @@ use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use \Illuminate\View\View;
 use Haruncpi\LaravelIdGenerator\IdGenerator;
 use App\Models\Classes;
-use App\Models\School;
-use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Storage;
-use Illuminate\Validation\Rule;
 use Livewire\WithFileUploads;
 
 class CrudChild extends Component
@@ -20,7 +16,6 @@ class CrudChild extends Component
 
     public $item;
 
-    public  $school;
 
     public  $class;
 
@@ -42,9 +37,10 @@ class CrudChild extends Component
     return
     [
         'item.class_name' => 'required',
+        'item.section' => 'required',
         'item.class_code' => 'required',
         'item.class_description' => 'required',
-        'item.school_id' => 'required',
+        
     ];
     }
 
@@ -54,8 +50,9 @@ class CrudChild extends Component
     protected $validationAttributes = [
         'item.class_name' => 'Class Name',
         'item.class_code' => 'Class Code',
+        'item.section' => 'Section',
         'item.class_description' => 'Class Description',
-        'item.school_id' => 'class Id',
+
     ];
 
     /**
@@ -78,11 +75,6 @@ class CrudChild extends Component
      */
     public $confirmingItemEdit = false;
 
-    public function mount(School $school)
-    {
-
-        $this->school = School::all();
-    }
 
     public function render(): View
     {
@@ -121,11 +113,12 @@ class CrudChild extends Component
     {
         $this->authorize('create', [Classes::class, 'class']);
         $this->validate();
-        $item = Classes::create([
+        Classes::create([
             'class_name' => $this->item['class_name'], 
+            'section' => $this->item['section'],
             'class_code' => $this->item['class_code'], 
             'class_description' => $this->item['class_description'], 
-            'school_id' => $this->item['school_id'], 
+            'school_id' => auth()->user()->school_id, 
         ]);
         $this->confirmingItemCreation = false;
         $this->emitTo('dashboard.classes.crud', 'refresh');

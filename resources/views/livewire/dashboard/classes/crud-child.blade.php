@@ -41,14 +41,13 @@
                 @error('item.class_description') <x-tall-crud-error-message>{{$message}}</x-tall-crud-error-message> @enderror
             </div>
             <div class="mt-4">
-                <x-tall-crud-label>School Id</x-tall-crud-label>
-                <x-tall-crud-select class="block mt-1 w-full" wire:model.defer="item.school_id">
+                <x-tall-crud-label>Section</x-tall-crud-label>
+                <x-tall-crud-select class="block mt-1 w-full" wire:model.defer="item.section">
                     <option value="">Please Select</option>
-                    @foreach($school as $c)
-                    <option value="{{$c->id}}">{{$c->name}}</option>
-                    @endforeach
+                    <option value="{{App\Enums\ClassSectionEnum::A->value}}">A</option>
+                    <option value="{{App\Enums\ClassSectionEnum::B->value}}">B</option>
                 </x-tall-crud-select>
-                @error('item.school_id') <x-tall-crud-error-message>{{$message}}</x-tall-crud-error-message> @enderror
+                @error('item.section') <x-tall-crud-error-message>{{$message}}</x-tall-crud-error-message> @enderror
             </div>
         </div>
         </x-slot>
@@ -84,14 +83,13 @@
                 @error('item.class_description') <x-tall-crud-error-message>{{$message}}</x-tall-crud-error-message> @enderror
             </div>
             <div class="mt-4">
-                <x-tall-crud-label>School Id</x-tall-crud-label>
-                <x-tall-crud-select class="block mt-1 w-full" wire:model.defer="item.school_id">
+                <x-tall-crud-label>Section</x-tall-crud-label>
+                <x-tall-crud-select class="block mt-1 w-full" wire:model.defer="item.section">
                     <option value="">Please Select</option>
-                    @foreach($school as $c)
-                    <option value="{{$c->id}}">{{$c->name}}</option>
-                    @endforeach
+                    <option value="{{App\Enums\ClassSectionEnum::A->value}}">A</option>
+                    <option value="{{App\Enums\ClassSectionEnum::B->value}}">B</option>
                 </x-tall-crud-select>
-                @error('item.school_id') <x-tall-crud-error-message>{{$message}}</x-tall-crud-error-message> @enderror
+                @error('item.section') <x-tall-crud-error-message>{{$message}}</x-tall-crud-error-message> @enderror
             </div>
         </div>
         </x-slot>

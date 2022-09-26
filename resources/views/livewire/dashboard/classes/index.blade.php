@@ -75,7 +75,7 @@
         <!-- start::Table -->
         <div class="bg-white rounded-lg px-8 py-6 my-16 overflow-x-scroll custom-scrollbar">
             @can('read class')
-            @livewire('dashboard.class.crud')
+            @livewire('dashboard.classes.crud')
             @endcan
         </div>
         <!-- end::Table -->

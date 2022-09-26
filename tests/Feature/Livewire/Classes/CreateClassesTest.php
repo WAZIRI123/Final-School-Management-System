@@ -34,21 +34,20 @@ class CreateclassesTest extends TestCase
         // make fake user && assign role && acting as that user && classes create
         $user = User::factory()->create();
 
-       Classes::factory()->create(['class_name'=> 'Waziribig','school_id'=>1]);
+        Classes::factory()->create(['class_name' => 'Waziribig', 'school_id' => 1]);
 
-       Classes::factory()->create(['class_name'=> 'notttt','school_id'=>2]);
+        Classes::factory()->create(['class_name' => 'notttt', 'school_id' => 2]);
 
         $user->assignRole('Admin');
 
-         // check if user has given permission/gate   
-         $user->can('viewAny', [Classes::class, 'class']);
+        // check if user has given permission/gate   
+        $user->can('viewAny', [Classes::class, 'class']);
 
         Livewire::actingAs($user)
-                ->test('dashboard.classes.crud')
-                 ->assertOk()
-                 ->assertSee('Waziribig')
-                 ->assertDontSee('notttt');
-
+            ->test('dashboard.classes.crud')
+            ->assertOk()
+            ->assertSee('Waziribig')
+            ->assertDontSee('notttt');
     }
 
 
@@ -61,8 +60,8 @@ class CreateclassesTest extends TestCase
         Livewire::test('dashboard.classes.crud-child')
             ->assertSeeHtml('wire:model.defer="item.class_name"')
             ->assertSeeHtml('wire:model.defer="item.class_code"')
+            ->assertSeeHtml('wire:model.defer="item.section"')
             ->assertSeeHtml('wire:model.defer="item.class_description"')
-            ->assertSeeHtml('wire:model.defer="item.school_id')
             ->assertSeeHtml('wire:click="createItem()"');
     }
 
@@ -75,14 +74,40 @@ class CreateclassesTest extends TestCase
         Livewire::actingAs(User::factory()->create())
             ->test(CrudChild::class)
             ->set('item.class_name', 'waziri')
+            ->set('item.section', \App\Enums\ClassSectionEnum::A)
             ->set('item.class_code', 'waziriallyamir@gmail.com')
             ->set('item.class_description', '0653062266')
-            ->set('item.school_id', 'male')
             ->call('createItem')
             ->assertForbidden();
     }
-    //test unauthorised users cannot edit classes
 
+    /** @test  */
+
+    public function authorized_user_can_create_classes()
+    {
+        // make fake user && assign role && acting as that user
+        $user1 = User::factory()->create();
+        $user1->assignRole('admin');
+
+        // check if user has given permission/gate   
+        $user1->can('create', [$user1, 'classes']);
+
+        Livewire::actingAs($user1)
+            ->test(CrudChild::class)
+            ->set('item.class_name', 'waziri')
+            ->set('item.section', \App\Enums\ClassSectionEnum::A)
+            ->set('item.class_code', 'waziriallyamir@gmail.com')
+            ->set('item.class_description', '0653062266')
+            ->call('createItem');
+
+        // test if data exist in database
+        $this->assertDatabaseHas('classes', [
+            'class_name' => 'waziri',
+            'class_description'=>'0653062266',
+        ]);
+    }
+
+    //test unauthorised users cannot edit classes
     public function test_unauthorised_users_cannot_edit_classes()
     {
         // make fake user &&  acting as that user and classes
@@ -122,7 +147,6 @@ class CreateclassesTest extends TestCase
         $this->assertDatabaseHas('classes', [
             'class_name' => 'waziribig'
         ]);
-
     }
 
     //test unauthorised users cannot edit classes

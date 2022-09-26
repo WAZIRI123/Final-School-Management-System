@@ -18,7 +18,7 @@ class ClassesFactory extends Factory
     {
         return [
             'class_name'    => $this->faker->name(),
-            'class_code' => '25666',
+            'class_code' => $this->faker->name(),
             'school_id'=>1,
             'class_description' => 'best class',
             'created_at'    => date("Y-m-d H:i:s")
