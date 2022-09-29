@@ -25,6 +25,8 @@ class DatabaseSeeder extends Seeder
             SchoolSettingsSeeder::class,
             UserSeeder::class,
             SubjectSeeder::class,
+            SemesterSeeder::class,
+            AcademicYearSeeder::class,
             ClassesSeeder::class,
             PermissionSeeder::class,
         ]);

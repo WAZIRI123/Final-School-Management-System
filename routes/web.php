@@ -68,11 +68,24 @@ Route::namespace('App\Http\Livewire')->group(function () {
                     Route::get('/', Index::class)->name('index');
                 });
 
-                // for  Classes
+                // for  subject
                 Route::prefix('/subject')->namespace('Subject')->name('subjects.')->group(function () {
 
                     Route::get('/', Index::class)->name('index');
                 });
+
+                // for  Academic
+                Route::prefix('/academic-year')->namespace('AcademicYear')->name('academic-years.')->group(function () {
+
+                    Route::get('/', Index::class)->name('index');
+                });
+
+                // for  Semester
+                Route::prefix('/semester')->namespace('Semester')->name('semesters.')->group(function () {
+
+                    Route::get('/', Index::class)->name('index');
+                });
+
             });
         });
     });

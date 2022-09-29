@@ -7,7 +7,14 @@
                 <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h7"></path>
                 </svg>
+               
             </button>
+        </div>
+        <div class="flex items-center"> <h1> Academic Year: {{ AcademicYear()->academicYear->name() }}
+            <br>
+           Semester: {{ AcademicYear()->semester?->name }}
+        </h1> 
+
         </div>
         <!-- end::Mobile menu button -->
 
@@ -15,6 +22,7 @@
         <div class="flex items-center">
             <!-- start::Profile -->
             <div x-data="{ linkActive: false }" class="relative">
+               
                 <!-- start::Main link -->
                 <div @click="linkActive = !linkActive" class="cursor-pointer">
                     {{-- src="{{ asset('storage/' . auth()->user()->avatar) }}" --}}

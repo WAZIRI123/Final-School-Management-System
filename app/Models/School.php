@@ -11,7 +11,7 @@ class School extends Model
     use HasFactory,SoftDeletes;
 
     protected $fillable = [
-        'name', 'address', 'code', 'initials', 'phone', 'email',
+        'name', 'address', 'code', 'initials', 'phone', 'email','academic_year_id','semester_id'
     ];
 
     // public function classGroups()
@@ -37,35 +37,20 @@ class School extends Model
     // public function myClasses()
     // {
     //     return $this->hasManyThrough(MyClass::class, ClassGroup::class);
-    // }
 
-    // /**
-    //  * Get the AcademicYears for the School.
-    //  *
-    //  * @return \Illuminate\Database\Eloquent\Relations\HasOne
-    //  */
-    // public function academicYears()
-    // {
-    //     return $this->hasMany(AcademicYear::class);
-    // }
+    public function academicYears()
+    {
+        return $this->hasMany(AcademicYear::class);
+    }
 
-    // /**
-    //  * Get the academicYear associated with the School.
-    //  *
-    //  * @return \Illuminate\Database\Eloquent\Relations\HasOne
-    //  */
-    // public function academicYear()
-    // {
-    //     return $this->hasOne(AcademicYear::class, 'id', 'academic_year_id');
-    // }
 
-    // /**
-    //  * Get the semester associated with the School.
-    //  *
-    //  * @return \Illuminate\Database\Eloquent\Relations\HasOne
-    //  */
-    // public function semester()
-    // {
-    //     return $this->hasOne(Semester::class, 'id', 'semester_id');
-    // }
+    public function academicYear()
+    {
+        return $this->hasOne(AcademicYear::class, 'id', 'academic_year_id');
+    }
+
+    public function semester()
+    {
+        return $this->hasOne(Semester::class, 'id', 'semester_id');
+    }
 }

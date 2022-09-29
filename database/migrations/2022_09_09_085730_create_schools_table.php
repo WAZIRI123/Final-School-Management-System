@@ -20,9 +20,9 @@ return new class extends Migration
             $table->string('address')->nullable();
             $table->string('email')->nullable();
             $table->string('phone')->nullable();
-            $table->foreignId('semester_id')->nullable()->constrained()->onDelete('set null')->onUpdate('set null');
-            $table->foreignId('academic_year_id')->nullable()->constrained()->onDelete('set null')->onUpdate('set null');
             $table->string('code');
+            $table->foreignId('academic_year_id')->nullable()->constrained()->onUpdate('cascade')->onDelete('cascade')->default(1);
+            $table->foreignId('semester_id')->nullable()->constrained()->onUpdate('cascade')->onDelete('cascade')->default(1);
             $table->timestamps();
             $table->softDeletes();
         });

@@ -116,8 +116,8 @@ class CrudChild extends Component
             'address' => $this->item['address'] ?? '',
             'email' => $this->item['email'] ?? '',
             'phone' => $this->item['phone'] ?? '',
-            'semester_id' => $this->item['semester_id'] ?? '',
-            'academic_year_id' => $this->item['academic_year_id'] ?? '',
+            'semester_id' =>'1',
+            'academic_year_id' => '1',
             'code' => $this->item['code'] ?? '',
         ]);
         $this->confirmingItemCreation = false;
