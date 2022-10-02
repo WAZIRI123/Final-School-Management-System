@@ -116,6 +116,7 @@ class CreateStudentTest extends TestCase
             'permanent_address' => 'moshi'
         ]);
     }
+    
     /** @test  */
 
     public function unauthorized_user_can_not_create_student()

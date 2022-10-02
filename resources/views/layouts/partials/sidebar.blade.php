@@ -62,7 +62,7 @@
         @endcan
         <!-- end::Menu link -->
 
-        <!-- start::Menu link -->
+        <!-- start::Menu link  promote-students-->
         @can('menu-student')
 
         <a x-data="{ linkHover: false }" @mouseover="linkHover = true" @mouseleave="linkHover = false"
@@ -79,6 +79,42 @@
         </a>
         @endcan
         <!-- end::Menu link -->
+
+                <!-- start::Menu link  promote-students-->
+                @can('menu-student')
+
+                <a x-data="{ linkHover: false }" @mouseover="linkHover = true" @mouseleave="linkHover = false"
+                    href="{{ route('dashboard.promote-students.index') }}"
+                    class="{{ !Route::currentRouteNamed('dashboard.promote-students.index') ? '' : 'bg-black bg-opacity-30' }} flex items-center text-gray-400 px-6 py-3 cursor-pointer hover:bg-black hover:bg-opacity-30 transition duration-200">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 transition duration-200"
+                        :class="linkHover ? 'text-gray-100' : ''" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                    </svg>
+                    <span class="ml-3 transition duration-200" :class="linkHover ? 'text-gray-100' : ''">
+                        Promote Student
+                    </span>
+                </a>
+                @endcan
+                <!-- end::Menu link -->
+
+                                <!-- start::Menu link  promote-students-->
+                                @can('menu-student')
+
+                                <a x-data="{ linkHover: false }" @mouseover="linkHover = true" @mouseleave="linkHover = false"
+                                    href="{{ route('dashboard.promote-students.promotion') }}"
+                                    class="{{ !Route::currentRouteNamed('dashboard.promote-students.promotion') ? '' : 'bg-black bg-opacity-30' }} flex items-center text-gray-400 px-6 py-3 cursor-pointer hover:bg-black hover:bg-opacity-30 transition duration-200">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 transition duration-200"
+                                        :class="linkHover ? 'text-gray-100' : ''" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                            d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                                    </svg>
+                                    <span class="ml-3 transition duration-200" :class="linkHover ? 'text-gray-100' : ''">
+                                        Promote Manage
+                                    </span>
+                                </a>
+                                @endcan
+                                <!-- end::Menu link -->
 
         <!-- start::Menu link -->
         @can('menu-parent')
