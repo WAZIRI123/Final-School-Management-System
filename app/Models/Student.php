@@ -23,6 +23,7 @@ class Student extends Model
         'section',
         'current_address',
         'permanent_address',
+        'is_graduated'
     ];
     public function user():BelongsTo 
     {

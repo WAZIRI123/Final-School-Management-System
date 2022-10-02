@@ -1,5 +1,6 @@
 <?php
 
+
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -68,22 +69,26 @@ Route::namespace('App\Http\Livewire')->group(function () {
                     Route::get('/', Index::class)->name('index');
                 });
 
-                // for  subject
-                Route::prefix('/subject')->namespace('Subject')->name('subjects.')->group(function () {
+                // for  Academics group
+                Route::prefix('/academic')->group(function () {
 
-                    Route::get('/', Index::class)->name('index');
-                });
+                    // for  subject
+                    Route::prefix('/subject')->namespace('Subject')->name('subjects.')->group(function () {
 
-                // for  Academic
-                Route::prefix('/academic-year')->namespace('AcademicYear')->name('academic-years.')->group(function () {
+                        Route::get('/', Index::class)->name('index');
+                    });
 
-                    Route::get('/', Index::class)->name('index');
-                });
+                    // for  Academic
+                    Route::prefix('/academic-year')->namespace('AcademicYear')->name('academic-years.')->group(function () {
 
-                // for  Semester
-                Route::prefix('/semester')->namespace('Semester')->name('semesters.')->group(function () {
+                        Route::get('/', Index::class)->name('index');
+                    });
 
-                    Route::get('/', Index::class)->name('index');
+                    // for  Semester
+                    Route::prefix('/semester')->namespace('Semester')->name('semesters.')->group(function () {
+
+                        Route::get('/', Index::class)->name('index');
+                    });
                 });
 
                 // for  promote student
@@ -92,8 +97,18 @@ Route::namespace('App\Http\Livewire')->group(function () {
                     Route::get('/', Index::class)->name('index');
 
                     Route::get('/promotions', Promotion::class)->name('promotion');
-                   
                 });
+
+                // for  graduate student
+                Route::prefix('/graduate')->namespace('StudentGraduate')->name('graduate-students.')->group(function () {
+
+                    Route::get('/', Index::class)->name('index');
+
+                    Route::get('/Manage graduations', ManageGraduation::class)->name('graduations');
+
+                });
+
+
             });
         });
     });

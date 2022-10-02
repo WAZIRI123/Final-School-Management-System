@@ -26,6 +26,7 @@ return new class extends Migration
             $table->string('section')->default(ClassSectionEnum::A->value);
             $table->string('Status')->default(StudentStatusEnum::Active->value);
             $table->string('phone');
+            $table->boolean('is_graduated')->default(false);
             $table->date('dateofbirth');
             $table->string('current_address');
             $table->string('permanent_address');
