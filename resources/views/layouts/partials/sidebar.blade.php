@@ -61,60 +61,87 @@
         </a>
         @endcan
         <!-- end::Menu link -->
+        <div x-data="{ linkHover: false, linkActive: false }">
+            <div @mouseover="linkHover = true" @mouseleave="linkHover = false" @click="linkActive = !linkActive"
+                class="{{ (request()->is('dashboard/students/*')) ? 'bg-black bg-opacity-30' : '' }} flex items-center justify-between text-gray-400 hover:text-gray-100 px-6 py-3 cursor-pointer hover:bg-black hover:bg-opacity-30 transition duration-200">
+                <div class="flex items-center">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 transition duration-200"
+                        :class=" linkHover || linkActive ? 'text-gray-100' : ''" fill="none" viewBox="0 0 24 24"
+                        stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10">
+                        </path>
+                    </svg>
+                    <span class="ml-3">Student</span>
+                </div>
+                <svg class="w-3 h-3 transition duration-300" :class="linkActive ? 'rotate-90' : ''" fill="none"
+                    stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+                </svg>
+            </div>
+            <!-- start::Submenu -->
+            <ul x-show="linkActive" x-collapse.duration.300ms="" class="text-gray-400"
+                style="overflow: hidden; height: 0px;">
+                @can('graduate student')
+                <!-- start::Submenu link -->
+                <li
+                    class="{{ !Route::currentRouteNamed('dashboard.students.index') ? '' : 'bg-black bg-opacity-30' }} flex items-center text-gray-400 px-6 py-3 cursor-pointer hover:bg-black hover:bg-opacity-30 transition duration-200">
+                    <a href="{{ route('dashboard.students.index') }}" class="flex items-center">
+                        <span class="mr-2 text-sm">•</span>
+                        <span class="overflow-ellipsis">Students</span>
+                    </a>
+                </li>
+                <!-- end::Submenu link -->
+                @endcan
+                @can('graduate student')
+                <!-- start::Submenu link -->
+                <li
+                    class="{{ !Route::currentRouteNamed('dashboard.graduate-students.index') ? '' : 'bg-black bg-opacity-30' }} flex items-center text-gray-400 px-6 py-3 cursor-pointer hover:bg-black hover:bg-opacity-30 transition duration-200">
+                    <a href="{{ route('dashboard.graduate-students.index') }}" class="flex items-center">
+                        <span class="mr-2 text-sm">•</span>
+                        <span class="overflow-ellipsis">Student Graduate</span>
+                    </a>
+                </li>
+                <!-- end::Submenu link -->
+                @endcan
+                @can('view graduations')
+                <!-- start::Submenu link -->
+                <li
+                    class="{{ !Route::currentRouteNamed('dashboard.graduate-students.graduations') ? '' : 'bg-black bg-opacity-30' }} flex items-center text-gray-400 px-6 py-3 cursor-pointer hover:bg-black hover:bg-opacity-30 transition duration-200">
+                    <a href="{{ route('dashboard.graduate-students.graduations') }}" class="flex items-center">
+                        <span class="mr-2 text-sm">•</span>
+                        <span class="overflow-ellipsis">Manage Graduation</span>
+                    </a>
+                </li>
+                <!-- end::Submenu link -->
+                @endcan
+                @can('promote student')
+                <!-- start::Submenu link -->
+                <li
+                    class="{{ !Route::currentRouteNamed('dashboard.promote-students.index') ? '' : 'bg-black bg-opacity-30' }} flex items-center text-gray-400 px-6 py-3 cursor-pointer hover:bg-black hover:bg-opacity-30 transition duration-200">
+                    <a href="{{ route('dashboard.promote-students.index') }}" class="flex items-center">
+                        <span class="mr-2 text-sm">•</span>
+                        <span class="overflow-ellipsis">Promote Student</span>
+                    </a>
+                </li>
+                <!-- end::Submenu link -->
+                @endcan
 
-        <!-- start::Menu link  promote-students-->
-        @can('promote student')
+                @can('promote student')
+                <!-- start::Submenu link -->
+                <li
+                    class="{{ !Route::currentRouteNamed('dashboard.promote-students.promotion') ? '' : 'bg-black bg-opacity-30' }} flex items-center text-gray-400 px-6 py-3 cursor-pointer hover:bg-black hover:bg-opacity-30 transition duration-200">
+                    <a href="{{ route('dashboard.promote-students.promotion') }}" class="flex items-center">
+                        <span class="mr-2 text-sm">•</span>
+                        <span class="overflow-ellipsis">Promotion Manage</span>
+                    </a>
+                </li>
+                <!-- end::Submenu link -->
+                @endcan
 
-        <a x-data="{ linkHover: false }" @mouseover="linkHover = true" @mouseleave="linkHover = false"
-            href="{{ route('dashboard.students.index') }}"
-            class="{{ !Route::currentRouteNamed('dashboard.students.index') ? '' : 'bg-black bg-opacity-30' }} flex items-center text-gray-400 px-6 py-3 cursor-pointer hover:bg-black hover:bg-opacity-30 transition duration-200">
-            <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 transition duration-200"
-                :class="linkHover ? 'text-gray-100' : ''" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                    d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
-            </svg>
-            <span class="ml-3 transition duration-200" :class="linkHover ? 'text-gray-100' : ''">
-                Students
-            </span>
-        </a>
-        @endcan
-        <!-- end::Menu link -->
-
-        <!-- start::Menu link  promote-students-->
-        @can('menu-student')
-
-        <a x-data="{ linkHover: false }" @mouseover="linkHover = true" @mouseleave="linkHover = false"
-            href="{{ route('dashboard.promote-students.index') }}"
-            class="{{ !Route::currentRouteNamed('dashboard.promote-students.index') ? '' : 'bg-black bg-opacity-30' }} flex items-center text-gray-400 px-6 py-3 cursor-pointer hover:bg-black hover:bg-opacity-30 transition duration-200">
-            <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 transition duration-200"
-                :class="linkHover ? 'text-gray-100' : ''" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                    d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
-            </svg>
-            <span class="ml-3 transition duration-200" :class="linkHover ? 'text-gray-100' : ''">
-                Promote Student
-            </span>
-        </a>
-        @endcan
-        <!-- end::Menu link -->
-
-        <!-- start::Menu link  promote-students-->
-        @can('menu-student')
-
-        <a x-data="{ linkHover: false }" @mouseover="linkHover = true" @mouseleave="linkHover = false"
-            href="{{ route('dashboard.promote-students.promotion') }}"
-            class="{{ !Route::currentRouteNamed('dashboard.promote-students.promotion') ? '' : 'bg-black bg-opacity-30' }} flex items-center text-gray-400 px-6 py-3 cursor-pointer hover:bg-black hover:bg-opacity-30 transition duration-200">
-            <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 transition duration-200"
-                :class="linkHover ? 'text-gray-100' : ''" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                    d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
-            </svg>
-            <span class="ml-3 transition duration-200" :class="linkHover ? 'text-gray-100' : ''">
-                Promote Manage
-            </span>
-        </a>
-        @endcan
-        <!-- end::Menu link -->
+            </ul>
+            <!-- end::Submenu  graduations-->
+        </div>
 
         <!-- start::Menu link -->
         @can('menu-parent')
@@ -133,6 +160,25 @@
         </a>
         @endcan
         <!-- end::Menu link -->
+
+        <!-- start::Menu link -->
+        @can('menu-timetable')
+
+        <a x-data="{ linkHover: false }" @mouseover="linkHover = true" @mouseleave="linkHover = false"
+            href="{{ route('dashboard.time-tables.index') }}"
+            class="{{ !Route::currentRouteNamed('dashboard.time-tables.index') ? '' : 'bg-black bg-opacity-30' }} flex items-center text-gray-400 px-6 py-3 cursor-pointer hover:bg-black hover:bg-opacity-30 transition duration-200">
+            <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 transition duration-200"
+                :class="linkHover ? 'text-gray-100' : ''" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                    d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+            </svg>
+            <span class="ml-3 transition duration-200" :class="linkHover ? 'text-gray-100' : ''">
+               Timetable
+            </span>
+        </a>
+        @endcan
+        <!-- end::Menu link -->
+
         <!-- start::Menu link -->
         @can('menu-teacher')
 
@@ -230,36 +276,8 @@
             <!-- end::Submenu  graduations-->
         </div>
 
-        @can('graduate student')
-        <!-- start::Menu link -->
-        <a x-data="{ linkHover: false }" @mouseover="linkHover = true" @mouseleave="linkHover = false"  href="{{ route('dashboard.graduate-students.index') }}"
-            class="{{ !Route::currentRouteNamed('dashboard.graduate-students.index') ? '' : 'bg-black bg-opacity-30' }} flex items-center text-gray-400 px-6 py-3 cursor-pointer hover:bg-black hover:bg-opacity-30 transition duration-200">
-            <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 transition duration-200"
-                :class="linkHover ? 'text-gray-100' : ''" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                    d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
-            </svg>
-            <span class="ml-3 transition duration-200" :class="linkHover ? 'text-gray-100' : ''">
-                Student Graduate
-            </span>
-        </a>
-        @endcan
-        <!-- end::Menu link  view graduations-->
-        @can('view graduations')
-        <!-- start::Menu link -->
-        <a x-data="{ linkHover: false }" @mouseover="linkHover = true" @mouseleave="linkHover = false" href="{{ route('dashboard.graduate-students.graduations') }}"
-            class="{{ !Route::currentRouteNamed('dashboard.graduate-students.graduations') ? '' : 'bg-black bg-opacity-30' }} flex items-center text-gray-400 px-6 py-3 cursor-pointer hover:bg-black hover:bg-opacity-30 transition duration-200">
-            <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 transition duration-200"
-                :class="linkHover ? 'text-gray-100' : ''" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                    d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
-            </svg>
-            <span class="ml-3 transition duration-200" :class="linkHover ? 'text-gray-100' : ''">
-              Manage Graduation
-            </span>
-        </a>
-        <!-- end::Menu link -->
-        @endcan
+
+
         <p class="text-xs text-gray-600 mt-10 mb-2 px-6 uppercase">Account</p>
 
         <!-- start::Menu link -->

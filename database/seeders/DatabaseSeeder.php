@@ -13,7 +13,7 @@ use Spatie\Permission\Models\Permission;
 class DatabaseSeeder extends Seeder
 {
     /**
-     * Seed the application's database.
+     * Seed the application's database. TimetableSeeder
      *
      * @return void
      */
@@ -30,6 +30,7 @@ class DatabaseSeeder extends Seeder
             PromotionSeeder::class,
             ClassesSeeder::class,
             PermissionSeeder::class,
+            TimetableSeeder::class
         ]);
     }
 }

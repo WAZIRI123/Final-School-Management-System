@@ -70,7 +70,7 @@ class StudentGraduate extends Component
         };
 
         return $this->query()
-        ->where('is_graduated', false)
+            ->where('is_graduated', false)
             ->where('class_id', $this->old_class)
             ->where('section', $this->old_section)
             ->with(['user', 'parent', 'class'])

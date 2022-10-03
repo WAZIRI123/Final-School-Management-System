@@ -45,12 +45,31 @@ Route::namespace('App\Http\Livewire')->group(function () {
                     Route::get('/setting-school', SettingSchool::class)->name('settings-school');
                 });
 
+                // for  students group
+                Route::prefix('/students')->group(function () {
 
-                // for  Student
-                Route::prefix('/student')->namespace('Student')->name('students.')->group(function () {
+                    // for  Student
+                    Route::prefix('/student')->namespace('Student')->name('students.')->group(function () {
 
-                    Route::get('/', Index::class)->name('index');
+                        Route::get('/', Index::class)->name('index');
+                    });
+                    // for  promote student
+                    Route::prefix('/promote')->namespace('PromoteStudent')->name('promote-students.')->group(function () {
+
+                        Route::get('/', Index::class)->name('index');
+
+                        Route::get('/promotions', Promotion::class)->name('promotion');
+                    });
+
+                    // for  graduate student
+                    Route::prefix('/graduate')->namespace('StudentGraduate')->name('graduate-students.')->group(function () {
+
+                        Route::get('/', Index::class)->name('index');
+
+                        Route::get('/Manage graduations', ManageGraduation::class)->name('graduations');
+                    });
                 });
+
 
                 // for  Parent
                 Route::prefix('/parent')->namespace('Parent')->name('parents.')->group(function () {
@@ -91,23 +110,11 @@ Route::namespace('App\Http\Livewire')->group(function () {
                     });
                 });
 
-                // for  promote student
-                Route::prefix('/promote')->namespace('PromoteStudent')->name('promote-students.')->group(function () {
+                // for  Semester
+                Route::prefix('/time-table')->namespace('TimeTable')->name('time-tables.')->group(function () {
 
                     Route::get('/', Index::class)->name('index');
-
-                    Route::get('/promotions', Promotion::class)->name('promotion');
                 });
-
-                // for  graduate student
-                Route::prefix('/graduate')->namespace('StudentGraduate')->name('graduate-students.')->group(function () {
-
-                    Route::get('/', Index::class)->name('index');
-
-                    Route::get('/Manage graduations', ManageGraduation::class)->name('graduations');
-
-                });
-
 
             });
         });
