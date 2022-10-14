@@ -21,8 +21,6 @@ return new class extends Migration
             $table->string('email')->nullable();
             $table->string('phone')->nullable();
             $table->string('code');
-            $table->foreignId('academic_year_id')->nullable()->constrained()->onUpdate('cascade')->onDelete('cascade')->default(1);
-            $table->foreignId('semester_id')->nullable()->constrained()->onUpdate('cascade')->onDelete('cascade')->default(1);
             $table->timestamps();
             $table->softDeletes();
         });
