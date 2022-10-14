@@ -44,7 +44,7 @@
                     <td class="px-3 py-2 capitalize" >{{ $result->id }}</td>
                     <td class="px-3 py-2 capitalize" >{{ $result->name }}</td>
                     <td class="px-3 py-2 capitalize" >{{ $result->description }}</td>
-                    <td class="px-3 py-2 capitalize" >{{ $result->semester->name }}</td>
+                    <td class="px-3 py-2 capitalize" >{{ $result->semester?->name }}</td>
                     <td class="px-3 py-2 capitalize" >{{ $result->MyClass->class_name }}</td>
                     <td class="px-3 py-2 capitalize" >
                         <button type="submit" wire:click="$emitTo('dashboard.time-table.crud-child', 'showEditForm', {{ $result->id}});" class="text-green-500">

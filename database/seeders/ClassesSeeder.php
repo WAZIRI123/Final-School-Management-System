@@ -23,5 +23,13 @@ class ClassesSeeder extends Seeder
             'class_description'      => 'best class',
             'created_at'    => date("Y-m-d H:i:s")
         ]);
+
+        Classes::create([
+            'class_name'          => 'standard1',
+            'school_id'         => 1,
+            'class_code'         => $faker->numerify('###-###-####'),
+            'class_description'      => 'best class',
+            'created_at'    => date("Y-m-d H:i:s")
+        ]);
     }
 }

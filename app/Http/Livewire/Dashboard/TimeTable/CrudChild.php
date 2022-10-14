@@ -110,7 +110,8 @@ class CrudChild extends Component
             'name' => $this->item['name'] , 
             'description' => $this->item['description'] , 
             'semester_id' => auth()->user()->school->semester_id , 
-            'class_id' => $this->item['class_id'] , 
+            'class_id' => $this->item['class_id'],
+            'school_id' => auth()->user()->school->id,
         ]);
         $this->confirmingItemCreation = false;
         $this->emitTo('dashboard.time-table.crud', 'refresh');

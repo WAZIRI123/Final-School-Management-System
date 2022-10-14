@@ -30,7 +30,9 @@ class DatabaseSeeder extends Seeder
             PromotionSeeder::class,
             ClassesSeeder::class,
             PermissionSeeder::class,
-            TimetableSeeder::class
+            TimetableSeeder::class,
+            TimeTableTimeSlotSeeder::class,
+            WeekDaySeeder::class,
         ]);
     }
 }

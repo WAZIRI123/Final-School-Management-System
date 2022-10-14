@@ -1,6 +1,5 @@
 <?php
 
-
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -113,7 +112,12 @@ Route::namespace('App\Http\Livewire')->group(function () {
                 // for  Semester
                 Route::prefix('/time-table')->namespace('TimeTable')->name('time-tables.')->group(function () {
 
-                    Route::get('/', Index::class)->name('index');
+                    Route::get('/create-timetable', Index::class)->name('index');
+                    
+                    Route::get('/timetableslot', TimeTableTimeSlot::class)->name('timetableslot');
+
+                    Route::get('/manage-timetable', ManageTimeTable::class)->name('manage-timetable');
+                    
                 });
 
             });

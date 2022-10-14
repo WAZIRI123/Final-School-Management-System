@@ -19,6 +19,7 @@ return new class extends Migration
             $table->longText('description')->nullable();
             $table->foreignId('semester_id')->constrained()->onDelete('cascade')->onUpdate('cascade');
             $table->foreignId('class_id')->constrained()->onDelete('cascade')->onUpdate('cascade');
+            $table->foreignId('school_id')->constrained()->onDelete('cascade')->onUpdate('cascade');
             $table->timestamps();
             $table->softDeletes();
         });

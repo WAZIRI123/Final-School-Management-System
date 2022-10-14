@@ -231,6 +231,20 @@ class PermissionSeeder extends Seeder
             'name' => 'delete timetable',
         ]);
 
+        //permission for timetabletimeslot
+        Permission::firstOrCreate([
+            'name' => 'create timetabletimeslot',
+        ]);
+        Permission::firstOrCreate([
+            'name' => 'read timetabletimeslot',
+        ]);
+        Permission::firstOrCreate([
+            'name' => 'update timetabletimeslot',
+        ]);
+        Permission::firstOrCreate([
+            'name' => 'delete timetabletimeslot',
+        ]);
+
         //exam permissions
         Permission::firstOrCreate([
             'name' => 'create exam',
@@ -430,6 +444,10 @@ class PermissionSeeder extends Seeder
             'read timetable',
             'update timetable',
             'delete timetable',
+            'create timetabletimeslot',
+            'read timetabletimeslot',
+            'update timetabletimeslot',
+            'delete timetabletimeslot',
             'create exam',
             'read exam',
             'update exam',

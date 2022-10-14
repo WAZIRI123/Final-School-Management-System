@@ -95,13 +95,14 @@ class CreateTimeTableTest extends TestCase
                 ->test(CrudChild::class)
                 ->set('item.name', 'waziri')
                 ->set('item.description', 'waziri ally')
-                ->set('item.class_id', 1)
+                ->set('item.class_id', 2)
+                ->set('item.semester_id', 2)
                 ->call('createItem');
     
             // test if data exist in database
             $this->assertDatabaseHas('TimeTables', [
                 'name' => 'waziri',
-                'class_id'=>1,
+                'class_id'=>2,
             ]);
         }
     
