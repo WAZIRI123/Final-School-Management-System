@@ -22,8 +22,6 @@ class SchoolSeeder extends Seeder
                 'address'  => 'School of Computing',
                 'code'     => Str::Random(10),
                 'initials' => 'DSI',
-                'academic_year_id'=>1,
-                'semester_id'=>1,
             ]
         );
 

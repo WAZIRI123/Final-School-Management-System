@@ -10,7 +10,7 @@ use Illuminate\Database\Eloquent\Factories\Factory;
 class TimetableFactory extends Factory
 {
     /**
-     * Define the model's default state.
+     * Define the model's default state 0656182172.
      *
      * @return array<string, mixed>
      */

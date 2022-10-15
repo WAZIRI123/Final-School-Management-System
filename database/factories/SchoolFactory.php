@@ -21,8 +21,6 @@ class SchoolFactory extends Factory
             'address' => $this->faker->address(),
             'initials'=> $this->faker->unique()->word(),
             'code'    => $this->faker->unique()->randomNumber(5),
-            'semester_id'=>1,
-            'academic_year_id'=>1,
         ];
     }
 

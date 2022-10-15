@@ -15,7 +15,7 @@
     <!-- start::Navigation -->
     <nav class="py-10 custom-scrollbar">
         <!-- start::Menu link -->
-        <x-side-menu.dashboard />
+        <x-side-menu.div-link route="dashboard.index" title="Dashboard" />
         <!-- end::Menu link -->
 
         <p class="text-xs text-gray-600 mt-10 mb-2 px-6 uppercase">school activities</p>
@@ -23,8 +23,9 @@
         <!-- start::Menu link -->
         @can('menu-school')
         <x-side-menu.school />
+        <x-side-menu.div-link route="dashboard.schools.index" title="School" />
         {{-- schoool Setting --}}
-        <x-side-menu.school-settings />
+        <x-side-menu.div-link route="dashboard.schools.settings-school" title="School Settings" />
         @endcan
         <!-- end::Menu link -->
         <!-- start::menu link -->
@@ -52,17 +53,19 @@
                 style="overflow: hidden; height: 0px;">
                 @can('create timetable')
                 <!-- start::Submenu link -->
-                <x-side-menu.create-timetable />
+                <x-side-menu.list-link route="dashboard.time-tables.index" title="Create Timetable" />
+               
                 <!-- end::Submenu link -->
                 @endcan
                 @can('create timetabletimeslot')
                 <!-- start::Submenu link -->
-                <x-side-menu.create-time-slot />
+                <x-side-menu.list-link route="dashboard.time-tables.timetableslot" title="Create TimeSlot" />
+            
                 <!-- end::Submenu link -->
                 @endcan
                 @can('read timetable')
                 <!-- start::Submenu link -->
-                <x-side-menu.view-timetable />
+                <x-side-menu.list-link route="dashboard.time-tables.manage-timetable" title="view Timetable" />
                 <!-- end::Submenu link -->
                 @endcan
 
@@ -72,7 +75,7 @@
         <!-- end::Menu link -->
         <!-- start::Menu link -->
         @can('menu-parent')
-        <x-side-menu.create-parent />
+        <x-side-menu.div-link route="dashboard.parents.index" title="Parent" />
 
         @endcan
         <!-- end::Menu link -->
@@ -103,31 +106,33 @@
                 style="overflow: hidden; height: 0px;">
                 @can('graduate student')
                 <!-- start::Submenu link -->
-
-                <x-side-menu.student />
+                <x-side-menu.list-link route="dashboard.students.index" title="Students" />
 
                 <!-- end::Submenu link -->
                 @endcan
                 @can('graduate student')
                 <!-- start::Submenu link -->
-                <x-side-menu.student-graduate />
+                <x-side-menu.list-link route="dashboard.graduate-students.index" title="Student Graduate" />
                 <!-- end::Submenu link -->
                 @endcan
                 @can('view graduations')
                 <!-- start::Submenu link -->
-                <x-side-menu.manage-graduation />
+                <x-side-menu.list-link route="dashboard.graduate-students.graduations" title="Manage Graduation" />
+
 
                 <!-- end::Submenu link -->
                 @endcan
                 @can('promote student')
                 <!-- start::Submenu link -->
-                <x-side-menu.promote-student />
+                <x-side-menu.list-link route="dashboard.promote-students.index" title="Promote Student" />
+
                 <!-- end::Submenu link -->
                 @endcan
 
                 @can('promote student')
                 <!-- start::Submenu link -->
-                <x-side-menu.promotion-manage />
+                <x-side-menu.list-link route="dashboard.promote-students.promotion" title="Promotion Manage" />
+    
 
                 <!-- end::Submenu link -->
                 @endcan
@@ -138,13 +143,13 @@
 
         <!-- start::Menu link -->
         @can('menu-teacher')
-        <x-side-menu.create-teacher />
+        <x-side-menu.div-link route="dashboard.teachers.index" title="Teacher" />
         @endcan
         <!-- end::Menu link -->
 
         <!-- start::Menu link -->
         @can('menu-class')
-        <x-side-menu.create-class />
+        <x-side-menu.div-link route="dashboard.classes.index" title="Classes" />
         @endcan
         <!-- end::Menu link -->
 
@@ -173,18 +178,18 @@
                 style="overflow: hidden; height: 0px;">
                 @can('menu-subject')
                 <!-- start::Submenu link -->
-                <x-side-menu.create-subject />
+                <x-side-menu.list-link route="dashboard.subjects.index" title="Subject" />
 
                 <!-- end::Submenu link -->
                 @endcan
                 @can('menu-academic-year')
                 <!-- start::Submenu link -->
-                <x-side-menu.academic-year />
+                <x-side-menu.list-link route="dashboard.academic-years.index" title="Academic Year" />
                 <!-- end::Submenu link -->
                 @endcan
                 @can('menu-academic-year')
                 <!-- start::Submenu link -->
-                <x-side-menu.semester />
+                <x-side-menu.list-link route="dashboard.semesters.index" title="Semester" />
 
                 <!-- end::Submenu link -->
                 @endcan

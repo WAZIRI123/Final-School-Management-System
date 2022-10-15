@@ -11,7 +11,7 @@ class School extends Model
     use HasFactory,SoftDeletes;
 
     protected $fillable = [
-        'name', 'address', 'code', 'initials', 'phone', 'email','academic_year_id','semester_id'
+        'name', 'address', 'code', 'initials', 'phone', 'email'
     ];
 
     // public function classGroups()
