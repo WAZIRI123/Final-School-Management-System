@@ -20,8 +20,6 @@ return new class extends Migration
             $table->string('address')->nullable();
             $table->string('email')->nullable();
             $table->string('phone')->nullable();
-            $table->foreignId('semester_id')->nullable()->constrained()->onDelete('set null')->onUpdate('set null');
-            $table->foreignId('academic_year_id')->nullable()->constrained()->onDelete('set null')->onUpdate('set null');
             $table->string('code');
             $table->timestamps();
             $table->softDeletes();
