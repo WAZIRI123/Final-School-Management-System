@@ -2,6 +2,7 @@
 
 namespace Tests\Feature\Livewire\TimeTable;
 
+use App\Models\User;
 use App\Traits\FeatureTestTrait;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Foundation\Testing\RefreshDatabase;
@@ -19,8 +20,6 @@ class ManageTimeTable extends TestCase
         $this->withoutExceptionHandling();
         // make fake user && assign role && acting as that user
         $user1 = User::factory()->create();
-
-        $user1->assignRole('admin');
 
         // check if user has given permission/gate   
         $user1->can('create', [$user1, 'TimeTableTimeSlot']);
