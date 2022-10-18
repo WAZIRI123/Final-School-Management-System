@@ -49,16 +49,12 @@ class ManageTimeTable extends Component
             $this->selected_semester=AcademicYear()->semester?->id;
            }
 
-            $this->weekdays  = WeekDay::with(['timeSlots','timeSlots.timetableRecord.subjects'])->get();
+        $this->weekdays  = WeekDay::with(['timeSlots','timeSlots.timetableRecord.subjects'])->get();
   
         $this->classes = Classes::all();
         $this->semesters = Semester::all();
     }
 
-    public function test(){
-
-   
-    }
 
     protected function rules()
     {
@@ -71,6 +67,8 @@ class ManageTimeTable extends Component
 
     public function render():View
     {
+     $this->authorize('viewAny', [Timetable::class, 'timetable']);
+     
         $results = $this->query()
             ->where('class_id', $this->selected_class)
             ->where('semester_id',$this->selected_semester)

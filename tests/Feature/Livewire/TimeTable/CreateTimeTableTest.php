@@ -166,8 +166,7 @@ class CreateTimeTableTest extends TestCase
             $user = User::factory()->create();
             $user->assignRole('admin');
             $user->can('delete', [$user, 'TimeTable']);
-            $TimeTable = TimeTable::factory()->create();
-
+            $TimeTable = TimeTable::factory(['school_id'=>1,'semester_id'=>1,'class_id'=>1])->create();
             // test
             Livewire::actingAs($user)
                 ->test(CrudChild::class, ['TimeTable' => $TimeTable])

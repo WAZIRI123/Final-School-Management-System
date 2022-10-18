@@ -22,7 +22,6 @@
 
         <!-- start::Menu link -->
         @can('menu-school')
-        <x-side-menu.school />
         <x-side-menu.div-link route="dashboard.schools.index" title="School" />
         {{-- schoool Setting --}}
         <x-side-menu.div-link route="dashboard.schools.settings-school" title="School Settings" />

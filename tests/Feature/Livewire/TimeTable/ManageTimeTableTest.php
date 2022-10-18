@@ -2,13 +2,16 @@
 
 namespace Tests\Feature\Livewire\TimeTable;
 
+use App\Http\Livewire\Dashboard\TimeTable\ManageTimeTable;
+use App\Models\Timetable;
 use App\Models\User;
 use App\Traits\FeatureTestTrait;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Livewire\Livewire;
 use Tests\TestCase;
 
-class ManageTimeTable extends TestCase
+class ManageTimeTableTest extends TestCase
 {
     use RefreshDatabase;
     use FeatureTestTrait, AuthorizesRequests;
@@ -20,23 +23,19 @@ class ManageTimeTable extends TestCase
         $this->withoutExceptionHandling();
         // make fake user && assign role && acting as that user
         $user1 = User::factory()->create();
-
+        $user1->assignRole('admin');
         // check if user has given permission/gate   
-        $user1->can('create', [$user1, 'TimeTableTimeSlot']);
+        $user1->can('read', [$user1, 'TimeTable']);
 
         Livewire::actingAs($user1)
-            ->test(TimeSlotCrud::class)
+            ->test(ManageTimeTable::class)
             ->set('selected_class', 1)
-            ->set('selected_subject', 1)
-            ->set('selected_weekday', 1)
-            ->set('selectedSlots', [1])
-            ->call('SyncSlotsWithDays');
+            ->set('selected_semester',1)
+
+            ->call('render')
 
 
-        // test if data exist in database
-        $this->assertDatabaseHas('time_table_time_slot_week_day', [
-            'week_day_id' => 1,
-            'subject_id' => 1,
-        ]);
+        // check if timetable shown
+        ->assertSee('Monday');
     }
 }

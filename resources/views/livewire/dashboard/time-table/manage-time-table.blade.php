@@ -12,6 +12,7 @@
         {{ session('danger') }}
     </div>
     @endif
+    @if (auth()->user()->roles->pluck('name')->toArray()[0] =='Admin'|auth()->user()->roles->pluck('name')->toArray()[0] =='super-admin')
     <div class="grid grid-cols-2 gap-8">
         <div class="mt-4">
 
@@ -35,7 +36,9 @@
             </x-tall-crud-select>
             @error('selected_semester') <x-tall-crud-error-message>{{$message}}</x-tall-crud-error-message> @enderror
         </div>
-    </div>
+    </div> 
+    @endif
+
 
     <div class="mt-6">
         <table class="w-full my-8 whitespace-nowrap" wire:loading.class.delay="opacity-50">
