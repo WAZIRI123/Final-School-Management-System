@@ -113,11 +113,16 @@ Route::namespace('App\Http\Livewire')->group(function () {
                 Route::prefix('/time-table')->namespace('TimeTable')->name('time-tables.')->group(function () {
 
                     Route::get('/create-timetable', Index::class)->name('index');
-                    
+
                     Route::get('/timetableslot', TimeTableTimeSlot::class)->name('timetableslot');
 
                     Route::get('/manage-timetable', ManageTimeTable::class)->name('manage-timetable');
-                    
+                });
+
+                // for  Semester
+                Route::prefix('/exam')->namespace('Exam')->name('exams.')->group(function () {
+
+                    Route::get('/exam-crud', Index::class)->name('index');
                 });
 
             });

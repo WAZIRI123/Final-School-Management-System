@@ -120,7 +120,7 @@ class CrudChild extends Component
  
     public function showEditForm(Timetable $timetable): void
     {
-        $this->authorize('create', [$timetable, 'timetable']);
+        $this->authorize('update', [$timetable, 'timetable']);
 
         $this->resetErrorBag();
         $this->item = $timetable;

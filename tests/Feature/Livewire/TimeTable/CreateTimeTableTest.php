@@ -128,7 +128,7 @@ class CreateTimeTableTest extends TestCase
             // make fake user && assign role && acting as that user
             $user1 = User::factory()->create();
             $user1->assignRole('admin');
-            $TimeTable = TimeTable::factory()->create();
+            $TimeTable = TimeTable::factory(['semester_id'=>1,'class_id'=>1])->create();
     
             // check if user has given permission/gate   
             $user1->can('update', [$user1, 'TimeTable']);
