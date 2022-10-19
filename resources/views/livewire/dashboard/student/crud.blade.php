@@ -14,7 +14,6 @@
 
             </div>
             <div class="flex">
-
                 <x-tall-crud-page-dropdown />
             </div>
         </div>
