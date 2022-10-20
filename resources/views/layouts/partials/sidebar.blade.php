@@ -192,6 +192,12 @@
 
         <!-- end::Submenu link -->
         @endcan
+        @can('menu-exam')
+        <!-- start::Submenu link -->
+        <x-side-menu.list-link route="dashboard.exams.examslot" title="Create ExamSlot" />
+
+        <!-- end::Submenu link -->
+        @endcan
 
     </ul>
     <!-- end::Submenu  graduations-->
