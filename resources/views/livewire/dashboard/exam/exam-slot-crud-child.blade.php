@@ -50,7 +50,7 @@
             </div>
         </div>
         </x-slot>
-
+        
         <x-slot name="footer">
             <x-tall-crud-button wire:click="$set('confirmingItemCreation', false)">Cancel</x-tall-crud-button>
             <x-tall-crud-button mode="add" wire:loading.attr="disabled" wire:click="createItem()">Save</x-tall-crud-button>
