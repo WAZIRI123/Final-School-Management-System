@@ -12,10 +12,14 @@ class Subject extends Model
     use HasFactory,SoftDeletes;
 
     protected $fillable = [
-        'name', 'subject_code', 'school_id', 'class_id',
+        'name', 'subject_code', 'school_id', 'class_id','teacher_id'
     ];
 
-
+    public function teacher():BelongsTo
+    {
+        return $this->belongsTo(Teacher::class);
+    }
+    
     public function classes():BelongsTo
     {
         return $this->belongsTo(Classes::class);

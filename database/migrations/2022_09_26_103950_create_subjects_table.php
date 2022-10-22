@@ -19,6 +19,7 @@ return new class extends Migration
             $table->string('subject_code');
             $table->foreignId('school_id')->constrained()->onUpdate('cascade')->onDelete('cascade');
             $table->foreignId('class_id')->constrained()->onUpdate('cascade')->onDelete('cascade');
+            $table->foreignId('teacher_id')->nullable()->constrained()->onUpdate('cascade')->onDelete('cascade');
             $table->timestamps();
             $table->softDeletes();
         });

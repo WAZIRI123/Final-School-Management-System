@@ -18,7 +18,9 @@ class ExamRecordPolicy
      */
     public function viewAny(User $user)
     {
-        //
+        if ($user->can('read exam record')) {
+            return true;
+        }
     }
 
     /**
@@ -30,7 +32,9 @@ class ExamRecordPolicy
      */
     public function view(User $user, ExamRecord $examRecord)
     {
-        //
+        if ($user->can('read exam record') && $examRecord->semester->school_id == $user->school_id) {
+            return true;
+        }
     }
 
     /**
@@ -41,7 +45,9 @@ class ExamRecordPolicy
      */
     public function create(User $user)
     {
-        //
+        if ($user->can('create exam record')) {
+            return true;
+        }
     }
 
     /**
@@ -53,7 +59,9 @@ class ExamRecordPolicy
      */
     public function update(User $user, ExamRecord $examRecord)
     {
-        //
+        if ($user->can('update exam record') && $examRecord->semester->school_id == $user->school_id) {
+            return true;
+        }
     }
 
     /**
@@ -65,7 +73,9 @@ class ExamRecordPolicy
      */
     public function delete(User $user, ExamRecord $examRecord)
     {
-        //
+        if ($user->can('delete exam record') && $examRecord->semester->school_id == $user->school_id) {
+            return true;
+        }
     }
 
     /**

@@ -24,8 +24,10 @@ class Teacher extends Model
     {
         return $this->belongsTo(User::class);
     }
+
     public function class():BelongsTo
     {
         return $this->belongsTo(Classes::class, 'class_id');
     }
+    
 }
