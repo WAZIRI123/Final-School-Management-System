@@ -8,6 +8,8 @@
   'dashboard.classes.index' => 'App\\Http\\Livewire\\Dashboard\\Classes\\Index',
   'dashboard.exam.crud' => 'App\\Http\\Livewire\\Dashboard\\Exam\\Crud',
   'dashboard.exam.crud-child' => 'App\\Http\\Livewire\\Dashboard\\Exam\\CrudChild',
+  'dashboard.exam.exam-record-crud' => 'App\\Http\\Livewire\\Dashboard\\Exam\\ExamRecordCrud',
+  'dashboard.exam.exam-record-crud-child' => 'App\\Http\\Livewire\\Dashboard\\Exam\\ExamRecordCrudChild',
   'dashboard.exam.exam-slot-crud' => 'App\\Http\\Livewire\\Dashboard\\Exam\\ExamSlotCrud',
   'dashboard.exam.exam-slot-crud-child' => 'App\\Http\\Livewire\\Dashboard\\Exam\\ExamSlotCrudChild',
   'dashboard.exam.index' => 'App\\Http\\Livewire\\Dashboard\\Exam\\Index',

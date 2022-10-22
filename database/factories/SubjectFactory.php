@@ -20,6 +20,7 @@ class SubjectFactory extends Factory
             'name'   => $this->faker->name,
             'subject_code'=>$this->faker->numerify('###-###-####'),
             'school_id'=>1,
+            'teacher_id'=>1,
             'class_id'=>1,
         ];
     }

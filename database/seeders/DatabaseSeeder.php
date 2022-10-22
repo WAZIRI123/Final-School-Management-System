@@ -35,6 +35,7 @@ class DatabaseSeeder extends Seeder
             WeekDaySeeder::class,
             ExamSeeder::class,
             ExamSlotSeeder::class,
+            ExamRecordSeeder::class,
         ]);
     }
 }

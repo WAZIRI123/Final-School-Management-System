@@ -2,7 +2,8 @@
 
 namespace Database\Seeders;
 
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use App\Enums\ClassSectionEnum;
+use App\Models\ExamRecord;
 use Illuminate\Database\Seeder;
 
 class ExamRecordSeeder extends Seeder
@@ -14,6 +15,16 @@ class ExamRecordSeeder extends Seeder
      */
     public function run()
     {
-        //
+        ExamRecord::firstOrCreate([
+            'id'          => 1,
+            'class_id' => '1',
+            'semester_id' => '1',
+            'section_id' => ClassSectionEnum::A->value,
+            'exam_id' => '1',
+            'subject_id' => '1',
+            'student_id' => '1',
+            'marks'=> 50
+        ]);
+        ExamRecord::factory()->count(10)->create();
     }
 }

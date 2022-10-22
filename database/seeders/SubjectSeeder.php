@@ -20,6 +20,7 @@ class SubjectSeeder extends Seeder
         'name'          => 'standard1',
         'school_id'         => 1,
         'class_id'         => 1,
+        'teacher_id'         => 1,
         'subject_code'         => $faker->numerify('###-###-####'),
         'created_at'    => date("Y-m-d H:i:s")
         ]);

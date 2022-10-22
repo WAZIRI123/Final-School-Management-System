@@ -199,6 +199,11 @@
         <!-- end::Submenu link -->
         @endcan
 
+                <!-- start::Submenu link -->
+                <x-side-menu.list-link route="dashboard.exams.examrecord" title="Create ExamRecord" />
+
+                <!-- end::Submenu link -->
+
     </ul>
     <!-- end::Submenu  graduations-->
 </div>
