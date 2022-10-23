@@ -109,5 +109,25 @@ class UserSeeder extends Seeder
                 'created_at'        => date("Y-m-d H:i:s")
             ]
         ]);
+
+        $user=User::factory()->count(10)->create();
+        foreach ($user as $student) {
+            DB::table('students')->insert([
+                [
+                    'user_id'           => $student->id,
+                    'parent_id'         => 1,
+                    'class_id'          => 1,
+                    'section'          => 'A',
+                    'admission_no'       => $faker->numerify('###-###-####'),
+                    'gender'            => 'male',
+                    'status'            => 'active',
+                    'phone'             => '0123456789',
+                    'dateofbirth'       => '1993-04-11',
+                    'current_address'   => 'Dhaka-1215',
+                    'permanent_address' => 'Dhaka-1215',
+                    'created_at'        => date("Y-m-d H:i:s")
+                ]
+            ]);
+        }
     }
 }

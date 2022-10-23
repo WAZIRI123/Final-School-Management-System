@@ -63,8 +63,8 @@ class StudentGraduate extends Component
         ];
     }
 
-    public function getStudentsProperty()
-    {
+     public function getStudentsProperty()
+        {
         $filterOnlyStudentWithinSchool = function ($query) {
             $query->where('school_id', auth()->user()->school_id);
         };

@@ -10,6 +10,49 @@
         </button> 
     </div>
 
+    <div class="grid grid-cols-2 gap-8">
+        <div class="mt-4">
+            <x-tall-crud-label>Class</x-tall-crud-label>
+            <x-tall-crud-select class="block mt-1 w-full" wire:model="class">
+                <option value="">Please Select</option>
+                @foreach($classes as $c)
+                <option value="{{$c->id}}">{{$c->class_name}}</option>
+                @endforeach
+            </x-tall-crud-select>
+            @error('class') <x-tall-crud-error-message>{{$message}}</x-tall-crud-error-message> @enderror
+        </div>
+        <div class="mt-4">
+            <x-tall-crud-label>Exam</x-tall-crud-label>
+            <x-tall-crud-select class="block mt-1 w-full" wire:model="exam">
+                <option value="">Please Select</option>
+                @foreach($exams as $c)
+                <option value="{{$c->id}}">{{$c->name}}</option>
+                @endforeach
+            </x-tall-crud-select>
+            @error('exam') <x-tall-crud-error-message>{{$message}}</x-tall-crud-error-message> @enderror
+        </div>
+    </div> 
+<div class="grid grid-cols-2 gap-8">
+    <div class="mt-4">
+        <x-tall-crud-label>Section</x-tall-crud-label>
+        <x-tall-crud-select class="block mt-1 w-full" wire:model="section">
+            <option value="">Please Select</option>
+            <option value="{{App\Enums\ClassSectionEnum::A->value}}">A</option>
+            <option value="{{App\Enums\ClassSectionEnum::B->value}}">B</option>
+        </x-tall-crud-select>
+        @error('section') <x-tall-crud-error-message>{{$message}}</x-tall-crud-error-message> @enderror
+    </div>
+    <div class="mt-4">
+        <x-tall-crud-label>Subject</x-tall-crud-label>
+        <x-tall-crud-select class="block mt-1 w-full" wire:model="subject">
+            <option value="">Please Select</option>
+            @foreach($subjects as $c)
+            <option value="{{$c->id}}">{{$c->name}}</option>
+            @endforeach
+        </x-tall-crud-select>
+        @error('subject') <x-tall-crud-error-message>{{$message}}</x-tall-crud-error-message> @enderror
+    </div>
+</div>
     <div class="mt-6">
         <div class="flex justify-between">
             <div class="flex">
@@ -29,31 +72,34 @@
                         <x-tall-crud-sort-icon sortField="id" :sort-by="$sortBy" :sort-asc="$sortAsc" />
                     </div>
                 </td>
+                <td class="px-2 py-2 capitalize" >parent</td>
+                <td class="px-2 py-2 capitalize" >name</td>
+                <td class="px-2 py-2 capitalize" >admission_no</td>
+                <td class="px-2 py-2 capitalize" >Gender</td>
                 <td class="px-2 py-2 capitalize" >Marks</td>
-                <td class="px-2 py-2 capitalize" >Classes</td>
-                <td class="px-2 py-2 capitalize" >Exams</td>
-                <td class="px-2 py-2 capitalize" >Subjects</td>
-                <td class="px-2 py-2 capitalize" >Students</td>
-                <td class="px-2 py-2 capitalize" >Semester</td>
                 <td class="px-2 py-2 capitalize" >Actions</td>
                 </tr>
             </thead>
             <tbody class="divide-y divide-blue-400">
             @foreach($results as $result)
                 <tr class="hover:bg-blue-300 {{ ($loop->even ) ? "bg-blue-100" : ""}}">
-                    <td class="px-2 py-2 capitalize" >{{ $result->id }}</td>
-
-                    <td class="px-2 py-2 capitalize" >{{ $result->marks }}</td>
-                    <td class="px-2 py-2 capitalize" >{{ $result->classes?->class_name }}</td>
-                    <td class="px-2 py-2 capitalize" >{{ $result->exams?->name }}</td>
-                    <td class="px-2 py-2 capitalize" >{{ $result->subjects?->name }}</td>
-                    <td class="px-2 py-2 capitalize" >{{ $result->students?->admission_no }}</td>
-                    <td class="px-2 py-2 capitalize" >{{ $result->semester?->name }}</td>
-                    <td class="px-2 py-2 capitalize" >
-                        <button type="submit" wire:click="$emitTo('dashboard.exam.exam-record-crud-child', 'showEditForm', {{ $result->id}});" class="text-green-500">
+                    <td class="py-3 pl-2 capitalize" >{{ $loop->iteration }}</td>
+                    <td class="py-3 pl-2 capitalize" >{{ $result->parent->user->name }}</td>
+                    <td class="py-3 pl-2 capitalize" >{{ $result->user->name }}</td>
+                    <td class="py-3 pl-2 capitalize" >{{ $result->admission_no }}</td>
+                    <td class="py-3 pl-2 capitalize" >{{ $result->gender }}</td>
+                     <td class="py-3 pl-2">
+                            <!-- start::Rounded Select -->
+                            <div class="flex flex-col">
+                                <input name="" type="number" wire:model.defer="marks.{{ $result->id }}" placeholder="Marks" class="mt-2  px-3 py-1 border shadow appearance-none  focus:outline-none focus:ring-0 focus:border-gray-300 w-1/2 rounded-lg "/>
+                            </div>
+                            <!-- end::Rounded Select -->
+                        </td>
+                    <td class="py-3 pl-2 capitalize" >
+                        <button type="submit" wire:click="$emitTo('dashboard.student.crud-child', 'showEditForm', {{ $result->id}});" class="text-green-500">
                             <x-tall-crud-icon-edit />
                         </button>
-                        <button type="submit" wire:click="$emitTo('dashboard.exam.exam-record-crud-child', 'showDeleteForm', {{ $result->id}});" class="text-red-500">
+                        <button type="submit" wire:click="$emitTo('dashboard.student.crud-child', 'showDeleteForm', {{ $result->id}});" class="text-red-500">
                             <x-tall-crud-icon-delete />
                         </button>
                     </td>
@@ -61,6 +107,13 @@
             @endforeach
             </tbody>
         </table>
+        @if ($results->count()>0)
+        <div class="grid grid-cols-2 gap-8 pt-4 w-full justify-between justify-items-end">
+            <div></div>
+            <x-tall-crud-button mode="add" class="w-1/4" wire:loading.attr="disabled" wire:click="markStudents()">Save Marks</x-tall-crud-button>
+    </div>  
+        @endif
+
     </div>
 
     <div class="mt-4">

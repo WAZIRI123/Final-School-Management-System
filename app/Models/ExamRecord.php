@@ -32,7 +32,7 @@ class ExamRecord extends Model
 
     public function subjects():BelongsTo
     {
-        return $this->belongsTo(Exam::class, 'subject_id');
+        return $this->belongsTo(Subject::class, 'subject_id');
     }
 
     public function students():BelongsTo
