@@ -50,6 +50,16 @@ class ExamRecordCrud extends Component
      * @var int
      */
     public $per_page = 15;
+    /**
+     * @var array
+     */
+    protected $rules = [
+        'class' => 'required',
+        'section' => 'required',
+        'exam' => 'required',
+        'subject' => 'required',
+        'marks.*' => 'required',
+    ];
 
 
     public function mount()
@@ -69,18 +79,25 @@ class ExamRecordCrud extends Component
             //Mark student method
             public function markStudents()
             {
+
                 $this->validate();
-
-               //make sure selectedRows is present
-               if ( count($this->marks)!=$this->students->count()) {
-                return session()->flash('danger', 'Please select student/students to graduate');
+              //make sure selectedRows is present
+             if ( count($this->marks)!=$this->students->count()) {
+                return session()->flash('danger', 'Please make sure that you have entered marks for all student');
             }
-    
                 // update each student's class
-                foreach ($this->students as $student) {
+                $studentsMarks=collect($this->marks)->map(function($mark,$student){
+                    ExamRecord::create([
+                        'semester_id' =>auth()->user()->school->semester->id, 
+                        'class_id' => $this->class, 
+                        'section_id' => $this->section, 
+                        'exam_id' => $this->exam, 
+                        'subject_id' => $this->subject, 
+                        'student_id' => $student, 
+                        'marks' => $mark, 
+                    ]);
+                });
 
-
-                }
                 $this->reset(['marks']);
                 $this->emitTo('livewire-toast', 'show', 'Student Graduated Successfully');
     }

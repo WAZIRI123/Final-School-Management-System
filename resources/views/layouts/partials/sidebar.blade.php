@@ -197,12 +197,18 @@
         <x-side-menu.list-link route="dashboard.exams.examslot" title="Create ExamSlot" />
 
         <!-- end::Submenu link -->
-        @endcan
 
-                <!-- start::Submenu link -->
-                <x-side-menu.list-link route="dashboard.exams.examrecord" title="Create ExamRecord" />
+                      <!-- start::Submenu link -->
+                      <x-side-menu.list-link route="dashboard.exams.examrecord" title="Create ExamRecord" />
+
+                      <!-- end::Submenu link -->
+                                    <!-- start::Submenu link -->
+                <x-side-menu.list-link route="dashboard.exams.manage.manage-exam-record" title="Manage ExamRecord" />
 
                 <!-- end::Submenu link -->
+        @endcan
+
+  
 
     </ul>
     <!-- end::Submenu  graduations-->

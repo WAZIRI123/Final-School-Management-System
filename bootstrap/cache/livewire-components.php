@@ -13,6 +13,8 @@
   'dashboard.exam.exam-slot-crud' => 'App\\Http\\Livewire\\Dashboard\\Exam\\ExamSlotCrud',
   'dashboard.exam.exam-slot-crud-child' => 'App\\Http\\Livewire\\Dashboard\\Exam\\ExamSlotCrudChild',
   'dashboard.exam.index' => 'App\\Http\\Livewire\\Dashboard\\Exam\\Index',
+  'dashboard.exam.manage.manage-exam-record' => 'App\\Http\\Livewire\\Dashboard\\Exam\\Manage\\ManageExamRecord',
+  'dashboard.exam.manage.manage-exam-record-child' => 'App\\Http\\Livewire\\Dashboard\\Exam\\Manage\\ManageExamRecordChild',
   'dashboard.index' => 'App\\Http\\Livewire\\Dashboard\\Index',
   'dashboard.parent.crud' => 'App\\Http\\Livewire\\Dashboard\\Parent\\Crud',
   'dashboard.parent.crud-child' => 'App\\Http\\Livewire\\Dashboard\\Parent\\CrudChild',

@@ -3,11 +3,14 @@
     @livewire('livewire-toast')
     <div class="bg-white rounded-lg px-8 py-6 my-16 overflow-x-scroll custom-scrollbar">
     <div class="mt-8 min-h-screen">
+        @if (session()->has('danger'))
+        <div class="p-4 mb-4 text-sm text-red-700 bg-red-100 rounded-lg dark:bg-red-200 dark:text-red-800" role="alert">
+            {{ session('danger') }}
+        </div>
+        @endif
     <div class="flex justify-between">
         <div class="text-2xl">Exam_Records</div>
-        <button type="submit" wire:click="$emitTo('dashboard.exam.exam-record-crud-child', 'showCreateForm');" class="text-blue-500">
-            <x-tall-crud-icon-add />
-        </button> 
+
     </div>
 
     <div class="grid grid-cols-2 gap-8">
@@ -77,7 +80,6 @@
                 <td class="px-2 py-2 capitalize" >admission_no</td>
                 <td class="px-2 py-2 capitalize" >Gender</td>
                 <td class="px-2 py-2 capitalize" >Marks</td>
-                <td class="px-2 py-2 capitalize" >Actions</td>
                 </tr>
             </thead>
             <tbody class="divide-y divide-blue-400">
@@ -95,14 +97,6 @@
                             </div>
                             <!-- end::Rounded Select -->
                         </td>
-                    <td class="py-3 pl-2 capitalize" >
-                        <button type="submit" wire:click="$emitTo('dashboard.student.crud-child', 'showEditForm', {{ $result->id}});" class="text-green-500">
-                            <x-tall-crud-icon-edit />
-                        </button>
-                        <button type="submit" wire:click="$emitTo('dashboard.student.crud-child', 'showDeleteForm', {{ $result->id}});" class="text-red-500">
-                            <x-tall-crud-icon-delete />
-                        </button>
-                    </td>
                </tr>
             @endforeach
             </tbody>
