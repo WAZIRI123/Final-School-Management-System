@@ -47,7 +47,7 @@
         </div>
         <div class="grid grid-cols-2 gap-8">
             <div class="mt-4"hidden>
-                <x-tall-crud-label>Subject Id</x-tall-crud-label>
+                <x-tall-crud-label>Subject</x-tall-crud-label>
                 <x-tall-crud-input class="block mt-1 w-full" type="text" wire:model.defer="item.subject_id" />
                 @error('item.subject_id') <x-tall-crud-error-message>{{$message}}</x-tall-crud-error-message> @enderror
             </div>

@@ -8,10 +8,11 @@ use Illuminate\Database\Eloquent\Builder;
 use \Illuminate\View\View;
 
 use App\Models\ExamRecord;
+use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 
 class ManageExamRecord extends Component
 {
-    use WithPagination;
+    use WithPagination,AuthorizesRequests;
 
     /**
      * @var array
@@ -45,6 +46,7 @@ class ManageExamRecord extends Component
 
     public function render(): View
     {
+        $this->authorize('viewAny', [ExamRecord::class]);
         $results = $this->query()
             ->with(['classes','exams','subjects','students','semester'])
             ->when($this->q, function ($query) {

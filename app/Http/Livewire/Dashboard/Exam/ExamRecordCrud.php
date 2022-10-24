@@ -86,7 +86,7 @@ class ExamRecordCrud extends Component
                 return session()->flash('danger', 'Please make sure that you have entered marks for all student');
             }
                 // update each student's class
-                $studentsMarks=collect($this->marks)->map(function($mark,$student){
+              collect($this->marks)->map(function($mark,$student){
                     ExamRecord::create([
                         'semester_id' =>auth()->user()->school->semester->id, 
                         'class_id' => $this->class, 
