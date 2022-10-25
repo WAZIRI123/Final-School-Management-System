@@ -12,10 +12,11 @@ use \Illuminate\View\View;
 use App\Models\ExamRecord;
 use App\Models\Student;
 use App\Models\Subject;
+use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 
 class ExamRecordCrud extends Component
 {
-    use WithPagination;
+    use WithPagination,AuthorizesRequests;
 
     public $class;
     public $classes;
@@ -58,18 +59,22 @@ class ExamRecordCrud extends Component
         'section' => 'required',
         'exam' => 'required',
         'subject' => 'required',
-        'marks.*' => 'required',
+        'marks.*' => 'required|numeric|min:0|max:100',
     ];
 
 
     public function mount()
     {
-        if (auth()->user()->roles->pluck('name')->toArray()[0] =='Admin') {
+        if (auth()->user()->roles->count()>0) {
+
+        if (auth()->user()->roles?->pluck('name')->toArray()[0] =='Admin') {
             $this->subjects = Subject::all();
         }
-        if (auth()->user()->roles->pluck('name')->toArray()[0] =='Teacher') {
+        if (auth()->user()->roles?->pluck('name')->toArray()[0] =='Teacher') {
             $this->subjects = Subject::where('id',auth()->user()->teacher()->id);
         }
+    }
+
         $this->classes = Classes::all();
 
         $this->exams = Exam::where('semester_id',auth()->user()->school->semester->id)->get();
@@ -79,12 +84,8 @@ class ExamRecordCrud extends Component
             //Mark student method
             public function markStudents()
             {
-
                 $this->validate();
-              //make sure selectedRows is present
-             if ( count($this->marks)!=$this->students->count()) {
-                return session()->flash('danger', 'Please make sure that you have entered marks for all student');
-            }
+
                 // update each student's class
               collect($this->marks)->map(function($mark,$student){
                     ExamRecord::create([
@@ -114,6 +115,7 @@ class ExamRecordCrud extends Component
 
     public function render(): View
     {
+        $this->authorize('create', [ExamRecord::class, 'exam record']);
         $results = $this->students;
 
         return view('livewire.dashboard.exam.exam-record-crud', [

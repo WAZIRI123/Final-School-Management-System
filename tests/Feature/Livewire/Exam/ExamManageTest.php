@@ -4,6 +4,8 @@ namespace Tests\Feature\Livewire\ExamRecord;
 
 use App\Enums\ClassSectionEnum;
 use App\Http\Livewire\Dashboard\Exam\ExamRecordCrud;
+use App\Http\Livewire\Dashboard\Exam\Manage\ManageExamRecordChild;
+use App\Models\ExamRecord;
 use App\Models\User;
 use App\Traits\FeatureTestTrait;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
@@ -30,18 +32,8 @@ class ExamManageTest extends TestCase
     
         public function unauthorized_user_can_not_create_ExamRecord()
         {
-            $this->withoutExceptionHandling();
-            Livewire::actingAs(User::factory()->create())
-                ->test(ExamRecordCrud::class)
-                ->set('semester_id', 1)
-                ->set('class_id', 1)
-                ->set('section_id', ClassSectionEnum::A->value)
-                ->set('exam_id', 1)
-                ->set('subject_id', 1)
-                ->set('student_id', 1)
-                ->set('marks', [25])
-                ->call('createItem')
-         
+            $this->unauthorized_user();
+            Livewire::test('dashboard.exam.exam-record-crud')
                 ->assertForbidden();
         }
     
@@ -55,21 +47,21 @@ class ExamManageTest extends TestCase
             $user1->assignRole('admin');
     
             // check if user has given permission/gate   
-            $user1->can('update', [$user1, 'examRecord slot']);
+            $user1->can('create', [$user1, 'exam record']);
     
             Livewire::actingAs($user1)
-                ->test(ExamRecordSlotCrudChild::class)
-                ->set('item.name', 'waziri')
-                ->set('item.description', 'waziriallyamir@gmail.com')
-                ->set('item.examRecord_id', 1)
-                ->set('item.total_marks', 50)
-                ->call('createItem')
-                ->assertHasNoErrors();
+                ->test(ExamRecordCrud::class)
+                ->set('class', 1)
+                ->set('section', ClassSectionEnum::A->value)
+                ->set('exam', 1)
+                ->set('subject', 1)
+                ->set('marks', [25])
+                ->call('markStudents');
     
             // test if data exist in database
-            $this->assertDatabaseHas('examRecord_slots', [
-                'name' => 'waziri',
-                'examRecord_id'=>1,
+            $this->assertDatabaseHas('exam_records', [
+                'class_id' => 1,
+                'marks'=>25,
             ]);
         }
     
@@ -78,11 +70,11 @@ class ExamManageTest extends TestCase
         {
             // make fake user &&  acting as that user and ExamRecord
             $user = User::factory()->create();
-            $ExamRecordSlotSlot = ExamRecordSlot::factory()->create();
+            $ExamRecord= ExamRecord::factory()->create();
             Livewire::actingAs($user)
-                ->test(ExamRecordSlotCrudChild::class, ['item' => $ExamRecordSlotSlot])
-                ->call('showEditForm', $ExamRecordSlotSlot)
-                ->set('item.name', 'waziribig')
+                ->test(ManageExamRecordChild::class, ['item' => $ExamRecord])
+                ->call('showEditForm', $ExamRecord)
+                ->set('item.class_id', 1)
                 ->call('editItem')
                 ->assertForbidden();
         }
@@ -95,52 +87,22 @@ class ExamManageTest extends TestCase
             // make fake user && assign role && acting as that user
             $user1 = User::factory()->create();
             $user1->assignRole('admin');
-            $ExamRecordSlot = ExamRecordSlot::factory()->create();
+            $ExamRecord = ExamRecord::factory()->create();
     
             // check if user has given permission/gate   
-            $user1->can('update', [$user1, 'examRecord slot']);
+            $user1->can('update', [$user1, 'exam record']);
     
             // test
             Livewire::actingAs($user1)
-                ->test(ExamRecordSlotCrudChild::class, ['item' => $ExamRecordSlot])
-                ->call('showEditForm', $ExamRecordSlot)
-    
-                ->set('item.name', 'waziribig')
-    
-                ->call('editItem');
+            ->test(ManageExamRecordChild::class, ['item' => $ExamRecord])
+            ->call('showEditForm', $ExamRecord)
+            ->set('item.marks', 20)
+            ->call('editItem');
     
             // test if data exist in database
-            $this->assertDatabaseHas('ExamRecord_slots', [
-                'name' => 'waziribig'
+            $this->assertDatabaseHas('exam_records', [
+                'marks' => 20
             ]);
         }
     
-        //test unauthorised users cannot edit ExamRecord
-        public function test_unauthorised_users_cannot_delete_ExamRecord()
-        {
-            $user = User::factory()->create();
-            $ExamRecordSlot = ExamRecordSlot::factory()->create();
-            Livewire::actingAs($user)
-                ->test(ExamRecordSlotCrudChild::class, ['item' => $ExamRecordSlot])
-                ->call('deleteItem', $ExamRecordSlot)
-                ->assertForbidden();
-        }
-        //test authorised users can edit ExamRecord
-    
-        public function test_authorised_users_can_delete_ExamRecord()
-        {
-            // make fake user && assign role && acting as that user
-            $user = User::factory()->create();
-            $user->assignRole('admin');
-            $user->can('delete', [$user, 'examRecord slot']);
-            $ExamRecordSlot = ExamRecordSlot::factory()->create();
-            // test
-            Livewire::actingAs($user)
-                ->test(ExamRecordSlotCrudChild::class, ['ExamRecordSlot' => $ExamRecordSlot])
-                ->call('showDeleteForm', $ExamRecordSlot)
-                ->call('deleteItem');
-    
-            // test if data is softdeleted
-            $this->assertSoftDeleted($ExamRecordSlot);
-        }
 }

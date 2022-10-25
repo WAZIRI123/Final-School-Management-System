@@ -12,7 +12,11 @@
         <div class="text-2xl">Exam_Records</div>
 
     </div>
-
+@if ($errors->any())
+    @foreach ($errors as $error )
+    <x-tall-crud-error-message>{{$message}}</x-tall-crud-error-message> 
+    @endforeach
+@endif
     <div class="grid grid-cols-2 gap-8">
         <div class="mt-4">
             <x-tall-crud-label>Class</x-tall-crud-label>
@@ -94,6 +98,7 @@
                             <!-- start::Rounded Select -->
                             <div class="flex flex-col">
                                 <input name="" type="number" wire:model.defer="marks.{{ $result->id }}" placeholder="Marks" class="mt-2  px-3 py-1 border shadow appearance-none  focus:outline-none focus:ring-0 focus:border-gray-300 w-1/2 rounded-lg "/>
+                                @error("marks") <x-tall-crud-error-message>{{$message}}</x-tall-crud-error-message> @enderror
                             </div>
                             <!-- end::Rounded Select -->
                         </td>
