@@ -26,7 +26,7 @@ class ExamRecordCrud extends Component
     public $subject;
     public $subjects;
     
-    public $marks = [];
+    public $student = [];//marks
 
     /**
      * @var array
@@ -59,9 +59,13 @@ class ExamRecordCrud extends Component
         'section' => 'required',
         'exam' => 'required',
         'subject' => 'required',
-        'marks.*' => 'required|numeric|min:0|max:100',
+        'student.*' => 'numeric|min:0|max:100',
     ];
 
+    protected $messages=[
+'student.*.min'=>'The marks for :attribute must be at least 0 or greater',
+'student.*.max'=>'The marks for :attribute must be at most 100 or less'
+    ];
 
     public function mount()
     {
@@ -82,12 +86,15 @@ class ExamRecordCrud extends Component
 
 
             //Mark student method
-            public function markStudents()
+            public function studenttudents()
             {
                 $this->validate();
-
+              //make sure selectedRows is present
+              if ( count($this->student)!=$this->students->count()) {
+                return session()->flash('danger', 'Please make sure that you have entered mark for all students in the class');
+            }
                 // update each student's class
-              collect($this->marks)->map(function($mark,$student){
+              collect($this->student)->map(function($mark,$student){
                     ExamRecord::create([
                         'semester_id' =>auth()->user()->school->semester->id, 
                         'class_id' => $this->class, 
@@ -99,7 +106,7 @@ class ExamRecordCrud extends Component
                     ]);
                 });
 
-                $this->reset(['marks']);
+                $this->reset(['student']);
                 $this->emitTo('livewire-toast', 'show', 'Student Graduated Successfully');
     }
 

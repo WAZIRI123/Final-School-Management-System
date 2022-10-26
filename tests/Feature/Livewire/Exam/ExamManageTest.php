@@ -19,6 +19,17 @@ class ExamManageTest extends TestCase
     use RefreshDatabase;
     use FeatureTestTrait, AuthorizesRequests;
 
+        
+        /** @test  */
+    
+        public function unauthorized_user_can_not_create_ExamRecord()
+        {
+            $this->withoutExceptionHandling();
+            $this->unauthorized_user();
+            Livewire::test('dashboard.exam.exam-record-crud')
+                ->assertForbidden();
+        }
+
         //test view all ExamRecord cannot be accessed by unauthorised users
         public function test_view_all_ExamRecord_cannot_be_accessed_by_unauthorised_users()
         {
@@ -27,43 +38,35 @@ class ExamManageTest extends TestCase
                 ->assertForbidden();
         }
     
+
     
-        /** @test  */
+        // /** @test  */
     
-        public function unauthorized_user_can_not_create_ExamRecord()
-        {
-            $this->unauthorized_user();
-            Livewire::test('dashboard.exam.exam-record-crud')
-                ->assertForbidden();
-        }
+        // public function authorized_user_can_create_ExamRecord()
+        // {
+        //     $this->withoutExceptionHandling();
+        //     // make fake user && assign role && acting as that user
+        //     $user1 = User::factory()->create();
+        //     $user1->assignRole('admin');
     
-        /** @test  */
+        //     // check if user has given permission/gate   
+        //     $user1->can('create', [$user1, 'exam record']);
     
-        public function authorized_user_can_create_ExamRecord()
-        {
-            $this->withoutExceptionHandling();
-            // make fake user && assign role && acting as that user
-            $user1 = User::factory()->create();
-            $user1->assignRole('admin');
+        //     Livewire::actingAs($user1)
+        //         ->test(ExamRecordCrud::class)
+        //         ->set('class', 1)
+        //         ->set('section', ClassSectionEnum::A->value)
+        //         ->set('exam', 1)
+        //         ->set('subject', 1)
+        //         ->set('marks', [25])
+        //         ->call('markStudents');
     
-            // check if user has given permission/gate   
-            $user1->can('create', [$user1, 'exam record']);
-    
-            Livewire::actingAs($user1)
-                ->test(ExamRecordCrud::class)
-                ->set('class', 1)
-                ->set('section', ClassSectionEnum::A->value)
-                ->set('exam', 1)
-                ->set('subject', 1)
-                ->set('marks', [25])
-                ->call('markStudents');
-    
-            // test if data exist in database
-            $this->assertDatabaseHas('exam_records', [
-                'class_id' => 1,
-                'marks'=>25,
-            ]);
-        }
+        //     // test if data exist in database
+        //     $this->assertDatabaseHas('exam_records', [
+        //         'class_id' => 1,
+        //         'marks'=>25,
+        //     ]);
+        // }
     
         //test unauthorised users cannot edit ExamRecord
         public function test_unauthorised_users_cannot_edit_ExamRecord()
