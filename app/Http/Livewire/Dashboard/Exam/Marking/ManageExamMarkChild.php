@@ -30,7 +30,7 @@ class ManageExamMarkChild extends Component
         'item.exam_id' => 'required',
         'item.subject_id' => 'required',
         'item.student_id' => 'required',
-        'item.marks' => 'required',
+        'item.marks' => 'required|numeric|min:0|max:100',
     ];
 
     /**

@@ -95,7 +95,7 @@
                      <td class="py-3 pl-2">
                             <!-- start::Rounded Select -->
                             <div class="flex flex-col">
-                                <input name="student.{{ $result->id }}" type="number" min="1" max="100" wire:model.defer="student.{{ $result->id }}" placeholder="student" class="mt-2  px-3 py-1 border shadow appearance-none  focus:outline-none focus:ring-0 focus:border-gray-300 w-1/2 rounded-lg "/>
+                                <input name="student.{{ $result->id }}" type="number" min="1" max="100" wire:model.defer="student.{{ $result->id }}" placeholder="marks" class="mt-2  px-3 py-1 border shadow appearance-none  focus:outline-none focus:ring-0 focus:border-gray-300 w-1/2 rounded-lg "/>
                             </div>
                             <!-- end::Rounded Select -->
                         </td>

@@ -6,7 +6,49 @@
         <div class="flex justify-between">
         <div class="text-2xl">Exam_Records</div>
     </div>
-
+    <div class="grid grid-cols-2 gap-8">
+        <div class="mt-4">
+            <x-tall-crud-label>Class</x-tall-crud-label>
+            <x-tall-crud-select class="block mt-1 w-full" wire:model="class">
+                <option value="">Please Select</option>
+                @foreach($classes as $c)
+                <option value="{{$c->id}}">{{$c->class_name}}</option>
+                @endforeach
+            </x-tall-crud-select>
+            @error('class') <x-tall-crud-error-message>{{$message}}</x-tall-crud-error-message> @enderror
+        </div>
+        <div class="mt-4">
+            <x-tall-crud-label>Exam</x-tall-crud-label>
+            <x-tall-crud-select class="block mt-1 w-full" wire:model="exam">
+                <option value="">Please Select</option>
+                @foreach($exams as $c)
+                <option value="{{$c->id}}">{{$c->name}}</option>
+                @endforeach
+            </x-tall-crud-select>
+            @error('exam') <x-tall-crud-error-message>{{$message}}</x-tall-crud-error-message> @enderror
+        </div>
+    </div> 
+<div class="grid grid-cols-2 gap-8">
+    <div class="mt-4">
+        <x-tall-crud-label>Section</x-tall-crud-label>
+        <x-tall-crud-select class="block mt-1 w-full" wire:model="section">
+            <option value="">Please Select</option>
+            <option value="{{App\Enums\ClassSectionEnum::A->value}}">A</option>
+            <option value="{{App\Enums\ClassSectionEnum::B->value}}">B</option>
+        </x-tall-crud-select>
+        @error('section') <x-tall-crud-error-message>{{$message}}</x-tall-crud-error-message> @enderror
+    </div>
+    <div class="mt-4">
+        <x-tall-crud-label>Subject</x-tall-crud-label>
+        <x-tall-crud-select class="block mt-1 w-full" wire:model="subject">
+            <option value="">Please Select</option>
+            @foreach($subjects as $c)
+            <option value="{{$c?->id}}">{{$c?->name}}</option>
+            @endforeach
+        </x-tall-crud-select>
+        @error('subject') <x-tall-crud-error-message>{{$message}}</x-tall-crud-error-message> @enderror
+    </div>
+</div>
     <div class="mt-6">
         <div class="flex justify-between">
             <div class="flex">

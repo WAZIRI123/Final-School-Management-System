@@ -18,7 +18,7 @@ class ExamRecordPolicy
      */
     public function viewAny(User $user)
     {
-        if ($user->can('read exam record')) {
+        if ($user->can('read exam record')&&auth()->user()->roles?->pluck('name')->toArray()[0] =='Admin') {
             return true;
         }
     }
