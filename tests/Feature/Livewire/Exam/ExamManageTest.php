@@ -3,8 +3,8 @@
 namespace Tests\Feature\Livewire\ExamRecord;
 
 use App\Enums\ClassSectionEnum;
-use App\Http\Livewire\Dashboard\Exam\ExamRecordCrud;
-use App\Http\Livewire\Dashboard\Exam\Manage\ManageExamRecordChild;
+use App\Http\Livewire\Dashboard\Exam\Marking\ManageExamMarkChild;
+use App\Http\Livewire\Dashboard\Exam\Marking\MarkExam;
 use App\Models\ExamRecord;
 use App\Models\User;
 use App\Traits\FeatureTestTrait;
@@ -26,7 +26,7 @@ class ExamManageTest extends TestCase
         {
             $this->withoutExceptionHandling();
             $this->unauthorized_user();
-            Livewire::test('dashboard.exam.exam-record-crud')
+            Livewire::test('dashboard.exam.marking.mark-exam')
                 ->assertForbidden();
         }
 
@@ -34,7 +34,7 @@ class ExamManageTest extends TestCase
         public function test_view_all_ExamRecord_cannot_be_accessed_by_unauthorised_users()
         {
             $this->unauthorized_user();
-            Livewire::test('dashboard.exam.manage.manage-exam-record')
+            Livewire::test('dashboard.exam.marking.manage-exam-mark')
                 ->assertForbidden();
         }
     
@@ -53,13 +53,13 @@ class ExamManageTest extends TestCase
             $user1->can('create', [$user1, 'exam record']);
     
             Livewire::actingAs($user1)
-                ->test(ExamRecordCrud::class)
+                ->test(MarkExam::class)
                 ->set('class', 1)
                 ->set('section', ClassSectionEnum::A->value)
                 ->set('exam', 1)
                 ->set('subject', 1)
-                ->set('marks', [25])
-                ->call('markStudents');
+                ->set('student', [25])
+                ->call('Markstudent');
     
             // test if data exist in database
             $this->assertDatabaseHas('exam_records', [
@@ -75,7 +75,7 @@ class ExamManageTest extends TestCase
             $user = User::factory()->create();
             $ExamRecord= ExamRecord::factory()->create();
             Livewire::actingAs($user)
-                ->test(ManageExamRecordChild::class, ['item' => $ExamRecord])
+                ->test(ManageExamMarkChild::class, ['item' => $ExamRecord])
                 ->call('showEditForm', $ExamRecord)
                 ->set('item.class_id', 1)
                 ->call('editItem')
@@ -97,7 +97,7 @@ class ExamManageTest extends TestCase
     
             // test
             Livewire::actingAs($user1)
-            ->test(ManageExamRecordChild::class, ['item' => $ExamRecord])
+            ->test(ManageExamMarkChild::class, ['item' => $ExamRecord])
             ->call('showEditForm', $ExamRecord)
             ->set('item.marks', 20)
             ->call('editItem');

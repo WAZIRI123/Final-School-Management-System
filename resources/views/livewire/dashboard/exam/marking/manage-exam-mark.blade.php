@@ -48,7 +48,7 @@
                     <td class="px-3 py-2 capitalize" >{{ $result->students?->admission_no }}</td>
                     <td class="px-3 py-2 capitalize" >{{ $result->semester?->name }}</td>
                     <td class="px-3 py-2 capitalize" >
-                        <button type="submit" wire:click="$emitTo('dashboard.exam.manage.manage-exam-record-child', 'showEditForm', {{ $result->id}});" class="text-green-500">
+                        <button type="submit" wire:click="$emitTo('dashboard.exam.marking.manage-exam-mark-child', 'showEditForm', {{ $result->id}});" class="text-green-500">
                             <x-tall-crud-icon-edit />
                         </button>
                     </td>
@@ -61,7 +61,7 @@
     <div class="mt-4">
         {{ $results->links() }}
     </div>
-    @livewire('dashboard.exam.manage.manage-exam-record-child')
+    @livewire('dashboard.exam.marking.manage-exam-mark-child')
 </div>
 </div>
 </div>

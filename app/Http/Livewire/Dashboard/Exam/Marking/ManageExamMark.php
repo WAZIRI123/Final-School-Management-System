@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Livewire\Dashboard\Exam\Manage;
+namespace App\Http\Livewire\Dashboard\Exam\Marking;
 
 use Livewire\Component;
 use Livewire\WithPagination;
@@ -10,7 +10,7 @@ use \Illuminate\View\View;
 use App\Models\ExamRecord;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 
-class ManageExamRecord extends Component
+class ManageExamMark extends Component
 {
     use WithPagination,AuthorizesRequests;
 
@@ -57,7 +57,7 @@ class ManageExamRecord extends Component
             ->orderBy($this->sortBy, $this->sortAsc ? 'ASC' : 'DESC')
             ->paginate($this->per_page);
 
-        return view('livewire.dashboard.exam.manage.manage-exam-record', [
+        return view('livewire.dashboard.exam.marking.manage-exam-mark', [
             'results' => $results
         ])->layoutData(['title' => 'Manage Exam Record | School Management System']);
     }

@@ -126,10 +126,11 @@ Route::namespace('App\Http\Livewire')->group(function () {
                     Route::get('/exam-crud', Index::class)->name('index');
                      Route::get('/exam-slot', ExamSlotCrud::class)->name('examslot');
 
-                     Route::get('/exam-record', ExamRecordCrud::class)->name('examrecord');
 
-                     Route::namespace('Manage')->name('manage.')->group(function () {
-                     Route::get('/manage-exam-record', ManageExamRecord::class)->name('manage-exam-record');
+                     Route::namespace('Marking')->name('marking.')->group(function () {
+                     Route::get('/mark-exam', MarkExam::class)->name('mark-exam');
+                     Route::get('/manage-exam-mark', ManageExamMark::class)->name('manage-exam-mark');
+                     Route::get('/manage-exam-mark-child', ManageExamMarkChild::class)->name('manage-exam-mark-child');
                      });
 
                 });

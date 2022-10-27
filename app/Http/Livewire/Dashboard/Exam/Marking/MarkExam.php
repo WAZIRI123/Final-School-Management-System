@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Livewire\Dashboard\Exam;
+namespace App\Http\Livewire\Dashboard\Exam\Marking;
 
 use App\Models\Classes;
 use App\Models\Exam;
@@ -14,7 +14,7 @@ use App\Models\Student;
 use App\Models\Subject;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 
-class ExamRecordCrud extends Component
+class MarkExam extends Component
 {
     use WithPagination,AuthorizesRequests;
 
@@ -120,7 +120,7 @@ public function  Markstudent(){
         $this->authorize('create', [ExamRecord::class, 'exam record']);
         $results = $this->students->paginate($this->per_page);
 
-        return view('livewire.dashboard.exam.exam-record-crud', [
+        return view('livewire.dashboard.exam.marking.mark-exam', [
             'results' => $results
         ])->layoutData(['title' => ' Exam Record | School Management System']);
     }

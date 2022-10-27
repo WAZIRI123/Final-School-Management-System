@@ -1,13 +1,13 @@
 <?php
 
-namespace App\Http\Livewire\Dashboard\Exam\Manage;
+namespace App\Http\Livewire\Dashboard\Exam\Marking;
 
 use Livewire\Component;
 use \Illuminate\View\View;
 use App\Models\ExamRecord;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 
-class ManageExamRecordChild extends Component
+class ManageExamMarkChild extends Component
 {
     use  AuthorizesRequests;
 
@@ -66,7 +66,7 @@ class ManageExamRecordChild extends Component
 
     public function render(): View
     {
-        return view('livewire.dashboard.exam.manage.manage-exam-record-child');
+        return view('livewire.dashboard.exam.marking.manage-exam-mark-child');
     }
  
     public function showEditForm(ExamRecord $examrecord): void

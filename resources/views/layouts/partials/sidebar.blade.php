@@ -199,11 +199,11 @@
         <!-- end::Submenu link -->
 
                       <!-- start::Submenu link -->
-                      <x-side-menu.list-link route="dashboard.exams.examrecord" title="Create ExamRecord" />
+                      <x-side-menu.list-link route="dashboard.exams.marking.mark-exam" title="Mark Exam" />
 
                       <!-- end::Submenu link -->
                                     <!-- start::Submenu link -->
-                <x-side-menu.list-link route="dashboard.exams.manage.manage-exam-record" title="Manage ExamRecord" />
+                <x-side-menu.list-link route="dashboard.exams.marking.manage-exam-mark" title="Manage ExamMark" />
 
                 <!-- end::Submenu link -->
         @endcan
