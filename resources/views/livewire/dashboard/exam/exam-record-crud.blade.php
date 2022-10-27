@@ -106,7 +106,7 @@
         @if ($results->count()>0)
         <div class="grid grid-cols-2 gap-8 pt-4 w-full justify-between justify-items-end">
             <div></div>
-            <x-tall-crud-button mode="add" class="w-1/4" wire:loading.attr="disabled" wire:click="studenttudents()">Save Marks</x-tall-crud-button>
+            <x-tall-crud-button mode="add" class="w-1/4" wire:loading.attr="disabled" wire:click="Markstudent()">Save Marks</x-tall-crud-button>
     </div>  
         @endif
 
@@ -115,7 +115,6 @@
     <div class="mt-4">
         {{ $results->links() }}
     </div>
-    @livewire('dashboard.exam.exam-record-crud-child')
 </div>
 </div>
 </div>

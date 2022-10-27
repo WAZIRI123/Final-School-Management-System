@@ -40,33 +40,33 @@ class ExamManageTest extends TestCase
     
 
     
-        // /** @test  */
+         /** @test  */
     
-        // public function authorized_user_can_create_ExamRecord()
-        // {
-        //     $this->withoutExceptionHandling();
-        //     // make fake user && assign role && acting as that user
-        //     $user1 = User::factory()->create();
-        //     $user1->assignRole('admin');
+        public function authorized_user_can_create_ExamRecord()
+        {
+            $this->withoutExceptionHandling();
+            // make fake user && assign role && acting as that user
+            $user1 = User::factory()->create();
+            $user1->assignRole('admin');
     
-        //     // check if user has given permission/gate   
-        //     $user1->can('create', [$user1, 'exam record']);
+            // check if user has given permission/gate   
+            $user1->can('create', [$user1, 'exam record']);
     
-        //     Livewire::actingAs($user1)
-        //         ->test(ExamRecordCrud::class)
-        //         ->set('class', 1)
-        //         ->set('section', ClassSectionEnum::A->value)
-        //         ->set('exam', 1)
-        //         ->set('subject', 1)
-        //         ->set('marks', [25])
-        //         ->call('markStudents');
+            Livewire::actingAs($user1)
+                ->test(ExamRecordCrud::class)
+                ->set('class', 1)
+                ->set('section', ClassSectionEnum::A->value)
+                ->set('exam', 1)
+                ->set('subject', 1)
+                ->set('marks', [25])
+                ->call('markStudents');
     
-        //     // test if data exist in database
-        //     $this->assertDatabaseHas('exam_records', [
-        //         'class_id' => 1,
-        //         'marks'=>25,
-        //     ]);
-        // }
+            // test if data exist in database
+            $this->assertDatabaseHas('exam_records', [
+                'class_id' => 1,
+                'marks'=>25,
+            ]);
+        }
     
         //test unauthorised users cannot edit ExamRecord
         public function test_unauthorised_users_cannot_edit_ExamRecord()

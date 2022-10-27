@@ -1,8 +1,8 @@
 <?php return array (
   'app' => 
   array (
-    'name' => 'testing',
-    'env' => 'testing',
+    'name' => 'Laravel',
+    'env' => 'local',
     'debug' => true,
     'url' => 'http://localhost',
     'asset_url' => NULL,
@@ -10,7 +10,7 @@
     'locale' => 'en',
     'fallback_locale' => 'en',
     'faker_locale' => 'en_US',
-    'key' => 'base64:Z76Glmd+HKUMZcVggaRbdiIGxgfU+zsq1FPXi26U+kE=',
+    'key' => 'base64:isM5TsuXMZNTtBgWQK1ULIfcuhBzmDpZF7mcjgtOWUM=',
     'cipher' => 'AES-256-CBC',
     'maintenance' => 
     array (
@@ -195,7 +195,7 @@
       'file' => 
       array (
         'driver' => 'file',
-        'path' => 'C:\\wamp64\\www\\School-Management-System\\storage\\framework/cache/data',
+        'path' => 'C:\\Final-School-Management-System\\storage\\framework/cache/data',
       ),
       'memcached' => 
       array (
@@ -239,7 +239,7 @@
         'driver' => 'octane',
       ),
     ),
-    'prefix' => 'testing_cache_',
+    'prefix' => 'laravel_cache_',
   ),
   'cors' => 
   array (
@@ -358,7 +358,7 @@
       'options' => 
       array (
         'cluster' => 'redis',
-        'prefix' => 'testing_database_',
+        'prefix' => 'laravel_database_',
       ),
       'default' => 
       array (
@@ -392,7 +392,7 @@
     array (
       'enabled' => true,
       'driver' => 'file',
-      'path' => 'C:\\wamp64\\www\\School-Management-System\\storage\\debugbar',
+      'path' => 'C:\\Final-School-Management-System\\storage\\debugbar',
       'connection' => NULL,
       'provider' => '',
       'hostname' => '127.0.0.1',
@@ -494,13 +494,13 @@
       'local' => 
       array (
         'driver' => 'local',
-        'root' => 'C:\\wamp64\\www\\School-Management-System\\storage\\app',
+        'root' => 'C:\\Final-School-Management-System\\storage\\app',
         'throw' => false,
       ),
       'public' => 
       array (
         'driver' => 'local',
-        'root' => 'C:\\wamp64\\www\\School-Management-System\\storage\\app/public',
+        'root' => 'C:\\Final-School-Management-System\\storage\\app/public',
         'url' => 'http://localhost/storage',
         'visibility' => 'public',
         'throw' => false,
@@ -508,7 +508,7 @@
       'tmp-for-tests' => 
       array (
         'driver' => 'local',
-        'root' => 'C:\\wamp64\\www\\School-Management-System\\storage\\app/livewire-tmp',
+        'root' => 'C:\\Final-School-Management-System\\storage\\app/livewire-tmp',
       ),
       's3' => 
       array (
@@ -525,7 +525,7 @@
     ),
     'links' => 
     array (
-      'C:\\wamp64\\www\\School-Management-System\\public\\storage' => 'C:\\wamp64\\www\\School-Management-System\\storage\\app/public',
+      'C:\\Final-School-Management-System\\public\\storage' => 'C:\\Final-School-Management-System\\storage\\app/public',
     ),
   ),
   'hashing' => 
@@ -564,13 +564,13 @@
       'single' => 
       array (
         'driver' => 'single',
-        'path' => 'C:\\wamp64\\www\\School-Management-System\\storage\\logs/laravel.log',
+        'path' => 'C:\\Final-School-Management-System\\storage\\logs/laravel.log',
         'level' => 'debug',
       ),
       'daily' => 
       array (
         'driver' => 'daily',
-        'path' => 'C:\\wamp64\\www\\School-Management-System\\storage\\logs/laravel.log',
+        'path' => 'C:\\Final-School-Management-System\\storage\\logs/laravel.log',
         'level' => 'debug',
         'days' => 14,
       ),
@@ -622,7 +622,7 @@
       ),
       'emergency' => 
       array (
-        'path' => 'C:\\wamp64\\www\\School-Management-System\\storage\\logs/laravel.log',
+        'path' => 'C:\\Final-School-Management-System\\storage\\logs/laravel.log',
       ),
     ),
   ),
@@ -681,14 +681,14 @@
     'from' => 
     array (
       'address' => 'hello@example.com',
-      'name' => 'testing',
+      'name' => 'Laravel',
     ),
     'markdown' => 
     array (
       'theme' => 'default',
       'paths' => 
       array (
-        0 => 'C:\\wamp64\\www\\School-Management-System\\resources\\views/vendor/mail',
+        0 => 'C:\\Final-School-Management-System\\resources\\views/vendor/mail',
       ),
     ),
   ),
@@ -932,7 +932,7 @@
     'lifetime' => '120',
     'expire_on_close' => false,
     'encrypt' => false,
-    'files' => 'C:\\wamp64\\www\\School-Management-System\\storage\\framework/sessions',
+    'files' => 'C:\\Final-School-Management-System\\storage\\framework/sessions',
     'connection' => NULL,
     'table' => 'sessions',
     'store' => NULL,
@@ -941,7 +941,7 @@
       0 => 2,
       1 => 100,
     ),
-    'cookie' => 'testing_session',
+    'cookie' => 'laravel_session',
     'path' => '/',
     'domain' => NULL,
     'secure' => NULL,
@@ -952,9 +952,9 @@
   array (
     'paths' => 
     array (
-      0 => 'C:\\wamp64\\www\\School-Management-System\\resources\\views',
+      0 => 'C:\\Final-School-Management-System\\resources\\views',
     ),
-    'compiled' => 'C:\\wamp64\\www\\School-Management-System\\storage\\framework\\views',
+    'compiled' => 'C:\\Final-School-Management-System\\storage\\framework\\views',
   ),
   'livewire-toast' => 
   array (
@@ -998,7 +998,7 @@
   'livewire' => 
   array (
     'class_namespace' => 'App\\Http\\Livewire',
-    'view_path' => 'C:\\wamp64\\www\\School-Management-System\\resources\\views/livewire',
+    'view_path' => 'C:\\Final-School-Management-System\\resources\\views/livewire',
     'layout' => 'layouts.app',
     'asset_url' => NULL,
     'app_url' => NULL,
@@ -1107,7 +1107,7 @@
     array (
     ),
     'enable_runnable_solutions' => NULL,
-    'remote_sites_path' => 'C:\\wamp64\\www\\School-Management-System',
+    'remote_sites_path' => 'C:\\Final-School-Management-System',
     'local_sites_path' => '',
     'housekeeping_endpoint_prefix' => '_ignition',
     'settings_file_path' => '',

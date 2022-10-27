@@ -26,7 +26,7 @@ class ExamRecordCrud extends Component
     public $subject;
     public $subjects;
     
-    public $student = [];//marks
+    public $student=[] ;//marks
 
     /**
      * @var array
@@ -59,7 +59,7 @@ class ExamRecordCrud extends Component
         'section' => 'required',
         'exam' => 'required',
         'subject' => 'required',
-        'student.*' => 'numeric|min:0|max:100',
+        'student.*' => 'required|numeric|min:0|max:100',
     ];
 
     protected $messages=[
@@ -81,14 +81,10 @@ class ExamRecordCrud extends Component
 
         $this->classes = Classes::all();
 
-        $this->exams = Exam::where('semester_id',auth()->user()->school->semester->id)->get();
+    $this->exams = Exam::where('semester_id',auth()->user()->school->semester->id)->get();
     }
-
-
-            //Mark student method
-            public function studenttudents()
-            {
-                $this->validate();
+public function  Markstudent(){
+            $this->validate();
               //make sure selectedRows is present
               if ( count($this->student)!=$this->students->count()) {
                 return session()->flash('danger', 'Please make sure that you have entered mark for all students in the class');
@@ -116,14 +112,13 @@ class ExamRecordCrud extends Component
     ->where('class_id', $this->class)
     ->where('section',$this->section)
 
-    ->orderBy($this->sortBy, $this->sortAsc ? 'ASC' : 'DESC')
-    ->paginate($this->per_page);
+    ->orderBy($this->sortBy, $this->sortAsc ? 'ASC' : 'DESC');
 }
 
     public function render(): View
     {
         $this->authorize('create', [ExamRecord::class, 'exam record']);
-        $results = $this->students;
+        $results = $this->students->paginate($this->per_page);
 
         return view('livewire.dashboard.exam.exam-record-crud', [
             'results' => $results
