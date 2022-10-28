@@ -68,8 +68,8 @@ class ManageExamMark extends Component
     public function render(): View
     {
         $this->authorize('viewAny', [ExamRecord::class]);
-        $results = $this->query()
-            ->with(['classes','exams','subjects','students','semester'])
+        $results = ExamRecord::
+             with(['classes','exams','subjects','students','semester'])
             ->where('class_id',$this->class)
             ->where('subject_id',$this->subject)
             ->where('section_id',$this->section)
@@ -80,8 +80,16 @@ class ManageExamMark extends Component
                     $query->where('student_id', 'like', '%' . $this->q . '%');
                 });
             })
-            ->orderBy($this->sortBy, $this->sortAsc ? 'ASC' : 'DESC')
-            ->paginate($this->per_page);
+            ->orderBy('marks','DESC');
+
+        $results->each(function($item,$key){
+         
+            $item->rank=$key+1;
+            $item->save();
+
+        });
+
+        $results=$results->paginate($this->per_page);
 
         return view('livewire.dashboard.exam.marking.manage-exam-mark', [
             'results' => $results

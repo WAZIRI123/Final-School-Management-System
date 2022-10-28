@@ -4,7 +4,7 @@
     <div class="bg-white rounded-lg px-8 py-6 my-16 overflow-x-scroll custom-scrollbar">
         <div class="mt-8 min-h-screen">
         <div class="flex justify-between">
-        <div class="text-2xl">Exam_Records</div>
+        <div class="text-2xl" wire:click="test">Exam_Records</div>
     </div>
     <div class="grid grid-cols-2 gap-8">
         <div class="mt-4">
@@ -64,7 +64,7 @@
                 <tr class="bg-secondary text-gray-100 font-bold">
                 <td class="px-3 py-2 capitalize" >
                     <div class="flex items-center">
-                        <button wire:click="sortBy('id')">Id</button>
+                        <button wire:click="sortBy('id')">Rank</button>
                         <x-tall-crud-sort-icon sortField="id" :sort-by="$sortBy" :sort-asc="$sortAsc" />
                     </div>
                 </td>
@@ -81,7 +81,7 @@
             <tbody class="divide-y divide-blue-400">
             @foreach($results as $result)
                 <tr class="hover:bg-blue-300 {{ ($loop->even ) ? "bg-blue-100" : ""}}">
-                    <td class="px-3 py-2 capitalize" >{{ $result->id }}</td>
+                    <td class="px-3 py-2 capitalize" >{{ $result->rank}}</td>
                     <td class="px-3 py-2 capitalize" >{{ $result->section_id }}</td>
                     <td class="px-3 py-2 capitalize" >{{ $result->marks }}</td>
                     <td class="px-3 py-2 capitalize" >{{ $result->classes?->class_name }}</td>
@@ -94,6 +94,7 @@
                             <x-tall-crud-icon-edit />
                         </button>
                     </td>
+
                </tr>
             @endforeach
             </tbody>

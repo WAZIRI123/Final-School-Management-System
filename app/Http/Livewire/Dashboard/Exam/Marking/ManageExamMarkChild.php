@@ -86,7 +86,7 @@ class ManageExamMarkChild extends Component
         $this->item->save();
         $this->confirmingItemEdit = false;
         $this->examrecord = '';
-        $this->emitTo('dashboard.exam.manage.manage-exam-record', 'refresh');
+        $this->emitTo('dashboard.exam.marking.manage-exam-mark', 'refresh');
         $this->emitTo('livewire-toast', 'show', 'Record Updated Successfully');
     }
 

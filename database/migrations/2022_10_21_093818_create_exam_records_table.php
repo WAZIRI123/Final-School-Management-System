@@ -22,6 +22,7 @@ return new class extends Migration
             $table->foreignId('subject_id')->constrained()->onDelete('cascade');
             $table->foreignId('student_id')->constrained()->onDelete('cascade');
             $table->integer('marks')->unsigned();
+            $table->integer('rank')->nullable();
             $table->timestamps();
             $table->softDeletes();
         });

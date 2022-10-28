@@ -19,6 +19,7 @@ class ExamRecord extends Model
         'subject_id',
         'student_id',
         'marks',
+        'rank',
     ];
     
     public function classes():BelongsTo
