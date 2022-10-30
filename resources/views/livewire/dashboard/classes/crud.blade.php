@@ -33,17 +33,15 @@
                         <x-tall-crud-sort-icon sortField="class_name" :sort-by="$sortBy" :sort-asc="$sortAsc" />
                     </div>
                 </td>
-                <td class="px-2 py-2 capitalize" >Class Description</td>
                 <td class="px-2 py-2 capitalize" >Actions</td>
             </thead>
             <tbody class="divide-y divide-blue-400">
             @foreach($results as $result)
                 <tr class="hover:bg-blue-300 {{ ($loop->even ) ? "bg-blue-100" : ""}}">
                     <td class="px-3 py-2 capitalize" >{{ $result->id }}</td>
-                    <td class="px-3 py-2 capitalize" >{{ $result->school_id }}</td>
+                    <td class="px-3 py-2 capitalize" >{{ $result->school->name }}</td>
                     <td class="px-3 py-2 capitalize" >{{ $result->class_code }}</td>
                     <td class="px-3 py-2 capitalize" >{{ $result->class_name }}</td>
-                    <td class="px-3 py-2 capitalize" >{{ $result->class_description }}</td>
                     <td class="px-3 py-2 capitalize" >
                         <button type="submit" wire:click="$emitTo('dashboard.classes.crud-child', 'showEditForm', {{ $result->id}});" class="text-green-500">
                             <x-tall-crud-icon-edit />

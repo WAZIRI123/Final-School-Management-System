@@ -61,7 +61,7 @@
                 </div>
                 <div class="mt-4">
                     <x-tall-crud-label>Dateofbirth</x-tall-crud-label>
-                    <x-tall-crud-input class="block mt-1 w-full" type="text" wire:model.defer="item.dateofbirth" />
+                    <x-tall-crud-input class="block mt-1 w-full" type="text" wire:model.defer="item.dateofbirth"  placeholder="2000-02-20"/>
                     @error('item.dateofbirth') <x-tall-crud-error-message>{{$message}}</x-tall-crud-error-message>
                     @enderror
                 </div>
@@ -187,7 +187,7 @@
 
                 <div class="mt-4">
                     <x-tall-crud-label>Dateofbirth</x-tall-crud-label>
-                    <x-tall-crud-input class="block mt-1 w-full" type="text" wire:model.defer="item.dateofbirth" />
+                    <x-tall-crud-input class="block mt-1 w-full" type="text" wire:model.defer="item.dateofbirth" placeholder="2000-02-20"/>
                     @error('item.dateofbirth') <x-tall-crud-error-message>{{$message}}</x-tall-crud-error-message>
                     @enderror
                 </div>

@@ -37,7 +37,7 @@
             <div class="grid grid-cols-2 gap-8">
                 <div class="mt-4">
                     <x-tall-crud-label>Admission No</x-tall-crud-label>
-                    <x-tall-crud-input class="block mt-1 w-full" type="text" wire:model.defer="item.admission_no" />
+                    <x-tall-crud-input class="block mt-1 w-full" type="text" wire:model.defer="item.admission_no"  disabled/>
                     @error('item.admission_no') <x-tall-crud-error-message>{{$message}}</x-tall-crud-error-message>
                     @enderror
                 </div>
@@ -50,7 +50,7 @@
             <div class="grid grid-cols-2 gap-8">
                 <div class="mt-4">
                     <x-tall-crud-label>Dateofbirth</x-tall-crud-label>
-                    <x-tall-crud-input class="block mt-1 w-full" type="text" wire:model.defer="item.dateofbirth" />
+                    <x-tall-crud-input class="block mt-1 w-full" type="text" wire:model.defer="item.dateofbirth" placeholder="2000-02-20" />
                     @error('item.dateofbirth') <x-tall-crud-error-message>{{$message}}</x-tall-crud-error-message>
                     @enderror
                 </div>
@@ -148,38 +148,36 @@
             <div class="grid grid-cols-2 gap-8">
             <div class="mt-4">
                 <x-tall-crud-label>Admission No</x-tall-crud-label>
-                <x-tall-crud-input class="block mt-1 w-full" type="text" wire:model.defer="item.admission_no" />
+                <x-tall-crud-input class="block mt-1 w-full" type="text" wire:model.defer="item.admission_no" disabled />
                 @error('item.admission_no') <x-tall-crud-error-message>{{$message}}</x-tall-crud-error-message>
                 @enderror
             </div>
-            </div>
-            <div class="grid grid-cols-2 gap-8">
             <div class="mt-4">
                 <x-tall-crud-label>Phone</x-tall-crud-label>
                 <x-tall-crud-input class="block mt-1 w-full" type="text" wire:model.defer="item.phone" />
                 @error('item.phone') <x-tall-crud-error-message>{{$message}}</x-tall-crud-error-message> @enderror
             </div>
-            <div class="mt-4">
-                <x-tall-crud-label>Dateofbirth</x-tall-crud-label>
-                <x-tall-crud-input class="block mt-1 w-full" type="text" wire:model.defer="item.dateofbirth" />
-                @error('item.dateofbirth') <x-tall-crud-error-message>{{$message}}</x-tall-crud-error-message> @enderror
-            </div>
             </div>
             <div class="grid grid-cols-2 gap-8">
+            <div class="mt-4">
+                <x-tall-crud-label>Dateofbirth</x-tall-crud-label>
+                <x-tall-crud-input class="block mt-1 w-full" type="text" wire:model.defer="item.dateofbirth"  placeholder="2000-02-20"/>
+                @error('item.dateofbirth') <x-tall-crud-error-message>{{$message}}</x-tall-crud-error-message> @enderror
+            </div>
             <div class="mt-4">
                 <x-tall-crud-label>Current Address</x-tall-crud-label>
                 <x-tall-crud-input class="block mt-1 w-full" type="text" wire:model.defer="item.current_address" />
                 @error('item.current_address') <x-tall-crud-error-message>{{$message}}</x-tall-crud-error-message>
                 @enderror
             </div>
+            </div>
+            <div class="grid grid-cols-3 gap-8">
             <div class="mt-4">
                 <x-tall-crud-label>Permanent Address</x-tall-crud-label>
                 <x-tall-crud-input class="block mt-1 w-full" type="text" wire:model.defer="item.permanent_address" />
                 @error('item.permanent_address') <x-tall-crud-error-message>{{$message}}</x-tall-crud-error-message>
                 @enderror
             </div>
-            </div>
-            <div class="grid grid-cols-2 gap-8">
                 <div class="mt-4">
                     <x-tall-crud-label>Gender</x-tall-crud-label>
                     <x-tall-crud-select class="block mt-1 w-full" wire:model.defer="item.gender">

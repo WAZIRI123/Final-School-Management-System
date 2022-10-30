@@ -20,7 +20,6 @@ return new class extends Migration
             $table->string('class_code')->unique();
             $table->string('class_name');
             $table->string('section')->default(ClassSectionEnum::A->value);
-            $table->string('class_description');
             $table->timestamps();
             $table->softDeletes();
         });

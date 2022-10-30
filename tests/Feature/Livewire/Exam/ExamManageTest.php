@@ -48,7 +48,7 @@ class ExamManageTest extends TestCase
             // make fake user && assign role && acting as that user
             $user1 = User::factory()->create();
             $user1->assignRole('admin');
-    
+
             // check if user has given permission/gate   
             $user1->can('create', [$user1, 'exam record']);
     

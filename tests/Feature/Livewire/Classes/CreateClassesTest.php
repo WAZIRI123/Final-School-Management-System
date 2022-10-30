@@ -61,7 +61,6 @@ class CreateclassesTest extends TestCase
             ->assertSeeHtml('wire:model.defer="item.class_name"')
             ->assertSeeHtml('wire:model.defer="item.class_code"')
             ->assertSeeHtml('wire:model.defer="item.section"')
-            ->assertSeeHtml('wire:model.defer="item.class_description"')
             ->assertSeeHtml('wire:click="createItem()"');
     }
 
@@ -76,7 +75,6 @@ class CreateclassesTest extends TestCase
             ->set('item.class_name', 'waziri')
             ->set('item.section', \App\Enums\ClassSectionEnum::A)
             ->set('item.class_code', 'waziriallyamir@gmail.com')
-            ->set('item.class_description', '0653062266')
             ->call('createItem')
             ->assertForbidden();
     }
@@ -97,13 +95,11 @@ class CreateclassesTest extends TestCase
             ->set('item.class_name', 'waziri')
             ->set('item.section', \App\Enums\ClassSectionEnum::A)
             ->set('item.class_code', 'waziriallyamir@gmail.com')
-            ->set('item.class_description', '0653062266')
             ->call('createItem');
 
         // test if data exist in database
         $this->assertDatabaseHas('classes', [
             'class_name' => 'waziri',
-            'class_description'=>'0653062266',
         ]);
     }
 

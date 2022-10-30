@@ -49,6 +49,7 @@ class Crud extends Component
         $this->authorize('viewAny', [Classes::class, 'class']);
 
         $results = $this->query()
+        ->with(['school'])
             ->where('school_id',auth()->user()->school_id)
             ->when($this->q, function ($query) {
                 return $query->where(function ($query) {

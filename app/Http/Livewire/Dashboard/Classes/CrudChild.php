@@ -39,7 +39,6 @@ class CrudChild extends Component
         'item.class_name' => 'required',
         'item.section' => 'required',
         'item.class_code' => 'required',
-        'item.class_description' => 'required',
         
     ];
     }
@@ -51,7 +50,6 @@ class CrudChild extends Component
         'item.class_name' => 'Class Name',
         'item.class_code' => 'Class Code',
         'item.section' => 'Section',
-        'item.class_description' => 'Class Description',
 
     ];
 
@@ -117,7 +115,6 @@ class CrudChild extends Component
             'class_name' => $this->item['class_name'], 
             'section' => $this->item['section'],
             'class_code' => $this->item['class_code'], 
-            'class_description' => $this->item['class_description'], 
             'school_id' => auth()->user()->school_id, 
         ]);
         $this->confirmingItemCreation = false;

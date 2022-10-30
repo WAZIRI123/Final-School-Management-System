@@ -36,11 +36,6 @@
 
         <div class="grid grid-cols-2 gap-8">
             <div class="mt-4">
-                <x-tall-crud-label>Class Description</x-tall-crud-label>
-                <x-tall-crud-input class="block mt-1 w-full" type="text" wire:model.defer="item.class_description" />
-                @error('item.class_description') <x-tall-crud-error-message>{{$message}}</x-tall-crud-error-message> @enderror
-            </div>
-            <div class="mt-4">
                 <x-tall-crud-label>Section</x-tall-crud-label>
                 <x-tall-crud-select class="block mt-1 w-full" wire:model.defer="item.section">
                     <option value="">Please Select</option>
@@ -77,11 +72,7 @@
             </div>
         </div>
         <div class="grid grid-cols-2 gap-8">
-            <div class="mt-4">
-                <x-tall-crud-label>Class Description</x-tall-crud-label>
-                <x-tall-crud-input class="block mt-1 w-full" type="text" wire:model.defer="item.class_description" />
-                @error('item.class_description') <x-tall-crud-error-message>{{$message}}</x-tall-crud-error-message> @enderror
-            </div>
+
             <div class="mt-4">
                 <x-tall-crud-label>Section</x-tall-crud-label>
                 <x-tall-crud-select class="block mt-1 w-full" wire:model.defer="item.section">
