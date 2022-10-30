@@ -74,13 +74,13 @@ class ManagePromotion extends Component
         $this->authorize('reset', Promotion::class);
 
         //get all students for promotion reset
-        $users = Student::whereIn('id', $this->promotion->students)->get();
+        $students = Student::whereIn('id', $this->promotion->students)->get();
         
         DB::beginTransaction();
         // update each student's class
-        foreach ($users as $user) {
+        foreach ($students as $student) {
 
-                $user->update([
+                $student->update([
                     'class_id' => $this->promotion->old_class_id,
                     'section'  => $this->promotion->old_section,
                 ]);

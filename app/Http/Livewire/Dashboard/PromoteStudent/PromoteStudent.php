@@ -120,7 +120,7 @@ class PromoteStudent extends Component
         $this->authorize('promote', Promotion::class);
         $this->validate();
         //get all students for promotion
-        $users =Student::whereIn('id', $this->selectedRows)->get();
+        $students =Student::whereIn('id', $this->selectedRows)->get();
 
         $academicyear=auth()->user()->school->academic_year_id;
         //make sure academic year is present
@@ -133,26 +133,27 @@ class PromoteStudent extends Component
     }
         DB::beginTransaction();
         // update each student's class
-        foreach ($users as $user) {
-            if (in_array($user->id, $this->selectedRows)) {
+        foreach ($students as $student) {
+            if (in_array($student->id, $this->selectedRows)) {
                 
-                $user->update([
+                $student->update([
                     'class_id' => $this->new_class,
                     'section'  => $this->new_section,
                 ]);
             }
-        }
-
-        // create promotion record
+                    // create promotion record
         Promotion::create([
             'old_class_id'     => $this->old_class,
             'new_class_id'     => $this->new_class,
             'old_section'   => $this->old_section,
             'new_section'   => $this->new_section,
-            'students'         => $users->pluck('id'),
+            'students'         => $student->pluck('id'),
             'academic_year_id' => $academicyear,
             'school_id'        => auth()->user()->school_id,
         ]);
+        }
+
+
         DB::commit();
         $this->reset(['selectedRows']);
         $this->emitTo('livewire-toast', 'show', 'Record Updated Successfully');
