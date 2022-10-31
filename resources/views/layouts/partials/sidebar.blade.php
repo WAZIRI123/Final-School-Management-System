@@ -130,7 +130,7 @@
 
                 @can('promote student')
                 <!-- start::Submenu link -->
-                <x-side-menu.list-link route="dashboard.promote-students.promotion" title="Promotion Manage" />
+                <x-side-menu.list-link route="dashboard.promote-students.promotion" title="Manage Promotion" />
     
 
                 <!-- end::Submenu link -->

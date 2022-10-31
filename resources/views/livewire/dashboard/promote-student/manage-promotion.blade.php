@@ -63,6 +63,7 @@
                         <x-tall-crud-sort-icon sortField="id" :sort-by="$sortBy" :sort-asc="$sortAsc" />
                     </div>
                 </td>
+                <td class="pl-2 py-2" >Student</td>
                 <td class="pl-2 py-2" >Old Class Id</td>
                 <td class="pl-2 py-2" >New Class Id</td>
                 <td class="pl-2 py-2" >Old Section</td>
@@ -79,6 +80,7 @@
             @foreach($results as $result)
                 <tr class="hover:bg-blue-300 {{ ($loop->even ) ? "bg-blue-100" : ""}}">
                     <td class="px-2 py-2 capitalize" >{{ $result->id }}</td>
+                    <td class="px-2 py-2 capitalize" >{{ $result->student?->id }}</td>
                     <td class="px-2 py-2 capitalize" >{{ $result->oldClass?->class_name}}</td>
                     <td class="px-2 py-2 capitalize" >{{ $result->newClass?->class_name  }}</td>
                     <td class="px-2 py-2 capitalize" >{{ $result->old_section }}</td>

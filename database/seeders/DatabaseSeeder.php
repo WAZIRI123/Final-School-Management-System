@@ -27,7 +27,7 @@ class DatabaseSeeder extends Seeder
             SubjectSeeder::class,
             SemesterSeeder::class,
             AcademicYearSeeder::class,
-        
+
             PermissionSeeder::class,
             TimetableSeeder::class,
             TimeTableTimeSlotSeeder::class,

@@ -20,7 +20,7 @@ return new class extends Migration
             $table->string('old_section');
             $table->string('new_section');
             $table->foreignId('academic_year_id')->constrained('academic_years')->onDelete('cascade')->onUpdate('cascade');
-            $table->json('students');
+            $table->foreignId('student_id')->constrained('students')->onDelete('cascade')->onUpdate('cascade');
             $table->foreignId('school_id')->constrained('schools')->onDelete('cascade')->onUpdate('cascade');
             $table->timestamps();
             $table->softDeletes();

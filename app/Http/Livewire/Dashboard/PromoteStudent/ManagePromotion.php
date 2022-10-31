@@ -101,7 +101,7 @@ class ManagePromotion extends Component
     public function render(): View
     {
         $results = $this->query()
-            ->with(['academicYear', 'oldClass', 'newClass'])
+            ->with(['academicYear', 'oldClass', 'newClass','student'])
             ->where('school_id', auth()->user()->school_id)
             ->when($this->q, function ($query) {
                 return $query->where(function ($query) {

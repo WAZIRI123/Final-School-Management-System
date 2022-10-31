@@ -23,7 +23,7 @@ class PromotionFactory extends Factory
             'new_section'   =>\App\Enums\ClassSectionEnum::A->value,
             'academic_year_id' => 1,
             'school_id'        => 1,
-            'students'         => [1],
+            'student_id'         => 1,
         ];
     }
 }

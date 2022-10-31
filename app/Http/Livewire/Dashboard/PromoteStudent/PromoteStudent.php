@@ -147,12 +147,11 @@ class PromoteStudent extends Component
             'new_class_id'     => $this->new_class,
             'old_section'   => $this->old_section,
             'new_section'   => $this->new_section,
-            'students'         => $student->pluck('id'),
+            'student_id'         => $student->id,
             'academic_year_id' => $academicyear,
             'school_id'        => auth()->user()->school_id,
         ]);
         }
-
 
         DB::commit();
         $this->reset(['selectedRows']);

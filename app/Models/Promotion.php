@@ -16,12 +16,10 @@ class Promotion extends Model
         'old_section',
         'new_section',
         'academic_year_id',
-        'students',
+        'student_id',
         'school_id',
     ];
-    protected $casts = [
-        'students' => 'array',
-    ];
+
     public function getLabelAttribute()
     {
         return "{$this->oldClass->name}  to {$this->newClass->name}  year: {$this->academicYear->start_year} - {$this->academicYear->stop_year}";
@@ -34,6 +32,10 @@ class Promotion extends Model
     public function newClass():BelongsTo
     {
         return $this->belongsTo(Classes::class, 'new_class_id');
+    }
+    public function student():BelongsTo
+    {
+        return $this->belongsTo(Student::class, 'students');
     }
 
     public function academicYear()

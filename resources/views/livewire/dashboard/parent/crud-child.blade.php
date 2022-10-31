@@ -43,11 +43,11 @@
                 </div>
                 <div class="mt-4">
                     <x-tall-crud-label>Phone</x-tall-crud-label>
-                    <x-tall-crud-input class="block mt-1 w-full" type="text" wire:model.defer="item.phone" />
+                    <x-tall-crud-input class="block mt-1 w-full" type="text" wire:model.defer="item.phone" placeholder="0653039317"/>
                     @error('item.phone') <x-tall-crud-error-message>{{$message}}</x-tall-crud-error-message> @enderror
                 </div>
             </div>
-            <div class="grid grid-cols-2 gap-8">
+            <div class="grid grid-cols-3 gap-8">
                 <div class="mt-4">
                     <x-tall-crud-label>Current Address</x-tall-crud-label>
                     <x-tall-crud-input class="block mt-1 w-full" type="text" wire:model.defer="item.current_address" />
@@ -62,9 +62,6 @@
                     @error('item.permanent_address') <x-tall-crud-error-message>{{$message}}</x-tall-crud-error-message>
                     @enderror
                 </div>
-
-            </div>
-            <div class="grid grid-cols-2 gap-8"  x-data="{ isUploading: false, progress: 0 }" x-on:livewire-upload-start="isUploading = true" x-on:livewire-upload-finish="isUploading = false" x-on:livewire-upload-error="isUploading = false" x-on:livewire-upload-progress="progress = $event.detail.progress">
                 <div class="mt-4">
                     <x-tall-crud-label>Gender</x-tall-crud-label>
                     <x-tall-crud-select class="block mt-1 w-full" wire:model.defer="item.gender">
@@ -74,6 +71,9 @@
                     </x-tall-crud-select>
                     @error('item.gender') <x-tall-crud-error-message>{{$message}}</x-tall-crud-error-message> @enderror
                 </div>
+
+            </div>
+            <div class="grid grid-cols-2 gap-8"  x-data="{ isUploading: false, progress: 0 }" x-on:livewire-upload-start="isUploading = true" x-on:livewire-upload-finish="isUploading = false" x-on:livewire-upload-error="isUploading = false" x-on:livewire-upload-progress="progress = $event.detail.progress">
                 <div class="mt-4">
                     <input wire:model.defer="profile_picture" class="block mt-1 w-full text-gray-900 bg-gray-50 rounded-lg border border-gray-300 cursor-pointer dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 hidden" id="large_size1" type="file">
                     <label class="block w-full text-lg text-gray-900 py-1.5 bg-blue-50 rounded-lg border border-gray-300 cursor-pointer dark:text-gray-400 focus:outline-none shadow-sm" for="large_size1">
@@ -129,7 +129,7 @@
                 </div>
                 <div class="mt-4">
                     <x-tall-crud-label>Phone</x-tall-crud-label>
-                    <x-tall-crud-input class="block mt-1 w-full" type="text" wire:model.defer="item.phone" />
+                    <x-tall-crud-input class="block mt-1 w-full" type="text" wire:model.defer="item.phone" placeholder="0653039317"/>
                     @error('item.phone') <x-tall-crud-error-message>{{$message}}</x-tall-crud-error-message> @enderror
                 </div>
             </div>
@@ -149,16 +149,7 @@
                 </div>
             </div>
             <div class="grid grid-cols-2 gap-8" x-data="{ isUploading: false, progress: 0 }" x-on:livewire-upload-start="isUploading = true" x-on:livewire-upload-finish="isUploading = false" x-on:livewire-upload-error="isUploading = false" x-on:livewire-upload-progress="progress = $event.detail.progress">
-               
-                <div class="mt-4">
-                    <x-tall-crud-label>Gender</x-tall-crud-label>
-                    <x-tall-crud-select class="block mt-1 w-full" wire:model.defer="item.gender">
-                        <option value="">Please Select</option>
-                        <option value="{{App\Enums\GenderEnum::Male->value}}">Male</option>
-                        <option value="{{App\Enums\GenderEnum::Female->value}}">Female</option>
-                    </x-tall-crud-select>
-                    @error('item.gender') <x-tall-crud-error-message>{{$message}}</x-tall-crud-error-message> @enderror
-                </div>
+            
                 <div class="mt-4">
                     <input wire:model.defer="profile_picture" class="block mt-1 w-full text-gray-900 bg-gray-50 rounded-lg border border-gray-300 cursor-pointer dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 hidden" id="large_size" type="file">
                     <label class="block w-full text-lg text-gray-900 py-1.5 bg-blue-50 rounded-lg border border-gray-300 cursor-pointer dark:text-gray-400 focus:outline-none shadow-sm" for="large_size">

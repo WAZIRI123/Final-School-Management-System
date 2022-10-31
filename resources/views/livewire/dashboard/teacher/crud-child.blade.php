@@ -43,7 +43,7 @@
                 </div>
                 <div class="mt-4">
                     <x-tall-crud-label>Phone</x-tall-crud-label>
-                    <x-tall-crud-input class="block mt-1 w-full" type="text" wire:model.defer="item.phone" />
+                    <x-tall-crud-input class="block mt-1 w-full" type="text" wire:model.defer="item.phone" placeholder="0653039317"/>
                     @error('item.phone') <x-tall-crud-error-message>{{$message}}</x-tall-crud-error-message> @enderror
                 </div>
             </div>
@@ -93,7 +93,7 @@
                 </div>
                 <div class="mt-4">
                     <x-tall-crud-label>Phone</x-tall-crud-label>
-                    <x-tall-crud-input class="block mt-1 w-full" type="text" wire:model.defer="item.phone" />
+                    <x-tall-crud-input class="block mt-1 w-full" type="text" wire:model.defer="item.phone" placeholder="0653039317" />
                     @error('item.phone') <x-tall-crud-error-message>{{$message}}</x-tall-crud-error-message> @enderror
                 </div>
             </div>
@@ -207,7 +207,8 @@
                         <span class="inline">
                             @if ($profile_picture)
                                 {{ $profile_picture->getClientOriginalName() }}
-                            @else         
+                            @else      
+                               
                             @if ( str_contains($oldImage,'img/profile_picture/upload/'))
                             <img src="{{ asset('storage/' . $oldImage) }}" alt="profile photo" class=" inline w-10 h-10 rounded-full">
                             Change image
