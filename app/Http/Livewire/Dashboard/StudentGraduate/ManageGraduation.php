@@ -115,14 +115,14 @@ class ManageGraduation extends Component
 
             // update each student's class
             foreach ($users as $user) {
-                if (in_array($user->id, $this->selectedRows)) {
+                if (in_array($user->id, collect($this->selectedRows)->toArray())) {
                     
                     $user->update([
                         'is_graduated' => false,
                     ]);
                 }
             }
-            $this->reset(['selectedRows']);
+            $this->reset(['selectedRows','selectedAllRows']);
             $this->emitTo('livewire-toast', 'show', 'Student undo Graduation Successfully');
 }
 
