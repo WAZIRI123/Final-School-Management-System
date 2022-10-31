@@ -1,20 +1,6 @@
 <div class="mt-8 min-h-screen">
     @livewire('livewire-toast')
 
-    <x-tall-crud-confirmation-dialog wire:model="confirmingItemResetion">
-        <x-slot name="title">
-            Reset Promotion
-        </x-slot>
-
-        <x-slot name="content">
-            Are you sure you want to Reset Promotion?
-        </x-slot>
-
-        <x-slot name="footer">
-            <x-tall-crud-button wire:click="$set('confirmingItemResetion', false)">Cancel</x-tall-crud-button>
-            <x-tall-crud-button mode="delete" wire:loading.attr="disabled" wire:click="resetItem()">Reset</x-tall-crud-button>
-        </x-slot>
-    </x-tall-crud-confirmation-dialog>
     {{-- show modal --}}
     <x-tall-crud-confirmation-dialog wire:model="confirmingItemShow">
         <x-slot name="title">
@@ -23,21 +9,13 @@
         <x-slot name="content">
         @if ($promotion)
         <div>
-            <p>Old class: {{$promotion->oldClas?->class_name}}</p>
+            <p>Old class: {{$promotion->oldClass?->class_name}}</p>
             <p>Old section: {{$promotion->old_section}}</p>
             <p>New class: {{$promotion->newClass?->class_name}}</p>
             <p>New Section: {{$promotion->new_section}}</p>
+            <p>Students promoted: {{$promotion->student->user->name}}</p>
          </div>
          @endif
-         <h4 class="font-bold text-center">Students promoted</h4>
-         <ul>
-            @if ($students)
-            @foreach ($students as $student)
-            <li>{{$student?->user->name}}</li>
-        @endforeach
-            @endif
- 
-        </ul>
     </x-slot>
         <x-slot name="footer">
             <x-tall-crud-button wire:click="$set('confirmingItemShow', false)">Cancel</x-tall-crud-button>
@@ -80,19 +58,14 @@
             @foreach($results as $result)
                 <tr class="hover:bg-blue-300 {{ ($loop->even ) ? "bg-blue-100" : ""}}">
                     <td class="px-2 py-2 capitalize" >{{ $result->id }}</td>
-                    <td class="px-2 py-2 capitalize" >{{ $result->student?->id }}</td>
+                    <td class="px-2 py-2 capitalize" >{{ $result->student->user->name }}</td>
                     <td class="px-2 py-2 capitalize" >{{ $result->oldClass?->class_name}}</td>
                     <td class="px-2 py-2 capitalize" >{{ $result->newClass?->class_name  }}</td>
                     <td class="px-2 py-2 capitalize" >{{ $result->old_section }}</td>
                     <td class="px-2 py-2 capitalize" >{{ $result->new_section }}</td>
                     <td class="px-2 py-2 capitalize" >{{ $result->academicYear->name() }}</td>
-                    
-
                     <td class="px-2 py-2" >
-                        <button type="submit" wire:click="$emit('showResetForm', {{ $result->id}});" class="text-red-500">
-                            <x-tall-crud-icon-delete />
-                        </button>
-                        <button type="submit" wire:click="$emit('showShowForm', {{ $result->id}});" class="text-green-500">
+                        <button type="submit" wire:click="$emit('promotionDetails', {{ $result->id}});" class="text-green-500">
                             <x-tall-crud-icon-add />
                         </button>
                     </td>

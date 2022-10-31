@@ -23,7 +23,7 @@ class ManagePromotion extends Component
     /**
      * @var array
      */
-    protected $listeners = ['refresh' => '$refresh', 'showResetForm' => 'showResetForm','showShowForm'=>'showShowForm'];
+    protected $listeners = ['refresh' => '$refresh','promotionDetails'=>'promotionDetails'];
     /**
      * @var string
      */
@@ -55,53 +55,19 @@ class ManagePromotion extends Component
     public function mount(): void
     {
     }
-    public function showShowForm(Promotion $promotion): void
+    public function promotionDetails(Promotion $promotion): void
     {
         $this->authorize('view', $promotion);
         $this->confirmingItemShow = true;
-        $this->students=Student::whereIn('id',$promotion->students)->get();
-        $this->promotion = $promotion;
-    }
-    public function showResetForm(Promotion $promotion): void
-    {
-        $this->authorize('reset', Promotion::class);
-        $this->confirmingItemResetion = true;
+        $this->students=Student::with('user')->where('id',$promotion->student_id)->get();
         $this->promotion = $promotion;
     }
 
-    public function resetItem(): void
-    {
-        $this->authorize('reset', Promotion::class);
-
-        //get all students for promotion reset
-        $students = Student::whereIn('id', $this->promotion->students)->get();
-        
-        DB::beginTransaction();
-        // update each student's class
-        foreach ($students as $student) {
-
-                $student->update([
-                    'class_id' => $this->promotion->old_class_id,
-                    'section'  => $this->promotion->old_section,
-                ]);
-      
-        }
-
-        // reset promotion record
-        $this->promotion->delete();
-
-        DB::commit();
-        $this->confirmingItemResetion = false;
-        $this->promotion = '';
-        
-        $this->emitTo('dashboard.promote-student.manage-promotion', 'refresh');
-        $this->emitTo('livewire-toast', 'show', 'Record reseted Successfully');
-    }
 
     public function render(): View
     {
         $results = $this->query()
-            ->with(['academicYear', 'oldClass', 'newClass','student'])
+            ->with(['academicYear', 'oldClass', 'newClass','student','student.user'])
             ->where('school_id', auth()->user()->school_id)
             ->when($this->q, function ($query) {
                 return $query->where(function ($query) {

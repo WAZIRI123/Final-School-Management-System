@@ -35,7 +35,7 @@ class Promotion extends Model
     }
     public function student():BelongsTo
     {
-        return $this->belongsTo(Student::class, 'students');
+        return $this->belongsTo(Student::class, 'student_id');
     }
 
     public function academicYear()

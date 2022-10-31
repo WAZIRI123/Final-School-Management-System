@@ -134,7 +134,7 @@ class PromoteStudent extends Component
         DB::beginTransaction();
         // update each student's class
         foreach ($students as $student) {
-            if (in_array($student->id, $this->selectedRows)) {
+            if (in_array($student->id,collect($this->selectedRows)->toArray())) {
                 
                 $student->update([
                     'class_id' => $this->new_class,

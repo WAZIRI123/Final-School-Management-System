@@ -24,11 +24,11 @@ class CreatePromotionTest extends TestCase
     {
         $this->withoutExceptionHandling();
 
-
         // make fake user && assign role && acting as that user
         $user1 = User::factory()->create();
         $user1->assignRole('admin');
-        $student = Student::factory()->for($user1)->create();
+        $user=User::factory()->create();
+        $student = Student::factory()->for($user)->create();
 
         // check if user has given permission/gate   
         $user1->can('promote', Promotion::class);
@@ -37,7 +37,7 @@ class CreatePromotionTest extends TestCase
             ->test(PromoteStudent::class,['student' => $student])
             ->set('old_section', \App\Enums\ClassSectionEnum::A)
             ->set('old_class', 1)
-            ->set('new_class', 1)
+            ->set('new_class', 2)
             ->set('new_section', \App\Enums\ClassSectionEnum::A)
             ->set('selectedRows', [1])
             ->call('promoteStudents');
@@ -54,32 +54,4 @@ class CreatePromotionTest extends TestCase
         ]);
     }
 
-     /** @test  */
-     public function authorized_user_can_reset_promotion()
-     {
-         $this->withoutExceptionHandling();
- 
- 
-         // make fake user && assign role && acting as that user
-         $user1 = User::factory()->create();
-         $user1->assignRole('admin');
-
-         $promotion = Promotion::factory()->create();
-         
-         // check if user has given permission/gate   
-         $user1->can('reset', Promotion::class);
- 
-         Livewire::actingAs($user1)
-             ->test(ManagePromotion::class,['promotion' => $promotion])
-             ->call('showResetForm', $promotion)
-             ->call('resetItem');
- 
-         // test if data exist in database
-         $this->assertDatabaseHas('students', [
-             'section' => \App\Enums\ClassSectionEnum::B,
-         ]);
- 
-        // test if data is softdeleted
-        $this->assertSoftDeleted($promotion);
-     }
 }
