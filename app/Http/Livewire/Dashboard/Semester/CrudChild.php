@@ -7,14 +7,17 @@ use Livewire\Component;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use \Illuminate\View\View;
 use App\Models\Semester;
+use Illuminate\Validation\Rule;
 
 class CrudChild extends Component
 {
     use AuthorizesRequests;
 
     public $item;
+    
     public  $academicyear;
 
+    public $semester;
     /**
      * @var array
      */
@@ -27,11 +30,12 @@ class CrudChild extends Component
     /**
      * @var array
      */
-    protected $rules = [
-        'item.name' => 'required',
+    protected function rules(){
+    return [
+        'item.name' =>['required',Rule::unique('semesters','name')->ignore($this->semester->id)->whereNull('deleted_at')],
         'item.academic_year_id' => 'required',
     ];
-
+}
     /**
      * @var array
      */
@@ -40,13 +44,13 @@ class CrudChild extends Component
         'item.academic_year_id' => 'Academic Year Id',
     ];
 
+
     /**
      * @var bool
      */
     public $confirmingItemDeletion = false;
 
 
-    public $semester;
 
     /**
      * @var bool
@@ -58,8 +62,9 @@ class CrudChild extends Component
      */
     public $confirmingItemEdit = false;
 
-    public function mount(){
-
+    public function mount(Semester $semester){
+    
+      $this->semester=$semester;
       $this->academicyear=AcademicYear::all();
 
     }
@@ -81,7 +86,7 @@ class CrudChild extends Component
         $this->authorize('delete', [$this->semester, 'semester']);
         $this->semester->delete();
         $this->confirmingItemDeletion = false;
-        $this->semester = '';
+        
         $this->reset(['item']);
         $this->emitTo('dashboard.semester.crud', 'refresh');
         $this->emitTo('livewire-toast', 'show', 'Record Deleted Successfully');
@@ -123,8 +128,8 @@ class CrudChild extends Component
         $this->authorize('update', [$this->semester, 'semester']);
         $this->validate();
         $this->item->save();
+    
         $this->confirmingItemEdit = false;
-        $this->semester = '';
         $this->emitTo('dashboard.semester.crud', 'refresh');
         $this->emitTo('livewire-toast', 'show', 'Record Updated Successfully');
     }

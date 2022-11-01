@@ -107,7 +107,6 @@ class CrudChild extends Component
         User::find($this->parent->user_id)->delete();
         $this->parent->delete();
         $this->confirmingItemDeletion = false;
-        $this->primaryKey = '';
         $this->reset(['item']);
         $this->emitTo('dashboard.parent.crud', 'refresh');
         $this->emitTo('livewire-toast', 'show', 'Record Deleted Successfully');
@@ -205,7 +204,7 @@ class CrudChild extends Component
         ]);
         DB::commit();
         $this->confirmingItemEdit = false;
-        $this->primaryKey = '';
+
         $this->emitTo('dashboard.parent.crud', 'refresh');
         $this->emitTo('livewire-toast', 'show', 'Record Updated Successfully');
     }

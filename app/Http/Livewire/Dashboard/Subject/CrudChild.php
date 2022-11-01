@@ -8,6 +8,7 @@ use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Haruncpi\LaravelIdGenerator\IdGenerator;
 use \Illuminate\View\View;
 use App\Models\Subject;
+use Illuminate\Validation\Rule;
 
 class CrudChild extends Component
 {
@@ -30,11 +31,13 @@ class CrudChild extends Component
     /**
      * @var array
      */
-    protected $rules = [
-        'item.name' => 'required',
+    protected  function rules(){
+   return [
+        'item.name' =>['required',Rule::unique('subjects','name')->ignore($this->subject->id)->whereNull('deleted_at')],
         'item.subject_code' => 'required',
         'item.class_id' => 'required',
     ];
+}
 
     /**
      * @var array
@@ -64,9 +67,11 @@ class CrudChild extends Component
      * @var bool
      */
     public $confirmingItemEdit = false;
+    
 
-    public function mount()
+    public function mount(Subject $subject)
     {
+        $this->subject=$subject;
         $this->classes =Classes::all();
     }
 
@@ -88,7 +93,7 @@ class CrudChild extends Component
         $this->authorize('delete', [$this->subject, 'subject']);
         $this->subject->delete();
         $this->confirmingItemDeletion = false;
-        $this->subject = '';
+     
         $this->reset(['item']);
         $this->emitTo('dashboard.subject.crud', 'refresh');
         $this->emitTo('livewire-toast', 'show', 'Record Deleted Successfully');
@@ -133,7 +138,7 @@ class CrudChild extends Component
         $this->validate();
         $this->item->save();
         $this->confirmingItemEdit = false;
-        $this->subject = '';
+
         $this->emitTo('dashboard.subject.crud', 'refresh');
         $this->emitTo('livewire-toast', 'show', 'Record Updated Successfully');
     }
