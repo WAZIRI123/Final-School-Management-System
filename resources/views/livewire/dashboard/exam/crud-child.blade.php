@@ -57,7 +57,7 @@
             </div>
             <div class="mt-4">
                 <x-tall-crud-label>Active</x-tall-crud-label>
-                <x-tall-crud-select class="block mt-1 w-full" wire:model.defer="item.active"><option value="true">Yes</option><option value="false">No</option>
+                <x-tall-crud-select class="block mt-1 w-full" wire:model.defer="item.active"><option value="1">Yes</option><option value="0">No</option>
                 </x-tall-crud-select> 
                 @error('item.active') <x-tall-crud-error-message>{{$message}}</x-tall-crud-error-message> @enderror
             </div>
@@ -120,7 +120,9 @@
             </div>
             <div class="mt-4">
                 <x-tall-crud-label>Active</x-tall-crud-label>
-                <x-tall-crud-select class="block mt-1 w-full" wire:model.defer="item.active"><option value="true">Yes</option><option value="false">No</option>
+                <x-tall-crud-select class="block mt-1 w-full" wire:model.defer="item.active">
+                    <option value="1">Yes</option>
+                    <option value="0">No</option>
                 </x-tall-crud-select> 
                 @error('item.active') <x-tall-crud-error-message>{{$message}}</x-tall-crud-error-message> @enderror
             </div>
@@ -128,7 +130,9 @@
         <div class="grid grid-cols-2 gap-8">
             <div class="mt-4">
                 <x-tall-crud-label>Publish Result</x-tall-crud-label>
-                <x-tall-crud-select class="block mt-1 w-full" wire:model.defer="item.publish_result"><option value="true">Yes</option><option value="false">No</option>
+                <x-tall-crud-select class="block mt-1 w-full" wire:model.defer="item.publish_result">
+                    <option value="true">Yes</option>
+                    <option value="false">No</option>
                 </x-tall-crud-select> 
                 @error('item.publish_result') <x-tall-crud-error-message>{{$message}}</x-tall-crud-error-message> @enderror
             </div>
