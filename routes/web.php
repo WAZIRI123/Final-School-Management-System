@@ -117,7 +117,7 @@ Route::namespace('App\Http\Livewire')->group(function () {
 
                     Route::get('/timetableslot', TimeTableTimeSlot::class)->name('timetableslot');
 
-                    Route::get('/manage-timetable', ManageTimeTable::class)->name('manage-timetable');
+                    Route::get('/manage-timetable-record', ManageTimeTableRecord::class)->name('manage-timetable-record');
                 });
 
                 // for  Semester

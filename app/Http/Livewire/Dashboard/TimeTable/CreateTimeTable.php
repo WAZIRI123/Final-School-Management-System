@@ -8,7 +8,7 @@ use \Illuminate\View\View;
 use App\Models\Timetable;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 
-class CrudChild extends Component
+class CreateTimeTable extends Component
 {
     use AuthorizesRequests;
     
@@ -69,7 +69,7 @@ class CrudChild extends Component
 
     public function render(): View
     {
-        return view('livewire.dashboard.time-table.crud-child');
+        return view('livewire.dashboard.time-table.create-time-table');
     }
 
     public function showDeleteForm(Timetable $timetable): void
@@ -88,7 +88,7 @@ class CrudChild extends Component
         $this->confirmingItemDeletion = false;
         $this->timetable = '';
         $this->reset(['item']);
-        $this->emitTo('dashboard.time-table.crud', 'refresh');
+        $this->emitTo('dashboard.time-table.manage-time-table', 'refresh');
         $this->emitTo('livewire-toast', 'show', 'Record Deleted Successfully');
     }
  
@@ -114,7 +114,7 @@ class CrudChild extends Component
             'school_id' => auth()->user()->school->id,
         ]);
         $this->confirmingItemCreation = false;
-        $this->emitTo('dashboard.time-table.crud', 'refresh');
+        $this->emitTo('dashboard.time-table.manage-time-table', 'refresh');
         $this->emitTo('livewire-toast', 'show', 'Record Added Successfully');
     }
  
@@ -136,7 +136,7 @@ class CrudChild extends Component
         $this->item->save();
         $this->confirmingItemEdit = false;
         $this->timetable = '';
-        $this->emitTo('dashboard.time-table.crud', 'refresh');
+        $this->emitTo('dashboard.time-table.manage-time-table', 'refresh');
         $this->emitTo('livewire-toast', 'show', 'Record Updated Successfully');
     }
 

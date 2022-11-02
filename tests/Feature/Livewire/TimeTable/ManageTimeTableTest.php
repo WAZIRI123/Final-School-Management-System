@@ -2,7 +2,7 @@
 
 namespace Tests\Feature\Livewire\TimeTable;
 
-use App\Http\Livewire\Dashboard\TimeTable\ManageTimeTable;
+use App\Http\Livewire\Dashboard\TimeTable\ManageTimeTableRecord;
 use App\Models\Timetable;
 use App\Models\User;
 use App\Traits\FeatureTestTrait;
@@ -28,7 +28,7 @@ class ManageTimeTableTest extends TestCase
         $user1->can('read', [$user1, 'TimeTable']);
 
         Livewire::actingAs($user1)
-            ->test(ManageTimeTable::class)
+            ->test(ManageTimeTableRecord::class)
             ->set('selected_class', 1)
             ->set('selected_semester',1)
 

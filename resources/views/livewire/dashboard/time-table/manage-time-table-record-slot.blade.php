@@ -1,8 +1,8 @@
 <div class="mt-8 min-h-screen">
     @livewire('livewire-toast')
     <div class="flex justify-between">
-        <div class="text-2xl">Time_Table_Time_Slots</div>
-        <button type="submit" wire:click="$emitTo('dashboard.time-table.time-slot-crud-child', 'showCreateForm');" class="text-blue-500">
+        <div class="text-2xl">TimeTable Record</div>
+        <button type="submit" wire:click="$emitTo('dashboard.time-table.create-time-table-record-slot', 'showCreateForm');" class="text-blue-500">
             <x-tall-crud-icon-add />
         </button> 
     </div>
@@ -122,10 +122,10 @@
                     <td class="px-3 py-2 capitalize" >{{ $result->start_time }}</td>
                     <td class="px-3 py-2 capitalize" >{{ $result->stop_time }}</td>
                     <td class="px-3 py-2 capitalize" >
-                        <button type="submit" wire:click="$emitTo('dashboard.time-table.time-slot-crud-child', 'showEditForm', {{ $result->id}});" class="text-green-500">
+                        <button type="submit" wire:click="$emitTo('dashboard.time-table.create-time-table-record-slot', 'showEditForm', {{ $result->id}});" class="text-green-500">
                             <x-tall-crud-icon-edit />
                         </button>
-                        <button type="submit" wire:click="$emitTo('dashboard.time-table.time-slot-crud-child', 'showDeleteForm', {{ $result->id}});" class="text-red-500">
+                        <button type="submit" wire:click="$emitTo('dashboard.time-table.create-time-table-record-slot', 'showDeleteForm', {{ $result->id}});" class="text-red-500">
                             <x-tall-crud-icon-delete />
                         </button>
                     </td>
@@ -138,6 +138,6 @@
     <div class="mt-4">
         {{ $results->links() }}
     </div>
-    @livewire('dashboard.time-table.time-slot-crud-child')
+    @livewire('dashboard.time-table.create-time-table-record-slot')
   
 </div>

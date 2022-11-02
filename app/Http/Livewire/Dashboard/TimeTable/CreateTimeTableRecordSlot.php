@@ -8,7 +8,7 @@ use \Illuminate\View\View;
 use App\Models\TimeTableTimeSlot;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 
-class TimeSlotCrudChild extends Component
+class CreateTimeTableRecordSlot extends Component
 {
     use AuthorizesRequests;
     public $item;
@@ -67,7 +67,7 @@ class TimeSlotCrudChild extends Component
       }
     public function render(): View
     {
-        return view('livewire.dashboard.time-table.time-slot-crud-child');
+        return view('livewire.dashboard.time-table.create-time-table-record-slot');
     }
 
     public function showDeleteForm(TimeTableTimeSlot $timetabletimeslot): void

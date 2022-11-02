@@ -58,13 +58,13 @@
                 @endcan
                 @can('create timetabletimeslot')
                 <!-- start::Submenu link -->
-                <x-side-menu.list-link route="dashboard.time-tables.timetableslot" title="Create TimeSlot" />
+                <x-side-menu.list-link route="dashboard.time-tables.timetableslot" title="Create TimeTableRecord" />
             
                 <!-- end::Submenu link -->
                 @endcan
                 @can('read timetable')
                 <!-- start::Submenu link -->
-                <x-side-menu.list-link route="dashboard.time-tables.manage-timetable" title="view Timetable" />
+                <x-side-menu.list-link route="dashboard.time-tables.manage-timetable-record" title="view Timetable" />
                 <!-- end::Submenu link -->
                 @endcan
 

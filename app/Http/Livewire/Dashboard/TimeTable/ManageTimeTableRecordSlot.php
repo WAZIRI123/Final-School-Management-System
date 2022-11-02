@@ -15,7 +15,7 @@ use App\Models\WeekDay;
 use App\Rules\IsCompositeUnique;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 
-class TimeSlotCrud extends Component
+class ManageTimeTableRecordSlot extends Component
 {
     use WithPagination, AuthorizesRequests;
 
@@ -125,7 +125,7 @@ class TimeSlotCrud extends Component
 
         $results = $this->Slots;
 
-        return view('livewire.dashboard.time-table.time-slot-crud', [
+        return view('livewire.dashboard.time-table.manage-time-table-record-slot', [
             'results' => $results
         ]);
     }

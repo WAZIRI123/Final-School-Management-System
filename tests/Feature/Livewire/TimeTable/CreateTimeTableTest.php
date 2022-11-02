@@ -2,7 +2,7 @@
 
 namespace Tests\Feature\Livewire\TimeTable;
 
-use App\Http\Livewire\Dashboard\TimeTable\CrudChild;
+use App\Http\Livewire\Dashboard\TimeTable\CreateTimeTable;
 use App\Models\Timetable;
 use App\Models\User;
 use App\Traits\FeatureTestTrait;
@@ -21,7 +21,7 @@ class CreateTimeTableTest extends TestCase
         public function test_view_all_TimeTable_cannot_be_accessed_by_unauthorised_users()
         {
             $this->unauthorized_user();
-            Livewire::test('dashboard.time-table.crud')
+            Livewire::test('dashboard.time-table.manage-time-table')
                 ->assertForbidden();
         }
     
@@ -57,7 +57,7 @@ class CreateTimeTableTest extends TestCase
             $this->withoutExceptionHandling();
     
     
-            Livewire::test('dashboard.time-table.crud-child')
+            Livewire::test('dashboard.time-table.create-time-table')
                 ->assertSeeHtml('wire:model.defer="item.name"')
                 ->assertSeeHtml('wire:model.defer="item.description"')
                 ->assertSeeHtml('wire:model.defer="item.class_id"')
@@ -71,7 +71,7 @@ class CreateTimeTableTest extends TestCase
         {
     
             Livewire::actingAs(User::factory()->create())
-                ->test(CrudChild::class)
+                ->test(CreateTimeTable::class)
                 ->set('item.name', 'waziri')
                 ->set('item.description', 'waziriallyamir@gmail.com')
                 ->set('item.semester_id', 1)
@@ -92,7 +92,7 @@ class CreateTimeTableTest extends TestCase
             $user1->can('create', [$user1, 'TimeTable']);
     
             Livewire::actingAs($user1)
-                ->test(CrudChild::class)
+                ->test(CreateTimeTable::class)
                 ->set('item.name', 'waziri')
                 ->set('item.description', 'waziri ally')
                 ->set('item.class_id', 2)
@@ -111,9 +111,9 @@ class CreateTimeTableTest extends TestCase
         {
             // make fake user &&  acting as that user and TimeTable
             $user = User::factory()->create();
-            $TimeTable = TimeTable::factory()->create();
+            $TimeTable = Timetable::factory()->create();
             Livewire::actingAs($user)
-                ->test(CrudChild::class, ['item' => $TimeTable])
+                ->test(CreateTimeTable::class, ['item' => $TimeTable])
                 ->call('showEditForm', $TimeTable)
                 ->set('item.name', 'waziribig')
                 ->call('editItem')
@@ -135,7 +135,7 @@ class CreateTimeTableTest extends TestCase
     
             // test
             Livewire::actingAs($user1)
-                ->test(CrudChild::class, ['item' => $TimeTable])
+                ->test(CreateTimeTable::class, ['item' => $TimeTable])
                 ->call('showEditForm', $TimeTable)
     
                 ->set('item.name', 'waziribig')
@@ -154,7 +154,7 @@ class CreateTimeTableTest extends TestCase
             $user = User::factory()->create();
             $TimeTable = TimeTable::factory()->create();
             Livewire::actingAs($user)
-                ->test(CrudChild::class, ['item' => $TimeTable])
+                ->test(CreateTimeTable::class, ['item' => $TimeTable])
                 ->call('deleteItem', $TimeTable)
                 ->assertForbidden();
         }
@@ -169,7 +169,7 @@ class CreateTimeTableTest extends TestCase
             $TimeTable = TimeTable::factory(['school_id'=>1,'semester_id'=>1,'class_id'=>1])->create();
             // test
             Livewire::actingAs($user)
-                ->test(CrudChild::class, ['TimeTable' => $TimeTable])
+                ->test(CreateTimeTable::class, ['TimeTable' => $TimeTable])
                 ->call('showDeleteForm', $TimeTable)
                 ->call('deleteItem');
     
