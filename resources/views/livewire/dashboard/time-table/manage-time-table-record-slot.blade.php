@@ -1,4 +1,8 @@
+<div>
+    <!-- start:Page content -->
+<div class="h-full bg-gray-200 p-8">
 <div class="mt-8 min-h-screen">
+    <div class="bg-white rounded-lg px-8 py-6 my-16 overflow-x-scroll custom-scrollbar">
     @livewire('livewire-toast')
     <div class="flex justify-between">
         <div class="text-2xl">TimeTable Record</div>
@@ -140,4 +144,7 @@
     </div>
     @livewire('dashboard.time-table.create-time-table-record-slot')
   
+</div>
+</div>
+</div>
 </div>

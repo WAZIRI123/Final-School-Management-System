@@ -127,7 +127,7 @@ class ManageTimeTableRecordSlot extends Component
 
         return view('livewire.dashboard.time-table.manage-time-table-record-slot', [
             'results' => $results
-        ]);
+        ])->layoutData(['title' => 'timetable-record | School Management System']);
     }
 
     public function sortBy(string $field): void

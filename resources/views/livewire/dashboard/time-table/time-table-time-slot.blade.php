@@ -75,7 +75,7 @@
         <!-- start::Table -->
         <div class="bg-white rounded-lg px-8 py-6 my-16 overflow-x-scroll custom-scrollbar">
             @can('read timetable')
-            @livewire('dashboard.time-table.time-slot-crud')
+            @livewire('dashboard.time-table.manage-time-table-record-slot')
             @endcan
         </div>
         <!-- end::Table -->

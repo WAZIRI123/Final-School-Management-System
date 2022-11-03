@@ -58,7 +58,7 @@
                 @endcan
                 @can('create timetabletimeslot')
                 <!-- start::Submenu link -->
-                <x-side-menu.list-link route="dashboard.time-tables.timetableslot" title="Create TimeTableRecord" />
+                <x-side-menu.list-link route="dashboard.time-tables.timetable-record-slot" title="Create TimeTableRecord" />
             
                 <!-- end::Submenu link -->
                 @endcan
