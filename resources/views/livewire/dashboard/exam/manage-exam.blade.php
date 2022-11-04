@@ -2,7 +2,7 @@
     @livewire('livewire-toast')
     <div class="flex justify-between">
         <div class="text-2xl">Exams</div>
-        <button type="submit" wire:click="$emitTo('dashboard.exam.crud-child', 'showCreateForm');" class="text-blue-500">
+        <button type="submit" wire:click="$emitTo('dashboard.exam.create-exam', 'showCreateForm');" class="text-blue-500">
             <x-tall-crud-icon-add />
         </button> 
     </div>
@@ -66,10 +66,10 @@
                     </td>
                     <td class="px-3 py-2 capitalize" >{{ $result->semester?->name }}</td>
                     <td class="px-3 py-2 capitalize" >
-                        <button type="submit" wire:click="$emitTo('dashboard.exam.crud-child', 'showEditForm', {{ $result->id}});" class="text-green-500">
+                        <button type="submit" wire:click="$emitTo('dashboard.exam.create-exam', 'showEditForm', {{ $result->id}});" class="text-green-500">
                             <x-tall-crud-icon-edit />
                         </button>
-                        <button type="submit" wire:click="$emitTo('dashboard.exam.crud-child', 'showDeleteForm', {{ $result->id}});" class="text-red-500">
+                        <button type="submit" wire:click="$emitTo('dashboard.exam.create-exam', 'showDeleteForm', {{ $result->id}});" class="text-red-500">
                             <x-tall-crud-icon-delete />
                         </button>
                     </td>
@@ -82,5 +82,5 @@
     <div class="mt-4">
         {{ $results->links() }}
     </div>
-    @livewire('dashboard.exam.crud-child')
+    @livewire('dashboard.exam.create-exam')
 </div>

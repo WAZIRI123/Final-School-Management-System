@@ -45,14 +45,14 @@
             </div>
             <div class="mt-4">
                 <x-tall-crud-label>Start Date</x-tall-crud-label>
-                <x-tall-crud-input class="block mt-1 w-full" type="text" wire:model.defer="item.start_date" />
+                <x-tall-crud-input class="block mt-1 w-full" type="text" wire:model.defer="item.start_date" placeholder="2023-01-01" />
                 @error('item.start_date') <x-tall-crud-error-message>{{$message}}</x-tall-crud-error-message> @enderror
             </div>
         </div>
         <div class="grid grid-cols-2 gap-8">
             <div class="mt-4">
                 <x-tall-crud-label>Stop Date</x-tall-crud-label>
-                <x-tall-crud-input class="block mt-1 w-full" type="text" wire:model.defer="item.stop_date" />
+                <x-tall-crud-input class="block mt-1 w-full" type="text" wire:model.defer="item.stop_date" placeholder="2023-01-01" />
                 @error('item.stop_date') <x-tall-crud-error-message>{{$message}}</x-tall-crud-error-message> @enderror
             </div>
             <div class="mt-4">
@@ -108,14 +108,14 @@
             </div>
             <div class="mt-4">
                 <x-tall-crud-label>Start Date</x-tall-crud-label>
-                <x-tall-crud-input class="block mt-1 w-full" type="text" wire:model.defer="item.start_date" />
+                <x-tall-crud-input class="block mt-1 w-full" type="text" wire:model.defer="item.start_date"  placeholder="2023-01-01" />
                 @error('item.start_date') <x-tall-crud-error-message>{{$message}}</x-tall-crud-error-message> @enderror
             </div>
         </div>
         <div class="grid grid-cols-2 gap-8">
             <div class="mt-4">
                 <x-tall-crud-label>Stop Date</x-tall-crud-label>
-                <x-tall-crud-input class="block mt-1 w-full" type="text" wire:model.defer="item.stop_date" />
+                <x-tall-crud-input class="block mt-1 w-full" type="text" wire:model.defer="item.stop_date" placeholder="2023-01-01" />
                 @error('item.stop_date') <x-tall-crud-error-message>{{$message}}</x-tall-crud-error-message> @enderror
             </div>
             <div class="mt-4">

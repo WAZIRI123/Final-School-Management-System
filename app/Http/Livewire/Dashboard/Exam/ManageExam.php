@@ -10,7 +10,7 @@ use \Illuminate\View\View;
 use App\Models\Exam;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 
-class Crud extends Component
+class ManageExam extends Component
 {
     use WithPagination,AuthorizesRequests;
 
@@ -57,7 +57,7 @@ class Crud extends Component
             ->orderBy($this->sortBy, $this->sortAsc ? 'ASC' : 'DESC')
             ->paginate($this->per_page);
 
-        return view('livewire.dashboard.exam.crud', [
+        return view('livewire.dashboard.exam.manage-exam', [
             'results' => $results
         ]);
     }

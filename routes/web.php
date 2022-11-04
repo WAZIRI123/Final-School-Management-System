@@ -124,7 +124,7 @@ Route::namespace('App\Http\Livewire')->group(function () {
                 Route::prefix('/exam')->namespace('Exam')->name('exams.')->group(function () {
 
                     Route::get('/exam-crud', Index::class)->name('index');
-                     Route::get('/exam-slot', ExamSlotCrud::class)->name('examslot');
+                     Route::get('/exam-slot', ManageExamSlot::class)->name('examslot');
 
 
                      Route::namespace('Marking')->name('marking.')->group(function () {

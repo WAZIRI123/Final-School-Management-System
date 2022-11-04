@@ -8,7 +8,7 @@ use \Illuminate\View\View;
 use App\Models\ExamSlot;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 
-class ExamSlotCrudChild extends Component
+class CreateExamSlot extends Component
 {
     use  AuthorizesRequests;
     public $item;
@@ -66,7 +66,7 @@ class ExamSlotCrudChild extends Component
     }
     public function render(): View
     {
-        return view('livewire.dashboard.exam.exam-slot-crud-child');
+        return view('livewire.dashboard.exam.create-exam-slot');
     }
 
     public function showDeleteForm(ExamSlot $examslot): void
@@ -83,7 +83,7 @@ class ExamSlotCrudChild extends Component
         $this->confirmingItemDeletion = false;
         $this->examslot = '';
         $this->reset(['item']);
-        $this->emitTo('dashboard.exam.exam-slot-crud', 'refresh');
+        $this->emitTo('dashboard.exam.manage-exam-slot', 'refresh');
         $this->emitTo('livewire-toast', 'show', 'Record Deleted Successfully');
     }
  
@@ -106,7 +106,7 @@ class ExamSlotCrudChild extends Component
             'exam_id' => $this->item['exam_id'], 
         ]);
         $this->confirmingItemCreation = false;
-        $this->emitTo('dashboard.exam.exam-slot-crud', 'refresh');
+        $this->emitTo('dashboard.exam.manage-exam-slot', 'refresh');
         $this->emitTo('livewire-toast', 'show', 'Record Added Successfully');
     }
  
@@ -126,7 +126,7 @@ class ExamSlotCrudChild extends Component
         $this->item->save();
         $this->confirmingItemEdit = false;
         $this->examslot = '';
-        $this->emitTo('dashboard.exam.exam-slot-crud', 'refresh');
+        $this->emitTo('dashboard.exam.manage-exam-slot', 'refresh');
         $this->emitTo('livewire-toast', 'show', 'Record Updated Successfully');
     }
 

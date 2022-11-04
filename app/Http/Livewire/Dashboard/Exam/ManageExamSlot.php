@@ -10,7 +10,7 @@ use \Illuminate\View\View;
 use App\Models\ExamSlot;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 
-class ExamSlotCrud extends Component
+class ManageExamSlot extends Component
 {
     use WithPagination ,AuthorizesRequests;
 
@@ -57,7 +57,7 @@ class ExamSlotCrud extends Component
             ->orderBy($this->sortBy, $this->sortAsc ? 'ASC' : 'DESC')
             ->paginate($this->per_page);
 
-        return view('livewire.dashboard.exam.exam-slot-crud', [
+        return view('livewire.dashboard.exam.manage-exam-slot', [
             'results' => $results
         ])->layoutData(['title' => ' Exam Slot | School Management System']);
     }

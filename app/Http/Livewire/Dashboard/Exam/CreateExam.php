@@ -8,7 +8,7 @@ use App\Models\Exam;
 use App\Models\Semester;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 
-class CrudChild extends Component
+class CreateExam extends Component
 {
 use AuthorizesRequests;
     public $item;
@@ -29,7 +29,7 @@ use AuthorizesRequests;
         'item.name' => 'required|string|max:255',
         'item.description' => 'required|string|max:255',
         'item.semester_id' => 'required|integer|exists:semesters,id',
-        'item.start_date' => 'required|date',
+        'item.start_date' => 'required|date|after_or_equal:today',
         'item.stop_date' => 'required|date|after_or_equal:start_date',
         'item.active' => 'nullable',
         'item.publish_result' => 'nullable',
@@ -72,7 +72,7 @@ use AuthorizesRequests;
       }
     public function render(): View
     {
-        return view('livewire.dashboard.exam.crud-child');
+        return view('livewire.dashboard.exam.create-exam');
     }
 
     public function showDeleteForm(Exam $exam): void
@@ -89,7 +89,7 @@ use AuthorizesRequests;
         $this->confirmingItemDeletion = false;
         $this->exam = '';
         $this->reset(['item']);
-        $this->emitTo('dashboard.exam.crud', 'refresh');
+        $this->emitTo('dashboard.exam.manage-exam', 'refresh');
         $this->emitTo('livewire-toast', 'show', 'Record Deleted Successfully');
     }
  
@@ -115,7 +115,7 @@ use AuthorizesRequests;
             'publish_result' => $this->item['publish_result'], 
         ]);
         $this->confirmingItemCreation = false;
-        $this->emitTo('dashboard.exam.crud', 'refresh');
+        $this->emitTo('dashboard.exam.manage-exam', 'refresh');
         $this->emitTo('livewire-toast', 'show', 'Record Added Successfully');
     }
  
@@ -135,7 +135,7 @@ use AuthorizesRequests;
         $this->item->save();
         $this->confirmingItemEdit = false;
         $this->exam = '';
-        $this->emitTo('dashboard.exam.crud', 'refresh');
+        $this->emitTo('dashboard.exam.manage-exam', 'refresh');
         $this->emitTo('livewire-toast', 'show', 'Record Updated Successfully');
     }
 

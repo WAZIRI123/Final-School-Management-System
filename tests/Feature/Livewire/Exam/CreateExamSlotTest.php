@@ -2,7 +2,7 @@
 
 namespace Tests\Feature\Livewire\Exam;
 
-use App\Http\Livewire\Dashboard\Exam\ExamSlotCrudChild;
+use App\Http\Livewire\Dashboard\Exam\CreateExamSlot;
 use App\Models\ExamSlot;
 use App\Models\User;
 use App\Traits\FeatureTestTrait;
@@ -17,22 +17,22 @@ class CreateExamSlotTest extends TestCase
     use RefreshDatabase;
     use FeatureTestTrait, AuthorizesRequests;
 
-        //test view all Exam cannot be accessed by unauthorised users
-        public function test_view_all_Exam_cannot_be_accessed_by_unauthorised_users()
+        //test view all Exam Slot cannot be accessed by unauthorised users
+        public function test_view_all_Exam_slot_cannot_be_accessed_by_unauthorised_users()
         {
             $this->unauthorized_user();
-            Livewire::test('dashboard.exam.exam-slot-crud')
+            Livewire::test('dashboard.exam.manage-exam-slot')
                 ->assertForbidden();
         }
     
     
         /** @test  */
     
-        public function unauthorized_user_can_not_create_Exam()
+        public function unauthorized_user_can_not_create_Exam_slot()
         {
     
             Livewire::actingAs(User::factory()->create())
-                ->test(ExamSlotCrudChild::class)
+                ->test(CreateExamSlot::class)
                 ->set('item.name', 'waziri')
                 ->set('item.description', 'waziriallyamir@gmail.com')
                 ->set('item.semester_id', 1)
@@ -44,7 +44,7 @@ class CreateExamSlotTest extends TestCase
     
         /** @test  */
     
-        public function authorized_user_can_create_Exam()
+        public function authorized_user_can_create_Exam_slot()
         {
             $this->withoutExceptionHandling();
             // make fake user && assign role && acting as that user
@@ -55,7 +55,7 @@ class CreateExamSlotTest extends TestCase
             $user1->can('update', [$user1, 'exam slot']);
     
             Livewire::actingAs($user1)
-                ->test(ExamSlotCrudChild::class)
+                ->test(CreateExamSlot::class)
                 ->set('item.name', 'waziri')
                 ->set('item.description', 'waziriallyamir@gmail.com')
                 ->set('item.exam_id', 1)
@@ -70,22 +70,22 @@ class CreateExamSlotTest extends TestCase
             ]);
         }
     
-        //test unauthorised users cannot edit Exam
-        public function test_unauthorised_users_cannot_edit_Exam()
+        //test unauthorised users cannot edit Exam slot
+        public function test_unauthorised_users_cannot_edit_Exam_slot()
         {
             // make fake user &&  acting as that user and Exam
             $user = User::factory()->create();
             $ExamSlotSlot = ExamSlot::factory()->create();
             Livewire::actingAs($user)
-                ->test(ExamSlotCrudChild::class, ['item' => $ExamSlotSlot])
+                ->test(CreateExamSlot::class, ['item' => $ExamSlotSlot])
                 ->call('showEditForm', $ExamSlotSlot)
                 ->set('item.name', 'waziribig')
                 ->call('editItem')
                 ->assertForbidden();
         }
     
-        //test authorised users can edit Exam
-        public function test_authorised_users_can_edit_Exam()
+        //test authorised users can edit Exam slot
+        public function test_authorised_users_can_edit_Exam_slot()
         {
             $this->withoutExceptionHandling();
     
@@ -99,7 +99,7 @@ class CreateExamSlotTest extends TestCase
     
             // test
             Livewire::actingAs($user1)
-                ->test(ExamSlotCrudChild::class, ['item' => $ExamSlot])
+                ->test(CreateExamSlot::class, ['item' => $ExamSlot])
                 ->call('showEditForm', $ExamSlot)
     
                 ->set('item.name', 'waziribig')
@@ -112,19 +112,19 @@ class CreateExamSlotTest extends TestCase
             ]);
         }
     
-        //test unauthorised users cannot edit Exam
-        public function test_unauthorised_users_cannot_delete_Exam()
+        //test unauthorised users cannot edit Exam slot
+        public function test_unauthorised_users_cannot_delete_Exam_slot()
         {
             $user = User::factory()->create();
             $ExamSlot = ExamSlot::factory()->create();
             Livewire::actingAs($user)
-                ->test(ExamSlotCrudChild::class, ['item' => $ExamSlot])
+                ->test(CreateExamSlot::class, ['item' => $ExamSlot])
                 ->call('deleteItem', $ExamSlot)
                 ->assertForbidden();
         }
-        //test authorised users can edit Exam
+        //test authorised users can edit Exam slot
     
-        public function test_authorised_users_can_delete_Exam()
+        public function test_authorised_users_can_delete_Exam_slot()
         {
             // make fake user && assign role && acting as that user
             $user = User::factory()->create();
@@ -133,7 +133,7 @@ class CreateExamSlotTest extends TestCase
             $ExamSlot = ExamSlot::factory()->create();
             // test
             Livewire::actingAs($user)
-                ->test(ExamSlotCrudChild::class, ['ExamSlot' => $ExamSlot])
+                ->test(CreateExamSlot::class, ['ExamSlot' => $ExamSlot])
                 ->call('showDeleteForm', $ExamSlot)
                 ->call('deleteItem');
     
