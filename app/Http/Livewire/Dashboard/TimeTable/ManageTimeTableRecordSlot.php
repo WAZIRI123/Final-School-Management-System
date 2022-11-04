@@ -42,9 +42,9 @@ class ManageTimeTableRecordSlot extends Component
     public $selected_weekday;
 
     public $selected_subject;
-    public $selectedAllSlots = false;
 
-    public $selectedSlots=[];
+
+    public $selectedSlots;
 
     public $selected_class;
 
@@ -65,8 +65,8 @@ class ManageTimeTableRecordSlot extends Component
         return [
             'selected_class'   => ['required','exists:classes,id'],
             'selected_subject'   => ['required','exists:subjects,id'],
+
             'selected_weekday' => ['required','exists:week_days,id',new IsCompositeUnique('time_table_time_slot_week_day', ['week_day_id' => $this->selected_weekday, 'time_table_time_slot_id' => $this->selectedSlots])],
-            'selectedSlots.*'   => 'nullable|exists:time_table_time_slots,id',
         ];
     }
 
@@ -84,16 +84,6 @@ class ManageTimeTableRecordSlot extends Component
             ->paginate($this->per_page);
     }
 
-    public function UpdatedselectedAllSlots($value)
-{
-    if ($value) {
-        $this->selectedSlots = $this->Slots->pluck('id')->map(function ($id) {
-            return (string) $id;
-        });
-    } else {
-        $this->reset(['selectedSlots', 'selectedAllSlots']);
-    }
-}
 
     //graduate student method
     public function SyncSlotsWithDays()
@@ -102,7 +92,7 @@ class ManageTimeTableRecordSlot extends Component
         $this->authorize('create timetabletimeslot', TimeTableTimeSlot::class);
         $this->validate();
         //get all students for promotion
-        $slots = TimeTableTimeSlot::whereIn('id', $this->selectedSlots)->get();
+        $slots = TimeTableTimeSlot::where('id', $this->selectedSlots)->get();
         //make sure selectedSlots is present
         if ($this->selectedSlots == null) {
             return session()->flash('danger', 'Please select slot/slots to sync');

@@ -100,7 +100,7 @@ class CreateTimeTableTimeSlotTest extends TestCase
                         ->set('selected_class', 1)
                         ->set('selected_subject', 1)
                         ->set('selected_weekday', 1)
-                        ->set('selectedSlots', [1])
+                        ->set('selectedSlots', 1)
                         ->call('SyncSlotsWithDays');
                         
             
