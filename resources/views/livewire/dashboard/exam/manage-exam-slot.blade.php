@@ -65,7 +65,7 @@
     <div class="mt-4">
         {{ $results->links() }}
     </div>
-    @livewire('dashboard.exam.exam-slot-crud-child')
+    @livewire('dashboard.exam.create-exam-slot')
 
 </div>
 </div>
