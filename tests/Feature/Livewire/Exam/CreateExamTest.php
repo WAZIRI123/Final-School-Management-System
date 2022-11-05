@@ -2,7 +2,7 @@
 
 namespace Tests\Feature\Livewire\Exam;
 
-use App\Http\Livewire\Dashboard\Exam\CrudChild;
+use App\Http\Livewire\Dashboard\Exam\CreateExam;
 use App\Models\Exam;
 use App\Models\User;
 use App\Traits\FeatureTestTrait;
@@ -21,7 +21,7 @@ class CreateExamTest extends TestCase
         public function test_view_all_Exam_cannot_be_accessed_by_unauthorised_users()
         {
             $this->unauthorized_user();
-            Livewire::test('dashboard.exam.crud')
+            Livewire::test('dashboard.exam.manage-exam')
                 ->assertForbidden();
         }
     
@@ -32,7 +32,7 @@ class CreateExamTest extends TestCase
         {
     
             Livewire::actingAs(User::factory()->create())
-                ->test(CrudChild::class)
+                ->test(CreateExam::class)
                 ->set('item.name', 'waziri')
                 ->set('item.description', 'waziriallyamir@gmail.com')
                 ->set('item.semester_id', 1)
@@ -55,12 +55,12 @@ class CreateExamTest extends TestCase
             $user1->can('update', [$user1, 'exam']);
     
             Livewire::actingAs($user1)
-                ->test(CrudChild::class)
+                ->test(CreateExam::class)
                 ->set('item.name', 'waziri')
                 ->set('item.description', 'waziriallyamir@gmail.com')
                 ->set('item.semester_id', 1)
-                ->set('item.start_date', '2020-01-01')
-                ->set('item.stop_date', '2020-01-31')
+                ->set('item.start_date', '2023-01-01')
+                ->set('item.stop_date', '2023-01-31')
                 ->set('item.active', '1')
                 ->set('item.publish_result', '1')
                 ->call('createItem')
@@ -80,7 +80,7 @@ class CreateExamTest extends TestCase
             $user = User::factory()->create();
             $Exam = Exam::factory()->create();
             Livewire::actingAs($user)
-                ->test(CrudChild::class, ['item' => $Exam])
+                ->test(CreateExam::class, ['item' => $Exam])
                 ->call('showEditForm', $Exam)
                 ->set('item.name', 'waziribig')
                 ->call('editItem')
@@ -102,7 +102,7 @@ class CreateExamTest extends TestCase
     
             // test
             Livewire::actingAs($user1)
-                ->test(CrudChild::class, ['item' => $Exam])
+                ->test(CreateExam::class, ['item' => $Exam])
                 ->call('showEditForm', $Exam)
     
                 ->set('item.name', 'waziribig')
@@ -121,7 +121,7 @@ class CreateExamTest extends TestCase
             $user = User::factory()->create();
             $Exam = Exam::factory()->create();
             Livewire::actingAs($user)
-                ->test(CrudChild::class, ['item' => $Exam])
+                ->test(CreateExam::class, ['item' => $Exam])
                 ->call('deleteItem', $Exam)
                 ->assertForbidden();
         }
@@ -136,7 +136,7 @@ class CreateExamTest extends TestCase
             $Exam = Exam::factory()->create();
             // test
             Livewire::actingAs($user)
-                ->test(CrudChild::class, ['Exam' => $Exam])
+                ->test(CreateExam::class, ['Exam' => $Exam])
                 ->call('showDeleteForm', $Exam)
                 ->call('deleteItem');
     

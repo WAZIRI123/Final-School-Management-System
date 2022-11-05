@@ -1,16 +1,16 @@
 <?php
 
-namespace App\Http\Livewire\Dashboard\TimeTable;
+namespace App\Http\Livewire\Dashboard\Exam;
 
 use Livewire\Component;
 use Livewire\WithPagination;
 use Illuminate\Database\Eloquent\Builder;
 use \Illuminate\View\View;
 
-use App\Models\Timetable;
+use App\Models\Exam;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 
-class Crud extends Component
+class ManageExam extends Component
 {
     use WithPagination,AuthorizesRequests;
 
@@ -46,10 +46,9 @@ class Crud extends Component
 
     public function render(): View
     {
-        $this->authorize('viewAny', [Timetable::class, 'timetable']);
-        
+        $this->authorize('viewAny', [Exam::class, 'exam']);
         $results = $this->query()
-        ->with(['MyClass','semester'])
+            ->with(['semester'])
             ->when($this->q, function ($query) {
                 return $query->where(function ($query) {
                     $query->where('name', 'like', '%' . $this->q . '%');
@@ -58,7 +57,7 @@ class Crud extends Component
             ->orderBy($this->sortBy, $this->sortAsc ? 'ASC' : 'DESC')
             ->paginate($this->per_page);
 
-        return view('livewire.dashboard.time-table.crud', [
+        return view('livewire.dashboard.exam.manage-exam', [
             'results' => $results
         ]);
     }
@@ -83,6 +82,6 @@ class Crud extends Component
 
     public function query(): Builder
     {
-        return Timetable::query();
+        return Exam::query();
     }
 }

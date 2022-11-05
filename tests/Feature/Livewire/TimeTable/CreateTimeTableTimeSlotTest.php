@@ -1,7 +1,7 @@
 <?php
 
-use App\Http\Livewire\Dashboard\TimeTable\TimeSlotCrud;
-use App\Http\Livewire\Dashboard\TimeTable\TimeSlotCrudChild;
+use App\Http\Livewire\Dashboard\TimeTable\CreateTimeTableRecordSlot;
+use App\Http\Livewire\Dashboard\TimeTable\ManageTimeTableRecordSlot;
 use App\Models\TimeTableTimeSlot;
 use App\Models\User;
 use App\Traits\FeatureTestTrait;
@@ -20,7 +20,7 @@ class CreateTimeTableTimeSlotTest extends TestCase
         public function test_view_all_TimeTableTimeSlot_cannot_be_accessed_by_unauthorised_users()
         {
             $this->unauthorized_user();
-            Livewire::test('dashboard.time-table.time-slot-crud')
+            Livewire::test('dashboard.time-table.manage-time-table-record-slot')
                 ->assertForbidden();
         }
     
@@ -33,7 +33,7 @@ class CreateTimeTableTimeSlotTest extends TestCase
             $this->withoutExceptionHandling();
     
     
-            Livewire::test('dashboard.time-table.time-slot-crud-child')
+            Livewire::test('dashboard.time-table.create-time-table-record-slot')
                 ->assertSeeHtml('wire:model.defer="item.start_time"')
                 ->assertSeeHtml('wire:model.defer="item.stop_time"')
                 ->assertSeeHtml('wire:model.defer="item.timetable_id"')
@@ -47,7 +47,7 @@ class CreateTimeTableTimeSlotTest extends TestCase
         {
     
             Livewire::actingAs(User::factory()->create())
-                ->test(TimeSlotCrudChild::class)
+                ->test(CreateTimeTableRecordSlot::class)
                 ->set('item.start_time', '14:02')
                 ->set('item.stop_time', '15:02')
                 ->set('item.timetable_id', 1)
@@ -68,7 +68,7 @@ class CreateTimeTableTimeSlotTest extends TestCase
             $user1->can('create', [$user1, 'TimeTableTimeSlot']);
     
             Livewire::actingAs($user1)
-                ->test(TimeSlotCrudChild::class)
+                ->test(CreateTimeTableRecordSlot::class)
                 ->set('item.start_time', '14:02')
                 ->set('item.stop_time', '15:02')
                 ->set('item.timetable_id', 1)
@@ -96,11 +96,11 @@ class CreateTimeTableTimeSlotTest extends TestCase
                     $user1->can('create', [$user1, 'TimeTableTimeSlot']);
             
                     Livewire::actingAs($user1)
-                        ->test(TimeSlotCrud::class)
+                        ->test(ManageTimeTableRecordSlot::class)
                         ->set('selected_class', 1)
                         ->set('selected_subject', 1)
                         ->set('selected_weekday', 1)
-                        ->set('selectedSlots', [1])
+                        ->set('selectedSlots', 1)
                         ->call('SyncSlotsWithDays');
                         
             
@@ -118,7 +118,7 @@ class CreateTimeTableTimeSlotTest extends TestCase
             $user = User::factory()->create();
             $TimeTableTimeSlot = TimeTableTimeSlot::factory()->create();
             Livewire::actingAs($user)
-                ->test(TimeSlotCrudChild::class, ['item' => $TimeTableTimeSlot])
+                ->test(CreateTimeTableRecordSlot::class, ['item' => $TimeTableTimeSlot])
                 ->call('showEditForm', $TimeTableTimeSlot)
                 ->set('item.start_time', '14:02')
                 ->call('editItem')
@@ -140,7 +140,7 @@ class CreateTimeTableTimeSlotTest extends TestCase
     
             // test
             Livewire::actingAs($user1)
-                ->test(TimeSlotCrudChild::class, ['item' => $TimeTableTimeSlot])
+                ->test(CreateTimeTableRecordSlot::class, ['item' => $TimeTableTimeSlot])
                 ->call('showEditForm', $TimeTableTimeSlot)
     
                 ->set('item.start_time', '15:02')
@@ -159,7 +159,7 @@ class CreateTimeTableTimeSlotTest extends TestCase
             $user = User::factory()->create();
             $TimeTableTimeSlot = TimeTableTimeSlot::factory()->create();
             Livewire::actingAs($user)
-                ->test(TimeSlotCrudChild::class, ['item' => $TimeTableTimeSlot])
+                ->test(CreateTimeTableRecordSlot::class, ['item' => $TimeTableTimeSlot])
                 ->call('deleteItem', $TimeTableTimeSlot)
                 ->assertForbidden();
         }
@@ -176,7 +176,7 @@ class CreateTimeTableTimeSlotTest extends TestCase
 
             // test
             Livewire::actingAs($user)
-                ->test(TimeSlotCrudChild::class, ['timeTableTimeSlot' => $timeTableTimeSlot])
+                ->test(CreateTimeTableRecordSlot::class, ['timeTableTimeSlot' => $timeTableTimeSlot])
                 ->call('showDeleteForm', $timeTableTimeSlot)
                 ->call('deleteItem');
     

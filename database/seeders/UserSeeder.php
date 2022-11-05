@@ -20,7 +20,7 @@ class UserSeeder extends Seeder
         $user = User::create([
             'name'          => 'Admin',
             'school_id'         => 1,
-            'email'         => 'super-admin@demo.com',
+            'email'         => 'super-admin@demo.com', 
             'password'      => bcrypt('12345678'),
             'email_verified_at' => now(),
             'created_at'    => date("Y-m-d H:i:s")
@@ -32,6 +32,7 @@ class UserSeeder extends Seeder
             'email'         => 'admin@demo.com',
             'password'      => bcrypt('12345678'),
             'email_verified_at' => now(),
+            'profile_picture'   =>'\img\profile_picture\upload\profile.png',
             'created_at'    => date("Y-m-d H:i:s")
         ]);
         $user->assignRole('admin');

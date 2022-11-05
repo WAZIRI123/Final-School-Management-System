@@ -85,6 +85,7 @@
                 </tr>
             </thead>
             <tbody class="divide-y divide-blue-400">
+                @if ($results)
             @foreach($results as $result)
                 <tr class="hover:bg-blue-300 {{ ($loop->even ) ? "bg-blue-100" : ""}}">
                     <td class="py-3 pl-2 capitalize" >{{ $loop->iteration }}</td>
@@ -101,9 +102,10 @@
                         </td>
                </tr>
             @endforeach
+            @endif
             </tbody>
         </table>
-        @if ($results->count()>0)
+        @if ($results?->count()>0)
         <div class="grid grid-cols-2 gap-8 pt-4 w-full justify-between justify-items-end">
             <div></div>
             <x-tall-crud-button mode="add" class="w-1/4" wire:loading.attr="disabled" wire:click="Markstudent()">Save Marks</x-tall-crud-button>
@@ -111,10 +113,12 @@
         @endif
 
     </div>
+@if ($results)
 
     <div class="mt-4">
         {{ $results->links() }}
     </div>
+    @endif
 </div>
 </div>
 </div>

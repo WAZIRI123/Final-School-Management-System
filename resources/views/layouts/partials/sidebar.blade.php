@@ -58,13 +58,13 @@
                 @endcan
                 @can('create timetabletimeslot')
                 <!-- start::Submenu link -->
-                <x-side-menu.list-link route="dashboard.time-tables.timetableslot" title="Create TimeSlot" />
+                <x-side-menu.list-link route="dashboard.time-tables.timetable-record-slot" title="Create TimeTableRecord" />
             
                 <!-- end::Submenu link -->
                 @endcan
                 @can('read timetable')
                 <!-- start::Submenu link -->
-                <x-side-menu.list-link route="dashboard.time-tables.manage-timetable" title="view Timetable" />
+                <x-side-menu.list-link route="dashboard.time-tables.manage-timetable-record" title="view Timetable" />
                 <!-- end::Submenu link -->
                 @endcan
 
@@ -192,11 +192,7 @@
 
         <!-- end::Submenu link -->
         @endcan
-        @can('menu-exam')
-        <!-- start::Submenu link -->
-        <x-side-menu.list-link route="dashboard.exams.examslot" title="Create ExamSlot" />
-
-        <!-- end::Submenu link -->
+             @can('menu-exam')
 
                       <!-- start::Submenu link -->
                       <x-side-menu.list-link route="dashboard.exams.marking.mark-exam" title="Mark Exam" />
@@ -220,7 +216,7 @@
 
         <!-- start::Menu link -->
         <a x-data="{ linkHover: false }" @mouseover="linkHover = true" @mouseleave="linkHover = false"
-            class="flex items-center text-gray-400 px-6 py-3 cursor-pointer hover:bg-black hover:bg-opacity-30 transition duration-200">
+            class="flex items-center text-gray-400 px-6 py-3 cursor-pointer hover:bg-black hover:bg-opacity-30 transition duration-200" href="{{ route('dashboard.profile') }}">
             <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 transition duration-200"
                 :class=" linkHover ? 'text-gray-100' : ''" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -232,22 +228,19 @@
         </a>
         <!-- end::Menu link  -->
 
-        <!-- start::Menu link -->
-        <form method="POST" action="{{ route('logout') }}" class="grid gap-2">
-            @csrf
-            <a x-data="{ linkHover: false }" @mouseover="linkHover = true" @mouseleave="linkHover = false"
-                class="flex items-center text-gray-400 px-6 py-3 cursor-pointer hover:bg-black hover:bg-opacity-30 transition duration-200">
-                <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 transition duration-200"
-                    :class=" linkHover ? 'text-gray-100' : ''" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                        d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
-                </svg>
-                <span class="ml-3 transition duration-200" :class="linkHover ? 'text-gray-100' : ''">
-                    Logout
-                </span>
-            </a>
-        </form>
-        <!-- end::Menu link -->
+                    <!-- start::Menu link -->
+                    <form method="POST" action="{{ route('logout') }}" class="grid gap-2">
+                        @csrf
+                        <a x-data="{ linkHover: false }" @mouseover="linkHover = true" @mouseleave="linkHover = false" href="{{ route('logout') }}" onclick="event.preventDefault(); this.closest('form').submit();"  class="flex items-center text-gray-400 px-6 py-3 cursor-pointer hover:bg-black hover:bg-opacity-30 transition duration-200">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 transition duration-200" :class=" linkHover ? 'text-gray-100' : ''" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                            </svg>
+                            <span class="ml-3 transition duration-200" :class="linkHover ? 'text-gray-100' : ''">
+                                Logout
+                            </span>
+                        </a>
+                        </form>
+                        <!-- end::Menu link -->
 
     </nav>
     <!-- end::Navigation -->

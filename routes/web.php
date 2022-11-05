@@ -28,6 +28,7 @@ Route::namespace('App\Http\Livewire')->group(function () {
 
             // livewire crud-generator Tall
             Route::get('/tall-crud-generator', TallCrud::class)->name('tall-crud-generator')->middleware('role:Admin');
+            Route::get('/profile', Profile::class)->name('profile');
 
             // for  School
             Route::prefix('/school')->namespace('School')->name('schools.')->group(function () {
@@ -115,16 +116,16 @@ Route::namespace('App\Http\Livewire')->group(function () {
 
                     Route::get('/create-timetable', Index::class)->name('index');
 
-                    Route::get('/timetableslot', TimeTableTimeSlot::class)->name('timetableslot');
+                    Route::get('/timetable-slot-record',ManageTimeTableRecordSlot::class)->name('timetable-record-slot');
 
-                    Route::get('/manage-timetable', ManageTimeTable::class)->name('manage-timetable');
+                    Route::get('/manage-timetable-record', ManageTimeTableRecord::class)->name('manage-timetable-record');
                 });
 
                 // for  Semester
                 Route::prefix('/exam')->namespace('Exam')->name('exams.')->group(function () {
 
                     Route::get('/exam-crud', Index::class)->name('index');
-                     Route::get('/exam-slot', ExamSlotCrud::class)->name('examslot');
+                   
 
 
                      Route::namespace('Marking')->name('marking.')->group(function () {

@@ -39,11 +39,6 @@ class Exam extends Model
         return $this->belongsTo(Semester::class);
     }
 
-    // public function examSlots()
-    // {
-    //     return $this->hasMany(ExamSlot::class);
-    // }
-
     //accessor for start date
     public function getStartDateAttribute($value)
     {

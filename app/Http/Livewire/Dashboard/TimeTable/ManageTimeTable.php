@@ -2,20 +2,17 @@
 
 namespace App\Http\Livewire\Dashboard\TimeTable;
 
-use App\Models\Classes;
-use App\Models\Semester;
-use App\Models\Timetable;
-use App\Models\TimeTableTimeSlot;
-use App\Models\WeekDay;
-use Illuminate\Contracts\Database\Eloquent\Builder;
-use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
-use \Illuminate\View\View;
 use Livewire\Component;
 use Livewire\WithPagination;
+use Illuminate\Database\Eloquent\Builder;
+use \Illuminate\View\View;
+
+use App\Models\Timetable;
+use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 
 class ManageTimeTable extends Component
 {
-    use WithPagination, AuthorizesRequests;
+    use WithPagination,AuthorizesRequests;
 
     /**
      * @var array
@@ -31,52 +28,39 @@ class ManageTimeTable extends Component
      */
     public $sortAsc = true;
 
+    /**
+     * @var string
+     */
+    public $q;
 
-    public $weekdays ;
+    /**
+     * @var int
+     */
+    public $per_page = 15;
 
-    public $selected_semester;
 
-   public $selected_class ;
-
-   public $classes;
-
-   public $semesters;
-    
-    public function mount()
+    public function mount(): void
     {
-        if (auth()->user()->roles->pluck('name')->toArray()[0] !='Admin') {
-            $this->selected_class =auth()->user()->teacher?->class_id?? auth()->user()->student?->class_id;
-            $this->selected_semester=AcademicYear()->semester?->id;
-           }
 
-        $this->weekdays  = WeekDay::with(['timeSlots','timeSlots.timetableRecord.subjects'])->get();
-  
-        $this->classes = Classes::all();
-        $this->semesters = Semester::all();
     }
 
-
-    protected function rules()
+    public function render(): View
     {
-        return [
-            'selected_class'   => ['required','exists:classes,id'],
-            'selected_semester'   => ['required','exists:semesters,id'],
-        ];
-    }
-
-
-    public function render():View
-    {
-     $this->authorize('viewAny', [Timetable::class, 'timetable']);
-     
+        $this->authorize('viewAny', [Timetable::class, 'timetable']);
+        
         $results = $this->query()
-            ->where('class_id', $this->selected_class)
-            ->where('semester_id',$this->selected_semester)
-            ->where('school_id',auth()->user()->school->id)
-            ->with(['slots'])
-            ->orderBy($this->sortBy, $this->sortAsc ? 'ASC' : 'DESC')->get();
+        ->with(['MyClass','semester'])
+            ->when($this->q, function ($query) {
+                return $query->where(function ($query) {
+                    $query->where('name', 'like', '%' . $this->q . '%');
+                });
+            })
+            ->orderBy($this->sortBy, $this->sortAsc ? 'ASC' : 'DESC')
+            ->paginate($this->per_page);
 
-        return view('livewire.dashboard.time-table.manage-time-table',['results'=>$results])->layoutData(['title' => 'timetables | School Management System']);
+        return view('livewire.dashboard.time-table.manage-time-table', [
+            'results' => $results
+        ]);
     }
 
     public function sortBy(string $field): void
@@ -87,16 +71,18 @@ class ManageTimeTable extends Component
         $this->sortBy = $field;
     }
 
+    public function updatingQ(): void
+    {
+        $this->resetPage();
+    }
+
     public function updatingPerPage(): void
     {
         $this->resetPage();
     }
 
     public function query(): Builder
-
     {
         return Timetable::query();
     }
-
-
 }

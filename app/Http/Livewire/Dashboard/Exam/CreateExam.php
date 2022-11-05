@@ -2,15 +2,15 @@
 
 namespace App\Http\Livewire\Dashboard\Exam;
 
-use App\Models\Exam;
 use Livewire\Component;
 use \Illuminate\View\View;
-use App\Models\ExamSlot;
+use App\Models\Exam;
+use App\Models\Semester;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 
-class ExamSlotCrudChild extends Component
+class CreateExam extends Component
 {
-    use  AuthorizesRequests;
+use AuthorizesRequests;
     public $item;
 
     /**
@@ -27,9 +27,12 @@ class ExamSlotCrudChild extends Component
      */
     protected $rules = [
         'item.name' => 'required|string|max:255',
-        'item.description' => 'nullable|string|max:10000',
-        'item.total_marks' => 'required|integer|min:1',
-        'item.exam_id' => 'required',
+        'item.description' => 'required|string|max:255',
+        'item.semester_id' => 'required|integer|exists:semesters,id',
+        'item.start_date' => 'required|date|after_or_equal:today',
+        'item.stop_date' => 'required|date|after_or_equal:start_date',
+        'item.active' => 'nullable',
+        'item.publish_result' => 'nullable',
     ];
 
     /**
@@ -38,18 +41,19 @@ class ExamSlotCrudChild extends Component
     protected $validationAttributes = [
         'item.name' => 'Name',
         'item.description' => 'Description',
-        'item.total_marks' => 'Total Marks',
-        'item.exam_id' => 'Exam Id',
+        'item.semester_id' => 'Semester Id',
+        'item.start_date' => 'Start Date',
+        'item.stop_date' => 'Stop Date',
+        'item.active' => 'Active',
+        'item.publish_result' => 'Publish Result',
     ];
 
     /**
      * @var bool
      */
     public $confirmingItemDeletion = false;
-    
-    public $exam;
 
-    public $examslot;
+    public $exam;
 
     /**
      * @var bool
@@ -62,34 +66,36 @@ class ExamSlotCrudChild extends Component
     public $confirmingItemEdit = false;
 
     public function mount(){
-        $this->exam=Exam::all();
-    }
+
+        $this->semester=Semester::all();
+  
+      }
     public function render(): View
     {
-        return view('livewire.dashboard.exam.exam-slot-crud-child');
+        return view('livewire.dashboard.exam.create-exam');
     }
 
-    public function showDeleteForm(ExamSlot $examslot): void
+    public function showDeleteForm(Exam $exam): void
     {
-        $this->authorize('delete', [$examslot, 'exam slot']);
+        $this->authorize('delete', [$exam, 'exam']);
         $this->confirmingItemDeletion = true;
-        $this->examslot = $examslot;
+        $this->exam = $exam;
     }
 
     public function deleteItem(): void
     {
-        $this->authorize('delete', [$this->examslot, 'exam slot']);
-        $this->examslot->delete();
+        $this->authorize('delete', [$this->exam, 'exam']);
+        $this->exam->delete();
         $this->confirmingItemDeletion = false;
-        $this->examslot = '';
+        $this->exam = '';
         $this->reset(['item']);
-        $this->emitTo('dashboard.exam.exam-slot-crud', 'refresh');
+        $this->emitTo('dashboard.exam.manage-exam', 'refresh');
         $this->emitTo('livewire-toast', 'show', 'Record Deleted Successfully');
     }
  
     public function showCreateForm(): void
     {
-        $this->authorize('create', [ExamSlot::class, 'exam slot']);
+        $this->authorize('create', [Exam::class, 'exam']);
         $this->confirmingItemCreation = true;
         $this->resetErrorBag();
         $this->reset(['item']);
@@ -97,36 +103,39 @@ class ExamSlotCrudChild extends Component
 
     public function createItem(): void
     {
-        $this->authorize('create', [ExamSlot::class, 'exam slot']);
+        $this->authorize('create', [Exam::class, 'exam']);
         $this->validate();
-        $item = ExamSlot::create([
+        $item = Exam::create([
             'name' => $this->item['name'], 
             'description' => $this->item['description'], 
-            'total_marks' => $this->item['total_marks'], 
-            'exam_id' => $this->item['exam_id'], 
+            'semester_id' => $this->item['semester_id'], 
+            'start_date' => $this->item['start_date'], 
+            'stop_date' => $this->item['stop_date'], 
+            'active' => $this->item['active'], 
+            'publish_result' => $this->item['publish_result'], 
         ]);
         $this->confirmingItemCreation = false;
-        $this->emitTo('dashboard.exam.exam-slot-crud', 'refresh');
+        $this->emitTo('dashboard.exam.manage-exam', 'refresh');
         $this->emitTo('livewire-toast', 'show', 'Record Added Successfully');
     }
  
-    public function showEditForm(ExamSlot $examslot): void
+    public function showEditForm(Exam $exam): void
     {
-        $this->authorize('update', [$examslot, 'exam slot']);
+        $this->authorize('update', [$exam, 'exam']);
         $this->resetErrorBag();
-        $this->item = $examslot;
+        $this->item = $exam;
         $this->confirmingItemEdit = true;
-        $this->examslot = $examslot;
+        $this->exam = $exam;
     }
 
     public function editItem(): void
     {
-        $this->authorize('update', [$this->examslot, 'exam slot']);
+        $this->authorize('update', [$this->exam, 'exam']);
         $this->validate();
         $this->item->save();
         $this->confirmingItemEdit = false;
-        $this->examslot = '';
-        $this->emitTo('dashboard.exam.exam-slot-crud', 'refresh');
+        $this->exam = '';
+        $this->emitTo('dashboard.exam.manage-exam', 'refresh');
         $this->emitTo('livewire-toast', 'show', 'Record Updated Successfully');
     }
 
