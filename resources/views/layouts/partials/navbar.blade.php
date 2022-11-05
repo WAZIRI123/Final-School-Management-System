@@ -23,26 +23,19 @@
             <!-- start::Profile -->
             <div x-data="{ linkActive: false }" class="relative">
                
-                <!-- start::Main link -->
                 <div @click="linkActive = !linkActive" class="cursor-pointer">
-                    {{-- src="{{ asset('storage/' . auth()->user()->avatar) }}" --}}
-                    
-                    @if ( str_contains(auth()->user()->profile_picture,'img/profile_picture/upload/'))
-                    <img src="{{ asset('storage/' . auth()->user()->profile_picture) }}" alt="profile photo" class="w-10 h-10 rounded-full">
-                    @else
-                    <img src="{{auth()->user()->profile_picture}}" alt="profile photo" class="w-10 h-10 rounded-full">
-                    
-                    @endif
-                    
+                 @if (auth()->user()->profile_picture)
+                    <img src="{{ Storage::url(auth()->user()->profile_picture)}}" alt="profile photo" class="w-10 rounded-full">
+                @else
+                    <img src="{{auth()->user()->avatarUrl()}}" alt="profile photo" class="w-10 rounded-full">
+                @endif
                 </div>
-                <!-- end::Main link -->
-
                 <!-- start::Submenu -->
                 <div x-show="linkActive" @click.away="linkActive = false" x-cloak class="absolute right-0 w-40 top-11 border border-gray-300 z-20">
                     <!-- start::Submenu content -->
                     <div class="bg-white rounded">
                         <!-- start::Submenu link -->
-                        <a x-data="{ linkHover: false }" href="" class="flex items-center justify-between py-2 px-3 hover:bg-gray-100 bg-opacity-20" @mouseover="linkHover = true" @mouseleave="linkHover = false">
+                        <a x-data="{ linkHover: false }" class="flex items-center justify-between py-2 px-3 hover:bg-gray-100 bg-opacity-20" @mouseover="linkHover = true" @mouseleave="linkHover = false"  href="{{ route('dashboard.profile') }}">
                             <div class="flex items-center">
                                 <svg class="w-5 h-5 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path>
@@ -57,12 +50,12 @@
                         <!-- start::Submenu link -->
                         <form method="POST" action="{{ route('logout') }}" x-data="{ linkHover: false }" class="flex items-center justify-between py-2 px-3 hover:bg-gray-100 bg-opacity-20" @mouseover="linkHover = true" @mouseleave="linkHover = false">
                         @csrf
-                        <a href="{{ route('logout') }}">
+                        <a >
                             <div class="flex items-center">
                                 <svg class="w-5 h-5 text-red-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"></path>
                                 </svg>
-                                <button class="text-sm ml-3 text-gray-600 font-bold capitalize" :class=" linkHover ? 'text-primary' : ''">
+                                <button class="text-sm ml-3 text-gray-600 font-bold capitalize" :class=" linkHover ? 'text-primary' : ''" href="{{ route('logout') }}">
                                     Log out
                                 </button>
 

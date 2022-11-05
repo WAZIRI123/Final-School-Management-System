@@ -28,6 +28,7 @@ Route::namespace('App\Http\Livewire')->group(function () {
 
             // livewire crud-generator Tall
             Route::get('/tall-crud-generator', TallCrud::class)->name('tall-crud-generator')->middleware('role:Admin');
+            Route::get('/profile', Profile::class)->name('profile');
 
             // for  School
             Route::prefix('/school')->namespace('School')->name('schools.')->group(function () {
