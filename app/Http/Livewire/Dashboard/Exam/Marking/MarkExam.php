@@ -108,17 +108,22 @@ public function  Markstudent(){
 
     public function getStudentsProperty()
     {
+    if ($this->subject !=null && $this->exam !=null) {
     return $this->query()
     ->where('class_id', $this->class)
     ->where('section',$this->section)
-
+   -> whereDoesntHave('examrecords', function (Builder $query) {
+        $query->where([['exam_id',  $this->exam],['subject_id',  $this->subject]]);
+    })
     ->orderBy($this->sortBy, $this->sortAsc ? 'ASC' : 'DESC');
 }
+    }
 
     public function render(): View
     {
         $this->authorize('create', [ExamRecord::class, 'exam record']);
-        $results = $this->students->paginate($this->per_page);
+
+        $results = $this->students?->paginate($this->per_page);
 
         return view('livewire.dashboard.exam.marking.mark-exam', [
             'results' => $results
