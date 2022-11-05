@@ -1,0 +1,98 @@
+create class*2,teacher,parent, student,
+Promote Student,Manage Promotion,Graduate Student 
+,Academic Year,Academic Year,Semester,subject,TimeTable,
+
+
+Manage Graduation.
+
+for Student
+Promote Student
+
+correction 
+Parent
+*in parent must correct layout between image and gender input.
+
+Teacher
+*phone place holder for general.
+*image take long time for general
+
+student
+*image not showed up on edit form
+
+Manage  Student Promotion
+?old class must not present in New class
+*Promotion Manage{change name to Manage Promotion}
+*name of promoted student. 
+?Should i filter the promotion or show all 
+*old and newclass relationship cause N+1 
+*check how create promotion test work
+some it become slow == refresh it
+
+*make student unable to delete promotion.
+
+Promote Student
+*do i hve to leave previous promotion or remove.
+*promotion button layout and how to present it.
+*View promotion icon and layout of promotion details.
+*delete promotion cause unprecendent outcome in promote student.
+reset bult check box after promotion
+
+Graduate Student
+*table layout is incorrect
+10/31/2022
+
+Graduate Student
+*Graduation button layout and how to present it
+*bulk graduation bug
+
+Manage Graduation
+*Ungrauduate student
+
+AcademicYear
+?is it going to allow adding of previous years or not
+
+Semester
+*!Can the year accomodate  two identical semesters name  (may be testing needed)
+
+Subject
+*!can class has the two subjects with same name (may be testing needed)
+change class id to name.
+
+i Have assumed that 
+the system will be impleted in same Database
+(multitenancy).
+
+camera location switch  machine. tomorrow.
+
+TimeTable 
+*can class has the two timetable with same name (may be testing needed)
+
+timeslot
+*(change name to create timetableRecord)?
+*why two add button
+*same time record for same day?
+*stop multiple asign timetable to slot
+*change bulk action
+*remove multiple select all
+*file structure for future checking
+*delete sync-time-slot-with-week-day
+*naming still not good
+*timetabletimeslot.
+
+Exam
+*place hold for start date and stop date and limit in future?
+*start and stop date may repeate or not?
+*exam name must be unique?
+*placeholder for start and end date?
+*name should be unique
+*ExamSlot remove it
+*restructure the exam record
+*remove exam slot
+
+Mark Exam
+*marked student for specific subject must be removed. 
+* exam to which class or whole school?
+
+
+
+ 
