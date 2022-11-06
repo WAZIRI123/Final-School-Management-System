@@ -62,7 +62,7 @@ class ManageExamMark extends Component
 
         $this->classes = Classes::all();
 
-    $this->exams = Exam::where('semester_id',auth()->user()->school->semester->id)->get();
+    $this->exams = Exam::where('semester_id',auth()->user()->school->semester?->id)->get();
     }
 
     public function render(): View
@@ -74,7 +74,7 @@ class ManageExamMark extends Component
             ->where('subject_id',$this->subject)
             ->where('section_id',$this->section)
             ->where('exam_id',$this->exam)
-            ->where('semester_id',auth()->user()->school->semester->id)
+            ->where('semester_id',auth()->user()->school->semester?->id)
             ->when($this->q, function ($query) {
                 return $query->where(function ($query) {
                     $query->where('student_id', 'like', '%' . $this->q . '%');

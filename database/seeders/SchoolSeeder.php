@@ -30,4 +30,3 @@ class SchoolSeeder extends Seeder
                 ->create();
     }
     }
-

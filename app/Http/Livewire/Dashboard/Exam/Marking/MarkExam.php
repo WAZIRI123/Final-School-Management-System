@@ -81,7 +81,7 @@ class MarkExam extends Component
 
         $this->classes = Classes::all();
 
-    $this->exams = Exam::where('semester_id',auth()->user()->school->semester->id)->get();
+    $this->exams = Exam::where('semester_id',auth()->user()->school->semester?->id)->get();
     }
 public function  Markstudent(){
             $this->validate();
@@ -89,15 +89,16 @@ public function  Markstudent(){
               if ( count($this->student)!=$this->students->count()) {
                 return session()->flash('danger', 'Please make sure that you have entered mark for all students in the class');
             }
+
                 // update each student's class
               collect($this->student)->map(function($mark,$student){
                     ExamRecord::create([
-                        'semester_id' =>auth()->user()->school->semester->id, 
+                        'semester_id' =>auth()->user()->school->semester?->id?? 1, 
                         'class_id' => $this->class, 
                         'section_id' => $this->section, 
                         'exam_id' => $this->exam, 
-                        'subject_id' => $this->subject, 
-                        'student_id' => $student, 
+                        'subject_id' => $this->subject,
+                        'student_id' => $student,
                         'marks' => $mark, 
                     ]);
                 });

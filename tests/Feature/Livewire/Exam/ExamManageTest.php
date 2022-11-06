@@ -6,6 +6,9 @@ use App\Enums\ClassSectionEnum;
 use App\Http\Livewire\Dashboard\Exam\Marking\ManageExamMarkChild;
 use App\Http\Livewire\Dashboard\Exam\Marking\MarkExam;
 use App\Models\ExamRecord;
+use App\Models\School;
+use App\Models\Semester;
+use App\Models\Student;
 use App\Models\User;
 use App\Traits\FeatureTestTrait;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
@@ -24,8 +27,9 @@ class ExamManageTest extends TestCase
     
         public function unauthorized_user_can_not_create_ExamRecord()
         {
-            $this->withoutExceptionHandling();
-            $this->unauthorized_user();
+            $user = User::factory()->create();
+            /** @var \Illuminate\Contracts\Auth\Authenticatable $user */
+           $this->actingAs($user);
             Livewire::test('dashboard.exam.marking.mark-exam')
                 ->assertForbidden();
         }
@@ -45,7 +49,10 @@ class ExamManageTest extends TestCase
         public function authorized_user_can_create_ExamRecord()
         {
             $this->withoutExceptionHandling();
+
+            $students = Student::factory()->create();
             // make fake user && assign role && acting as that user
+           
             $user1 = User::factory()->create();
             $user1->assignRole('admin');
 
@@ -58,13 +65,13 @@ class ExamManageTest extends TestCase
                 ->set('section', ClassSectionEnum::A->value)
                 ->set('exam', 1)
                 ->set('subject', 1)
-                ->set('student', [25])
+                ->set('student', [1,2,3,4,5,6,7,8,9,10,11,12])
                 ->call('Markstudent');
     
             // test if data exist in database
             $this->assertDatabaseHas('exam_records', [
                 'class_id' => 1,
-                'marks'=>25,
+                'marks'=>2,
             ]);
         }
     
