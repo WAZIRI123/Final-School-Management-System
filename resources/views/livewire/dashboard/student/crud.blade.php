@@ -3,9 +3,12 @@
     @livewire('livewire-toast')
     <div class="flex justify-between">
         <div class="text-2xl">Students</div>
+        @can('create student')
         <button type="submit" wire:click="$emitTo('dashboard.student.crud-child', 'showCreateForm');" class="text-blue-500">
             <x-tall-crud-icon-add />
         </button> 
+        @endcan
+
     </div>
 
     <div class="mt-6">
@@ -31,7 +34,9 @@
                 <td class="py-2 pl-2" >Permanent Address</td>
                 <td  class="py-2 pl-2" >Class Id</td>
                 <td  class="py-2 pl-2" >Gender</td>
+                @can('update student' )
                 <td  class="py-2 pl-2" >Actions</td>
+                @endcan
             </thead>
             <tbody class="divide-y divide-blue-400">
             @foreach($results as $result)
@@ -43,6 +48,7 @@
                     <td class="py-3 capitalize pl-2" >{{ $result->permanent_address }}</td>
                     <td class="py-3 pl-2 capitalize" >{{ $result->class->class_name }}</td>
                     <td class="py-3 pl-2 capitalize" >{{ $result->gender }}</td>
+                    @can('update student' )
                     <td class="py-3 pl-2 capitalize" >
                         <button type="submit" wire:click="$emitTo('dashboard.student.crud-child', 'showEditForm', {{ $result->id}});" class="text-green-500">
                             <x-tall-crud-icon-edit />
@@ -51,6 +57,7 @@
                             <x-tall-crud-icon-delete />
                         </button>
                     </td>
+                    @endcan
                </tr>
             @endforeach
             </tbody>

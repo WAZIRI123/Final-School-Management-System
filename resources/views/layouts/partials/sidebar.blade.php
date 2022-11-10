@@ -103,7 +103,7 @@
             <!-- start::Submenu -->
             <ul x-show="linkActive" x-collapse.duration.300ms="" class="text-gray-400"
                 style="overflow: hidden; height: 0px;">
-                @can('graduate student')
+                @can('read student')
                 <!-- start::Submenu link -->
                 <x-side-menu.list-link route="dashboard.students.index" title="Students" />
 
@@ -152,6 +152,7 @@
         @endcan
         <!-- end::Menu link -->
 
+        @can('menu-academic-year')
         {{-- start menu wrapper --}}
         <div x-data="{ linkHover: false, linkActive: false }">
             <x-side-menu.menu-wrapper route="dashboard/academic" title="Academic" />
@@ -180,13 +181,14 @@
             <!-- end::Submenu  graduations-->
         </div>
        {{-- end menu wrapper --}}
+       @endcan
  {{-- start menu wrapper --}}
  <div x-data="{ linkHover: false, linkActive: false }">
     <x-side-menu.menu-wrapper route="dashboard/exam" title="Exam" />
     <!-- start::Submenu -->
     <ul x-show="linkActive" x-collapse.duration.300ms="" class="text-gray-400"
         style="overflow: hidden; height: 0px;">
-        @can('menu-exam')
+        @can('create exam')
         <!-- start::Submenu link -->
         <x-side-menu.list-link route="dashboard.exams.index" title="Create Exam" />
 

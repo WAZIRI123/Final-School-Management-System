@@ -18,7 +18,18 @@ class ExamRecordPolicy
      */
     public function viewAny(User $user)
     {
-        if ($user->can('read exam record')&&auth()->user()->roles?->pluck('name')->toArray()[0] =='Admin') {
+
+        if ($subject=auth()->user()->teacher?->subjects->toArray()) {
+       
+            $teacherSubjects=[];
+            foreach ($subject as $key => $value) {
+                $teacherSubjects[]=$value['id'];
+            }
+           $subjects = ExamRecord::whereIn('subject_id',$teacherSubjects)->get();
+        }
+        $subjects=null;
+
+        if ($user->can('read exam record') || count(auth()->user()->roles?->pluck('name')->toArray())? auth()->user()->roles?->pluck('name')->toArray()[0] =='Admin' || $subjects) {
             return true;
         }
     }

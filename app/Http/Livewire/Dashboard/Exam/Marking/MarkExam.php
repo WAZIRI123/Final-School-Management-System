@@ -75,7 +75,15 @@ class MarkExam extends Component
             $this->subjects = Subject::all();
         }
         if (auth()->user()->roles?->pluck('name')->toArray()[0] =='Teacher') {
-            $this->subjects = Subject::where('id',auth()->user()->teacher()->id);
+
+            $subject=auth()->user()->teacher->subjects->toArray();
+
+           $teacherSubjects=[];
+            foreach ($subject as $key => $value) {
+                $teacherSubjects[]=$value['id'];
+            }
+            
+            $this->subjects = Subject::whereIn('id',$teacherSubjects)->get();
         }
     }
 
