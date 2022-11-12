@@ -93,6 +93,19 @@ Mark Exam
 *marked student for specific subject must be removed. 
 * exam to which class or whole school?
 
+For Student
+
+Exam
+in exam Result 
+failed or passed
+
+subject mark position Remarks
+select from mark student_id =auth()->user()->id, semester_id =provided id,
+
+examrecord::where (student_id =auth()->user()->id, semester_id =provided id)
+ 
+ how to back result in years he has to enter class?
+or it must enetered using session of logged in user
 
 
  
