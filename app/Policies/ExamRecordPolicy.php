@@ -29,7 +29,7 @@ class ExamRecordPolicy
         }
         $subjects=null;
 
-        if ($user->can('read exam record') || count(auth()->user()->roles?->pluck('name')->toArray())? auth()->user()->roles?->pluck('name')->toArray()[0] =='Admin' || $subjects) {
+        if ($user->can('read exam record')  || $subjects) {
             return true;
         }
     }
