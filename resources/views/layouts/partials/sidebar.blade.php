@@ -205,7 +205,11 @@
 
                 <!-- end::Submenu link -->
         @endcan
+@can('menu-result')
 
+<x-side-menu.list-link route="dashboard.exams.result.index" title="Results" />
+
+@endcan
   
 
     </ul>

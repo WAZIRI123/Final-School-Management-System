@@ -1,8 +1,8 @@
 <?php return array (
   'app' => 
   array (
-    'name' => 'Laravel',
-    'env' => 'local',
+    'name' => 'testing',
+    'env' => 'testing',
     'debug' => true,
     'url' => 'http://localhost',
     'asset_url' => NULL,
@@ -239,7 +239,7 @@
         'driver' => 'octane',
       ),
     ),
-    'prefix' => 'laravel_cache_',
+    'prefix' => 'testing_cache_',
   ),
   'cors' => 
   array (
@@ -358,7 +358,7 @@
       'options' => 
       array (
         'cluster' => 'redis',
-        'prefix' => 'laravel_database_',
+        'prefix' => 'testing_database_',
       ),
       'default' => 
       array (
@@ -681,7 +681,7 @@
     'from' => 
     array (
       'address' => 'hello@example.com',
-      'name' => 'Laravel',
+      'name' => 'testing',
     ),
     'markdown' => 
     array (
@@ -941,7 +941,7 @@
       0 => 2,
       1 => 100,
     ),
-    'cookie' => 'laravel_session',
+    'cookie' => 'testing_session',
     'path' => '/',
     'domain' => NULL,
     'secure' => NULL,

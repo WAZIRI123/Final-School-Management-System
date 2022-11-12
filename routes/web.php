@@ -134,6 +134,11 @@ Route::namespace('App\Http\Livewire')->group(function () {
                      Route::get('/manage-exam-mark-child', ManageExamMarkChild::class)->name('manage-exam-mark-child');
                      });
 
+                     
+                     Route::namespace('Result')->name('result.')->group(function () {
+                        Route::get('/results', Index::class)->name('index');
+                        });
+
                 });
 
             });

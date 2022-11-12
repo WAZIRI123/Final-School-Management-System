@@ -13,6 +13,7 @@
   'dashboard.exam.marking.manage-exam-mark' => 'App\\Http\\Livewire\\Dashboard\\Exam\\Marking\\ManageExamMark',
   'dashboard.exam.marking.manage-exam-mark-child' => 'App\\Http\\Livewire\\Dashboard\\Exam\\Marking\\ManageExamMarkChild',
   'dashboard.exam.marking.mark-exam' => 'App\\Http\\Livewire\\Dashboard\\Exam\\Marking\\MarkExam',
+  'dashboard.exam.result.index' => 'App\\Http\\Livewire\\Dashboard\\Exam\\Result\\Index',
   'dashboard.index' => 'App\\Http\\Livewire\\Dashboard\\Index',
   'dashboard.parent.crud' => 'App\\Http\\Livewire\\Dashboard\\Parent\\Crud',
   'dashboard.parent.crud-child' => 'App\\Http\\Livewire\\Dashboard\\Parent\\CrudChild',

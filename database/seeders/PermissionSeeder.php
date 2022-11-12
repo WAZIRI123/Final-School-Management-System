@@ -28,6 +28,11 @@ class PermissionSeeder extends Seeder
         Permission::firstOrCreate([
             'name' => 'create school',
         ]);
+
+                // Permissions for school
+                Permission::firstOrCreate([
+                    'name' => 'menu-result',
+                ]);
         Permission::firstOrCreate([
             'name' => 'read school',
         ]);
@@ -502,7 +507,7 @@ class PermissionSeeder extends Seeder
             'menu-syllabus',
             'menu-timetable',
             'menu-notice',
-            'menu-exam',
+            'menu-result',
             'read syllabus',
             'read timetable',
             'read notice',
@@ -515,7 +520,6 @@ class PermissionSeeder extends Seeder
             'menu-syllabus',
             'menu-timetable',
             'menu-notice',
-            'menu-exam',
             'read syllabus',
             'read timetable',
             'read notice',
