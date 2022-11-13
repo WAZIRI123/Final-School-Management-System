@@ -4,6 +4,7 @@ namespace App\Http\Livewire\Dashboard\Exam\Result;
 
 use Illuminate\Database\Eloquent\Builder;
 use App\Models\ExamRecord;
+use App\Models\Semester;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Livewire\Component;
 use Livewire\WithPagination;
@@ -12,6 +13,7 @@ class Index extends Component
 {
     use WithPagination,AuthorizesRequests;
 
+    public $semesters;
     public $semeste_id;
 
     /**
@@ -39,7 +41,12 @@ class Index extends Component
     public $per_page = 15;
 
 public function mount(){
-    $this->semeste_id=auth()->user()->school->semester?->id;
+
+  $this->semeste_id=auth()->user()->school->semester?->id;
+
+  $this->semesters=Semester::where('school_id',auth()->user()->school->id)->get();
+
+
 }
 
     public function render()
