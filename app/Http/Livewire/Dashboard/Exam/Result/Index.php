@@ -38,15 +38,11 @@ class Index extends Component
      */
     public $per_page = 15;
 
-public function mount(){
-    $this->semeste_id=auth()->user()->school->semester?->id;
-}
-
     public function render()
     {
         $results = ExamRecord::
         with(['classes','exams','subjects','students','semester'])
-       ->where('semester_id',$this->semeste_id)
+       ->where('semester_id',auth()->user()->school?->semester?->id)
        ->where('student_id',auth()->id())
        ->when($this->q, function ($query) {
            return $query->where(function ($query) {

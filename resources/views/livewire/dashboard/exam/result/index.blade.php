@@ -7,19 +7,6 @@
                     <div class="text-2xl" wire:click="test">Exam_Records</div>
                 </div>
 
-                <div class="grid grid-cols-2 gap-8">
-
-                    <div class="mt-4">
-                        <x-tall-crud-label>Semester</x-tall-crud-label>
-                        <x-tall-crud-select class="block mt-1 w-full" wire:model="semester">
-                            <option value="">Please Select</option>
-                            @foreach($semesters as $c)
-                            <option value="{{$c?->id}}">{{$c?->name}}</option>
-                            @endforeach
-                        </x-tall-crud-select>
-                        @error('subject') <x-tall-crud-error-message>{{$message}}</x-tall-crud-error-message> @enderror
-                    </div>
-                </div>
                 <div class="mt-6">
                     <div class="flex justify-between">
                         <div class="flex">
