@@ -4,7 +4,7 @@
         <div class="bg-white rounded-lg px-8 py-6 my-16 overflow-x-scroll custom-scrollbar">
             <div class="mt-8 min-h-screen">
                 <div class="flex justify-between">
-                    <div class="text-2xl" wire:click="test">Exam_Records</div>
+                    <div class="text-2xl" wire:click="test">Exam_Results</div>
                 </div>
 
                 <div class="mt-6">
