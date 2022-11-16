@@ -7,7 +7,7 @@ use Illuminate\Support\Facades\Schema;
 return new class extends Migration
 {
     /**
-     * Run the migrations.
+     * Run the migrations. academic_id
      *
      * @return void
      */
@@ -21,6 +21,7 @@ return new class extends Migration
             $table->foreignId('exam_id')->constrained()->onDelete('cascade');
             $table->foreignId('subject_id')->constrained()->onDelete('cascade');
             $table->foreignId('student_id')->constrained()->onDelete('cascade');
+            $table->foreignId('academic_id')->nullable()->constrained()->onDelete('cascade');
             $table->integer('marks')->unsigned();
             $table->integer('rank')->nullable();
             $table->timestamps();

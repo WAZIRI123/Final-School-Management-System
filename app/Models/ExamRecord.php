@@ -18,6 +18,7 @@ class ExamRecord extends Model
         'exam_id',
         'subject_id',
         'student_id',
+        'academic_id',
         'marks',
         'rank',
     ];

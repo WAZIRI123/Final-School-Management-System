@@ -33,7 +33,7 @@ class DatabaseSeeder extends Seeder
             TimeTableTimeSlotSeeder::class,
             WeekDaySeeder::class,
             ExamSeeder::class,
-            // ExamRecordSeeder::class,
+            ExamRecordSeeder::class,
         ]);
     }
 }

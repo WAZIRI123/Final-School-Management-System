@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire\Dashboard\Exam\Result;
 
+use App\Models\AcademicYear;
 use Illuminate\Database\Eloquent\Builder;
 use App\Models\ExamRecord;
 use App\Models\Semester;
@@ -15,6 +16,8 @@ class Index extends Component
 
     public $semesters;
     public $semeste_id;
+    public $academics;
+    public $academic;
 
     /**
      * @var array
@@ -40,24 +43,36 @@ class Index extends Component
      */
     public $per_page = 15;
 
+    public function mount(){
+        $this->academics=AcademicYear::all();
+        $this->semesters=Semester::all();
+    }
+
     public function render()
     {
         $results = ExamRecord::
         with(['classes','exams','subjects','students','semester'])
-       ->where('semester_id',auth()->user()->school?->semester?->id)
-       ->where('student_id',auth()->id())
+       ->where('academic_id',$this->academic)
+       ->where('student_id',auth()->user()->student->id)
        ->when($this->q, function ($query) {
            return $query->where(function ($query) {
                $query->where('student_id', 'like', '%' . $this->q . '%');
            });
        })
        ->orderBy('marks','DESC');
-
+       
 
    $results=$results->paginate($this->per_page);
-        return view('livewire.dashboard.exam.result.index',[ 'results' => $results])->layoutData(['title' => 'Manage Exam Record | School Management System']);
+
+   $semester1_result=$results->where('semester_id',1);
+   $semester2_result=$results->where('semester_id',2);
+        return view('livewire.dashboard.exam.result.index',[ 'semester1_result' => $semester1_result,'semester2_result' => $semester2_result])->layoutData(['title' => 'Manage Exam Record | School Management System']);
+
+      
     }
-    
+    public function test(){
+        dd(auth()->user()->school->semester->id);
+    }
     public function sortBy(string $field): void
     {
         if ($field == $this->sortBy) {

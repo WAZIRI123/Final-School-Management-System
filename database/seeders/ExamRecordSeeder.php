@@ -23,6 +23,19 @@ class ExamRecordSeeder extends Seeder
             'exam_id' => '1',
             'subject_id' => '1',
             'student_id' => '1',
+            'academic_id'=>'1',
+            'marks'=> 50
+        ]);
+
+        ExamRecord::firstOrCreate([
+            'id'          => 2,
+            'class_id' => '1',
+            'semester_id' => '2',
+            'section_id' => ClassSectionEnum::A->value,
+            'exam_id' => '1',
+            'subject_id' => '1',
+            'student_id' => '1',
+            'academic_id'=>'1',
             'marks'=> 50
         ]);
         ExamRecord::factory()->count(10)->create();
