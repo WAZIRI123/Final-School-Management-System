@@ -71,7 +71,6 @@ class ExamManageTest extends TestCase
             // test if data exist in database
             $this->assertDatabaseHas('exam_records', [
                 'class_id' => 1,
-                'marks'=>2,
             ]);
         }
     

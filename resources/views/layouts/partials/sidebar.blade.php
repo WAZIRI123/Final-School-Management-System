@@ -82,6 +82,7 @@
         <!-- start::Menu link -->
 
         <!-- end::Menu link -->
+        @can('menu-student')
         <div x-data="{ linkHover: false, linkActive: false }">
             <div @mouseover="linkHover = true" @mouseleave="linkHover = false" @click="linkActive = !linkActive"
                 class="{{ (request()->is('dashboard/students/*')) ? 'bg-black bg-opacity-30' : '' }} flex items-center justify-between text-gray-400 hover:text-gray-100 px-6 py-3 cursor-pointer hover:bg-black hover:bg-opacity-30 transition duration-200">
@@ -139,7 +140,7 @@
             </ul>
             <!-- end::Submenu  graduations-->
         </div>
-
+        @endcan
         <!-- start::Menu link -->
         @can('menu-teacher')
         <x-side-menu.div-link route="dashboard.teachers.index" title="Teacher" />

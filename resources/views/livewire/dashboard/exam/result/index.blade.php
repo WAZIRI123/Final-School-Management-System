@@ -20,17 +20,10 @@
                     </div>
                 </div>
                 <div class="mt-6">
-                    <div class="flex justify-between">
-                        <div class="flex">
-                            <x-tall-crud-input-search />
-                        </div>
-                        <div class="flex">
-
-                            <x-tall-crud-page-dropdown />
-                        </div>
-                    </div>
-                    <table class="w-full whitespace-no-wrap mt-4 shadow-2xl" wire:loading.class.delay="opacity-50">
+                    <table class="w-full whitespace-no-wrap mt-4 mb-4 shadow-2xl" wire:loading.class.delay="opacity-50">
+                       
                         <thead>
+                            <tr> <td>semester 1 Result</td></tr>
                             <tr class="bg-secondary text-gray-100 font-bold">
                                 <td class="px-3 py-2 capitalize">Subjects</td>
                                 <td class="px-3 py-2 capitalize">Marks</td>
@@ -67,17 +60,17 @@
                                     <td class="px-3 py-2 capitalize">Fail</td>
                                     @break
 
-                                @default
-                                    
+                                @default                               
                             @endswitch
                             </tr>
                             @endforeach
-
+                            <td>Total Marks:{{ $semester1_result->count()*100 }}  Acquired: {{ $semester1_result->sum('marks') }}</td>
                         </tbody>
                     </table>
                     @if (count($semester2_result))
-                    <table class="w-full whitespace-no-wrap mt-4 shadow-2xl" wire:loading.class.delay="opacity-50">
+                    <table class="w-full whitespace-no-wrap mt-8 shadow-2xl" wire:loading.class.delay="opacity-50">
                         <thead>
+                            <tr> <td>semester 2 Result</td></tr>
                             <tr class="bg-secondary text-gray-100 font-bold">
                                 <td class="px-3 py-2 capitalize">Subjects</td>
                                 <td class="px-3 py-2 capitalize">Marks</td>
@@ -119,7 +112,7 @@
                                 @endswitch
                             </tr>
                             @endforeach
-
+                            <td>Total Marks:{{ $semester2_result->count()*100 }}  Acquired: {{ $semester2_result->sum('marks') }}</td>
                         </tbody>
                     </table>
                     @endif
