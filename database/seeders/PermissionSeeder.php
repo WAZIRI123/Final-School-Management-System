@@ -518,8 +518,8 @@ class PermissionSeeder extends Seeder
         $parent->givePermissionTo([
             'header-academics',
             'menu-syllabus',
-            'menu-timetable',
             'menu-notice',
+            'menu-result',
             'read syllabus',
             'read timetable',
             'read notice',

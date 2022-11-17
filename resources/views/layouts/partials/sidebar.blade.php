@@ -28,6 +28,7 @@
         @endcan
         <!-- end::Menu link -->
         <!-- start::menu link -->
+        @can('menu-timetable')
         <div x-data="{ linkHover: false, linkActive: false }">
 
             <div @mouseover="linkHover = true" @mouseleave="linkHover = false" @click="linkActive = !linkActive"
@@ -71,6 +72,7 @@
             </ul>
             <!-- end::Submenu  graduations-->
         </div>
+        @endcan
         <!-- end::Menu link -->
         <!-- start::Menu link -->
         @can('menu-parent')
@@ -201,7 +203,7 @@
                       <x-side-menu.list-link route="dashboard.exams.marking.mark-exam" title="Mark Exam" />
 
                       <!-- end::Submenu link -->
-                                    <!-- start::Submenu link -->
+                <!-- start::Submenu link -->
                 <x-side-menu.list-link route="dashboard.exams.marking.manage-exam-mark" title="Manage ExamMark" />
 
                 <!-- end::Submenu link -->

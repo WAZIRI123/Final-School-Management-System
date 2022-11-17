@@ -6,6 +6,7 @@ use App\Models\AcademicYear;
 use Illuminate\Database\Eloquent\Builder;
 use App\Models\ExamRecord;
 use App\Models\Semester;
+use App\Models\Student;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Livewire\Component;
 use Livewire\WithPagination;
@@ -18,7 +19,8 @@ class Index extends Component
     public $semeste_id;
     public $academics;
     public $academic;
-
+    public $student;
+    public $students;
     /**
      * @var array
      */
@@ -46,6 +48,7 @@ class Index extends Component
     public function mount(){
         $this->academics=AcademicYear::all();
         $this->semesters=Semester::all();
+        $this->students=Student::with('user')->where('parent_id',auth()->user()->parent?->id)->get();
     }
 
     public function render()
@@ -53,7 +56,7 @@ class Index extends Component
         $results = ExamRecord::
         with(['classes','exams','subjects','students','semester'])
        ->where('academic_id',$this->academic)
-       ->where('student_id',auth()->user()->student->id)
+       ->where('student_id',auth()->user()->student->id ?? $this->student)
        ->when($this->q, function ($query) {
            return $query->where(function ($query) {
                $query->where('student_id', 'like', '%' . $this->q . '%');
@@ -71,7 +74,7 @@ class Index extends Component
       
     }
     public function test(){
-        dd(auth()->user()->school->semester->id);
+        dd(auth()->id());
     }
     public function sortBy(string $field): void
     {

@@ -16,13 +16,27 @@
                             <option value="{{$c->id}}">{{$c->name()}}</option>
                             @endforeach
                         </x-tall-crud-select>
-                        @error('old_section') <x-tall-crud-error-message>{{$message}}</x-tall-crud-error-message> @enderror
+                        @error('academic') <x-tall-crud-error-message>{{$message}}</x-tall-crud-error-message> @enderror
                     </div>
+                    @if (auth()->user()->hasRole('Parent'))
+                    <div class="mt-4">
+                        <x-tall-crud-label>Student</x-tall-crud-label>
+                        <x-tall-crud-select class="block mt-1 w-full" wire:model='student'>
+                            <option value="">Please Select</option>
+                            @foreach($students as $c)
+                            <option value="{{$c->id}}">{{$c->user->name}}</option>
+                            @endforeach
+                        </x-tall-crud-select>
+                        @error('student') <x-tall-crud-error-message>{{$message}}</x-tall-crud-error-message> @enderror
+                    </div> 
+                    @endif
+                    
                 </div>
                 <div class="mt-6">
                     <table class="w-full whitespace-no-wrap mt-4 mb-4 shadow-2xl" wire:loading.class.delay="opacity-50">
                        
                         <thead>
+                            @if ($semester1_result->count())
                             <tr> <td>semester 1 Result</td></tr>
                             <tr class="bg-secondary text-gray-100 font-bold">
                                 <td class="px-3 py-2 capitalize">Subjects</td>
@@ -67,6 +81,7 @@
                             <td>Total Marks:{{ $semester1_result->count()*100 }}  Acquired: {{ $semester1_result->sum('marks') }}</td>
                         </tbody>
                     </table>
+                    @endif
                     @if (count($semester2_result))
                     <table class="w-full whitespace-no-wrap mt-8 shadow-2xl" wire:loading.class.delay="opacity-50">
                         <thead>
