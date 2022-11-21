@@ -104,7 +104,6 @@ public function  Markstudent(){
                         'semester_id' =>auth()->user()->school->semester?->id?? 1, 
                         'class_id' => $this->class, 
                         'section_id' => $this->section, 
-                        'academic_id' => auth()->user()->school->academicYears?->id, 
                         'exam_id' => $this->exam, 
                         'subject_id' => $this->subject,
                         'student_id' => $student,
