@@ -9,7 +9,7 @@
                                 <div class="mu-header-top-left">
                                     <div class="mu-top-email">
                                         <i class="fa fa-envelope"></i>
-                                        <span>info@markups.io</span>
+                                        <span>wazirially1994@gmail.com</span>
                                     </div>
                                     <div class="mu-top-phone">
                                         <i class="fa fa-phone"></i>
