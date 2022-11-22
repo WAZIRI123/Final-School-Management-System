@@ -63,7 +63,7 @@ jQuery(function($) {
     /*  3. TOP SLIDER (SLICK SLIDER)
     /* ----------------------------------------------------------- */
 
-    jQuery('#mu-slider').not('.slick-initialized').slick({
+    jQuery('#mu-slider').slick({
         dots: false,
         infinite: true,
         arrows: true,
@@ -76,7 +76,7 @@ jQuery(function($) {
     /*  4. ABOUT US (SLICK SLIDER)
     /* ----------------------------------------------------------- */
 
-    jQuery('#mu-testimonial-slide').not('.slick-initialized').slick({
+    jQuery('#mu-testimonial-slide').slick({
         dots: true,
         infinite: true,
         arrows: false,
@@ -90,7 +90,7 @@ jQuery(function($) {
     /*  5. LATEST COURSE SLIDER (SLICK SLIDER)
     /* ----------------------------------------------------------- */
 
-    jQuery('#mu-latest-course-slide').not('.slick-initialized').slick({
+    jQuery('#mu-latest-course-slide').slick({
         dots: true,
         arrows: false,
         infinite: true,
@@ -132,7 +132,7 @@ jQuery(function($) {
     /*  6. TESTIMONIAL SLIDER (SLICK SLIDER)
     /* ----------------------------------------------------------- */
 
-    jQuery('.mu-testimonial-slider').not('.slick-initialized').slick({
+    jQuery('.mu-testimonial-slider').slick({
         dots: true,
         infinite: true,
         arrows: false,
@@ -155,7 +155,7 @@ jQuery(function($) {
     /*  8. RELATED ITEM SLIDER (SLICK SLIDER)
     /* ----------------------------------------------------------- */
 
-    jQuery('#mu-related-item-slide').not('.slick-initialized').slick({
+    jQuery('#mu-related-item-slide').slick({
         dots: false,
         arrows: true,
         infinite: true,
