@@ -1,8 +1,9 @@
+
 # Final school management system
 
 >This is the full-stack School Management System. By Full stack School Management System i mean that the system includes both the website part or front end part and the backend part or system part. .
 
-![schooldash-dahboard-page](https://user-images.githubusercontent.com/63137056/178576517-412251e7-d272-469f-8a98-ec407b599c7a.png)
+![school website](https://user-images.githubusercontent.com/74810402/203506069-20a1a3aa-d476-434d-b445-f7c21f0553b2.PNG)
 
 
 
