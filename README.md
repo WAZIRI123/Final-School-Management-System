@@ -33,8 +33,8 @@ Final School Management System is a multi-school management system that aims to 
 ```
 After running the above commands, you should be able to access the application at http::/localhost or your designated domain name depending on configuration.
 
-## Setup
-* Log in to the application with the following credentials
+## Log in to the application with the following credentials
+
     **Admin**
        * Email: admin@demo.com
        * Password: password
