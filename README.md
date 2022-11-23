@@ -6,7 +6,6 @@
 
 ![Welcome Page](https://user-images.githubusercontent.com/74810402/203506522-2df61290-9743-4ab8-b29f-fc52e8c13a79.gif)
 
-![{dashbaord}](https://user-images.githubusercontent.com/74810402/203506825-2656fd93-4cc0-4fd6-99e3-da71bc51373a.jpg)
 
 Final School Management System is a multi-school management system that aims to make school administration and activities a breeze by using the power of the internet and increased connectivity.
 
