@@ -47,7 +47,7 @@ After running the above commands, you should be able to access the application a
        * Email: student@demo.com
        * Password: password
        
-      **Parent**
+     **Parent**
        * Email: parent@demo.com
        * Password: password
 
