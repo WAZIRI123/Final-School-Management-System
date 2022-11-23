@@ -1,12 +1,12 @@
 
+
 # Final school management system
 
 >This is the full-stack School Management System. By Full stack School Management System i mean that the system includes both the website part or front end part and the backend part or system part. .
 
-![school website](https://user-images.githubusercontent.com/74810402/203506069-20a1a3aa-d476-434d-b445-f7c21f0553b2.PNG)
+![Welcome Page](https://user-images.githubusercontent.com/74810402/203506522-2df61290-9743-4ab8-b29f-fc52e8c13a79.gif)
 
-
-
+![{dashbaord}](https://user-images.githubusercontent.com/74810402/203506825-2656fd93-4cc0-4fd6-99e3-da71bc51373a.jpg)
 
 Final School Management System is a multi-school management system that aims to make school administration and activities a breeze by using the power of the internet and increased connectivity.
 
