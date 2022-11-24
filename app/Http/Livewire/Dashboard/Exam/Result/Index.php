@@ -53,6 +53,7 @@ class Index extends Component
 
     public function render()
     {
+        
         $results = ExamRecord::
         with(['classes','exams','subjects','students','semester'])
        ->where('academic_id',$this->academic)
