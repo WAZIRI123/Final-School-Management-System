@@ -8,6 +8,7 @@
           "php": "^8.0.2",
           "ajcastro/eager-load-pivot-relations": "^0.2.2",
           "ascsoftw/tall-crud-generator": "^2.4",
+          "barryvdh/laravel-dompdf": "^2.0",
           "doctrine/dbal": "^3.4",
           "dompdf/dompdf": "^2.0",
           "dyrynda/laravel-cascade-soft-deletes": "^4.2",

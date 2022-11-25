@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Builder;
 use App\Models\ExamRecord;
 use App\Models\Semester;
 use App\Models\Student;
+use App\Services\Print\PrintService;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Livewire\Component;
 use Livewire\WithPagination;
@@ -76,6 +77,20 @@ class Index extends Component
     }
     public function test(){
         dd(auth()->id());
+    }
+    
+    /**
+     * Print a uset profiel.
+     *
+     * @param string $name
+     * @param string $view
+     * @param array  $data
+     *
+     * @return mixed
+     */
+    public function printProfile(string $name, string $view, array $data)
+    {
+        return PrintService::createPdfFromView($name, $view, $data);
     }
     public function sortBy(string $field): void
     {

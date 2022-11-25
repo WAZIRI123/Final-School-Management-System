@@ -46,6 +46,10 @@
                         </thead>
                         <tbody class="divide-y divide-blue-400">
                             @foreach($semester1_result as $result)
+                            <div class="flex items-center">
+                       
+                                <button wire:click="printProfile('result.php','welcome',{{ $semester1_result }})">Id</button>
+                            </div>
                             <tr class="hover:bg-blue-300 {{ ($loop->even ) ? " bg-blue-100" : "" }}">
                                 <td class="px-3 py-2 capitalize">{{ $result->subjects?->name }}</td>
                                 <td class="px-3 py-2 capitalize">{{ $result->marks }}</td>
