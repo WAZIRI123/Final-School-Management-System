@@ -7,7 +7,6 @@
                     <div class="text-2xl" wire:click="test">Exam_Results</div>
                 </div>
                 <div class="grid grid-cols-2 gap-8">
-
                     <div class="mt-4">
                         <x-tall-crud-label>Academic Year</x-tall-crud-label>
                         <x-tall-crud-select class="block mt-1 w-full" wire:model="academic">
@@ -45,11 +44,8 @@
                             </tr>
                         </thead>
                         <tbody class="divide-y divide-blue-400">
+                            <a href="{{ route('dashboard.exams.result.result-pdf') }}"> print</a>
                             @foreach($semester1_result as $result)
-                            <div class="flex items-center">
-                       
-                                <button wire:click="printProfile('result.php','welcome',{{ $semester1_result }})">Id</button>
-                            </div>
                             <tr class="hover:bg-blue-300 {{ ($loop->even ) ? " bg-blue-100" : "" }}">
                                 <td class="px-3 py-2 capitalize">{{ $result->subjects?->name }}</td>
                                 <td class="px-3 py-2 capitalize">{{ $result->marks }}</td>

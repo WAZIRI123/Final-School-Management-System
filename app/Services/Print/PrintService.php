@@ -28,6 +28,6 @@ class PrintService
             ])
         );
 
-        return $pdf;
+        return $pdf->download($name);
     }
 }

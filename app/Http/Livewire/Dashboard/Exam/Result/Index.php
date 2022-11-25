@@ -14,7 +14,7 @@ use Livewire\WithPagination;
 
 class Index extends Component
 {
-    use WithPagination,AuthorizesRequests;
+    use WithPagination, AuthorizesRequests;
 
     public $semesters;
     public $semeste_id;
@@ -46,52 +46,44 @@ class Index extends Component
      */
     public $per_page = 15;
 
-    public function mount(){
-        $this->academics=AcademicYear::all();
-        $this->semesters=Semester::all();
-        $this->students=Student::with('user')->where('parent_id',auth()->user()->parent?->id)->get();
+    public function mount()
+    {
+        $this->academics = AcademicYear::all();
+        $this->semesters = Semester::all();
+        $this->students = Student::with('user')->where('parent_id', auth()->user()->parent?->id)->get();
     }
+
+    public function pdfData($r1, $r2)
+    {
+        return $this->emitTo('livewire.dashboard.exam.result.result-pdf', 'pdfDataEvent', $r1, $r2);
+    }
+
 
     public function render()
     {
-        
-        $results = ExamRecord::
-        with(['classes','exams','subjects','students','semester'])
-       ->where('academic_id',$this->academic)
-       ->where('student_id',auth()->user()->student->id ?? $this->student)
-       ->when($this->q, function ($query) {
-           return $query->where(function ($query) {
-               $query->where('student_id', 'like', '%' . $this->q . '%');
-           });
-       })
-       ->orderBy('marks','DESC');
-       
 
-   $results=$results->paginate($this->per_page);
+        $results = ExamRecord::with(['classes', 'exams', 'subjects', 'students', 'semester'])
+            ->where('academic_id', $this->academic)
+            ->where('student_id', auth()->user()->student->id ?? $this->student)
+            ->when($this->q, function ($query) {
+                return $query->where(function ($query) {
+                    $query->where('student_id', 'like', '%' . $this->q . '%');
+                });
+            })
+            ->orderBy('marks', 'DESC');
 
-   $semester1_result=$results->where('semester_id',1);
-   $semester2_result=$results->where('semester_id',2);
-        return view('livewire.dashboard.exam.result.index',[ 'semester1_result' => $semester1_result,'semester2_result' => $semester2_result])->layoutData(['title' => 'Manage Exam Record | School Management System']);
 
-      
+        $results = $results->paginate($this->per_page);
+
+        $semester1_result = $results->where('semester_id', 1);
+        $semester2_result = $results->where('semester_id', 2);
+
+        $this->pdfData($semester1_result, $semester2_result);
+
+        return view('livewire.dashboard.exam.result.index', ['semester1_result' => $semester1_result, 'semester2_result' => $semester2_result])->layoutData(['title' => 'Manage Exam Record | School Management System']);
     }
-    public function test(){
-        dd(auth()->id());
-    }
-    
-    /**
-     * Print a uset profiel.
-     *
-     * @param string $name
-     * @param string $view
-     * @param array  $data
-     *
-     * @return mixed
-     */
-    public function printProfile(string $name, string $view, array $data)
-    {
-        return PrintService::createPdfFromView($name, $view, $data);
-    }
+
+
     public function sortBy(string $field): void
     {
         if ($field == $this->sortBy) {
@@ -114,5 +106,4 @@ class Index extends Component
     {
         return ExamRecord::query();
     }
-
 }

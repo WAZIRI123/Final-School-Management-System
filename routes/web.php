@@ -137,6 +137,7 @@ Route::namespace('App\Http\Livewire')->group(function () {
                      
                      Route::namespace('Result')->name('result.')->group(function () {
                         Route::get('/results', Index::class)->name('index');
+                        Route::get('/result-pdf', ResultPdf::class)->name('result-pdf');
                         });
 
                 });
