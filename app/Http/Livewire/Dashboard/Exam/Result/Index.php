@@ -22,6 +22,9 @@ class Index extends Component
     public $academic;
     public $student;
     public $students;
+
+    public $semester1_result;
+    public $semester2_result;
     /**
      * @var array
      */
@@ -53,9 +56,11 @@ class Index extends Component
         $this->students = Student::with('user')->where('parent_id', auth()->user()->parent?->id)->get();
     }
 
-    public function pdfData($r1, $r2)
+    public function pdfData()
     {
-        return $this->emitTo('livewire.dashboard.exam.result.result-pdf', 'pdfDataEvent', $r1, $r2);
+
+       return  to_route('result-pdf')->with(['r1'=>$this->semester1_result,'r2'=>$this->semester2_result]);
+  
     }
 
 
@@ -76,10 +81,12 @@ class Index extends Component
         $results = $results->paginate($this->per_page);
 
         $semester1_result = $results->where('semester_id', 1);
+
         $semester2_result = $results->where('semester_id', 2);
 
-        $this->pdfData($semester1_result, $semester2_result);
+  $this->semester1_result= $semester1_result;
 
+  $this->semester2_result= $semester2_result;
         return view('livewire.dashboard.exam.result.index', ['semester1_result' => $semester1_result, 'semester2_result' => $semester2_result])->layoutData(['title' => 'Manage Exam Record | School Management System']);
     }
 

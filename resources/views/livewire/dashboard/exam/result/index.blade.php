@@ -44,7 +44,8 @@
                             </tr>
                         </thead>
                         <tbody class="divide-y divide-blue-400">
-                            <a href="{{ route('dashboard.exams.result.result-pdf') }}"> print</a>
+
+                         <button wire:click="pdfData()">print</button>
                             @foreach($semester1_result as $result)
                             <tr class="hover:bg-blue-300 {{ ($loop->even ) ? " bg-blue-100" : "" }}">
                                 <td class="px-3 py-2 capitalize">{{ $result->subjects?->name }}</td>

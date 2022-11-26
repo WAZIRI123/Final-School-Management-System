@@ -1,6 +1,7 @@
 <?php
 
 use App\Models\ExamSlot;
+use App\Services\Print\PrintService;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -137,13 +138,21 @@ Route::namespace('App\Http\Livewire')->group(function () {
                      
                      Route::namespace('Result')->name('result.')->group(function () {
                         Route::get('/results', Index::class)->name('index');
-                        Route::get('/result-pdf', ResultPdf::class)->name('result-pdf');
                         });
 
                 });
 
             });
         });
+        
+        
+         //Print Services
+            Route::get('/result-pdf', function () {
+                return PrintService::createPdfFromView('result.pdf','livewire.dashboard.exam.result.result-pdf',['semester1_result'=>session()->get('r1'),'semester2_result'=>session()->get('r2')]);
+           
+               })->name('result-pdf');
+
+
     });
 });
 
