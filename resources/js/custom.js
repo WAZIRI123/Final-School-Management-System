@@ -24,6 +24,7 @@
   
 **/
 
+
 jQuery(function($) {
 
 
@@ -36,6 +37,7 @@ jQuery(function($) {
         $('#mu-search').addClass('mu-search-open');
         $('#mu-search form input[type="search"]').focus();
     });
+
 
     jQuery('.mu-search-close').on('click', function(event) {
         $("#mu-search").removeClass('mu-search-open');

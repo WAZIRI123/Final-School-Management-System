@@ -1,7 +1,7 @@
     <!-- Start menu -->
     <section id="mu-menu">
-        <nav class="navbar navbar-default" role="navigation">
-            <div class="container">
+        <nav class="navbar navbar-default " id="mNavbar" role="navigation">
+            <div class="container ">
                 <div class="navbar-header">
                     <!-- FOR MOBILE VIEW COLLAPSED BUTTON -->
                     <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
