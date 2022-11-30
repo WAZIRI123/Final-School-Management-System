@@ -149,6 +149,12 @@
         @endcan
         <!-- end::Menu link -->
 
+                <!-- start::Menu link -->
+                @can('menu-admin')
+                <x-side-menu.div-link route="dashboard.admins.index" title="Admin" />
+                @endcan
+                <!-- end::Menu link -->
+
         <!-- start::Menu link -->
         @can('menu-class')
         <x-side-menu.div-link route="dashboard.classes.index" title="Classes" />

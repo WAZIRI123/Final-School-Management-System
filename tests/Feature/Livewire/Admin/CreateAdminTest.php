@@ -38,7 +38,7 @@ class CreateadminTest extends TestCase
      $user1 = User::factory()->create(['school_id'=>2]);
       Admin::factory()->for($user1)->create(['permanent_address'=> 'notttt']);
 
-     $user->assignRole('Admin');
+     $user->assignRole('super-admin');
 
       // check if user has given permission/gate   
       $user->can('viewAny', [User::class, 'Admin']);
@@ -156,7 +156,7 @@ class CreateadminTest extends TestCase
 
      // make fake user && assign role && acting as that user
      $user1 = User::factory()->create(['profile_picture' => $imagename, 'remember_token' => null]);
-     $user1->assignRole('admin');
+     $user1->assignRole('super-admin');
      $admin = Admin::factory()->for($user1)->create();
 
      // check if user has given permission/gate   
@@ -207,7 +207,7 @@ class CreateadminTest extends TestCase
  {
      // make fake user && assign role && acting as that user
      $user = User::factory()->create();
-     $user->assignRole('admin');
+     $user->assignRole('super-admin');
      $user->can('delete', [$user, 'admin']);
      $admin = Admin::factory()->for($user)->create();
 

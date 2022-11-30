@@ -37,8 +37,20 @@ class PermissionSeeder extends Seeder
             'name' => 'read school',
         ]);
         Permission::firstOrCreate([
+            'name' => 'create admin',
+        ]);
+        Permission::firstOrCreate([
             'name' => 'update school',
         ]);
+
+        Permission::firstOrCreate([
+            'name' => 'update admin',
+        ]);
+
+        Permission::firstOrCreate([
+            'name' => 'delete admin',
+        ]);
+
         Permission::firstOrCreate([
             'name' => 'delete school',
         ]);
@@ -351,6 +363,11 @@ class PermissionSeeder extends Seeder
         Permission::firstOrCreate([
             'name' => 'menu-teacher',
         ]);
+
+        Permission::firstOrCreate([
+            'name' => 'menu-admin',
+        ]);
+
         Permission::firstOrCreate([
             'name' => 'menu-parent',
         ]);

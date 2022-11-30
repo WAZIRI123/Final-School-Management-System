@@ -84,6 +84,12 @@ Route::namespace('App\Http\Livewire')->group(function () {
 
                     Route::get('/', Index::class)->name('index');
                 });
+
+                // for  Admin
+                Route::prefix('/admin')->namespace('Admin')->name('admins.')->group(function () {
+
+                    Route::get('/', Index::class)->name('index');
+                });
                 // for  Classes
                 Route::prefix('/class')->namespace('Classes')->name('classes.')->group(function () {
 
@@ -117,7 +123,7 @@ Route::namespace('App\Http\Livewire')->group(function () {
 
                     Route::get('/create-timetable', Index::class)->name('index');
 
-                    Route::get('/timetable-slot-record',ManageTimeTableRecordSlot::class)->name('timetable-record-slot');
+                    Route::get('/timetable-slot-record', ManageTimeTableRecordSlot::class)->name('timetable-record-slot');
 
                     Route::get('/manage-timetable-record', ManageTimeTableRecord::class)->name('manage-timetable-record');
                 });
@@ -126,33 +132,25 @@ Route::namespace('App\Http\Livewire')->group(function () {
                 Route::prefix('/exam')->namespace('Exam')->name('exams.')->group(function () {
 
                     Route::get('/exam-crud', Index::class)->name('index');
-                   
 
+                    Route::namespace('Marking')->name('marking.')->group(function () {
+                        Route::get('/mark-exam', MarkExam::class)->name('mark-exam');
+                        Route::get('/manage-exam-mark', ManageExamMark::class)->name('manage-exam-mark');
+                        Route::get('/manage-exam-mark-child', ManageExamMarkChild::class)->name('manage-exam-mark-child');
+                    });
 
-                     Route::namespace('Marking')->name('marking.')->group(function () {
-                     Route::get('/mark-exam', MarkExam::class)->name('mark-exam');
-                     Route::get('/manage-exam-mark', ManageExamMark::class)->name('manage-exam-mark');
-                     Route::get('/manage-exam-mark-child', ManageExamMarkChild::class)->name('manage-exam-mark-child');
-                     });
-
-                     
-                     Route::namespace('Result')->name('result.')->group(function () {
+                    Route::namespace('Result')->name('result.')->group(function () {
                         Route::get('/results', Index::class)->name('index');
-                        });
-
+                    });
                 });
-
             });
         });
-        
-        
-         //Print Services
-            Route::get('/result-pdf', function () {
-                return PrintService::createPdfFromView('result.pdf','livewire.dashboard.exam.result.result-pdf',['semester1_result'=>session()->get('r1'),'semester2_result'=>session()->get('r2')]);
-           
-               })->name('result-pdf');
 
 
+        //Print Services
+        Route::get('/result-pdf', function () {
+            return PrintService::createPdfFromView('result.pdf', 'livewire.dashboard.exam.result.result-pdf', ['semester1_result' => session()->get('r1'), 'semester2_result' => session()->get('r2')]);
+        })->name('result-pdf');
     });
 });
 
