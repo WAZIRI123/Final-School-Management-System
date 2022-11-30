@@ -25,6 +25,7 @@
                
                 <div @click="linkActive = !linkActive" class="cursor-pointer">
                  @if (auth()->user()->profile_picture)
+
                     <img src="{{ Storage::url(auth()->user()->profile_picture)}}" alt="profile photo" class="w-10 rounded-full">
                 @else
                     <img src="{{auth()->user()->avatarUrl()}}" alt="profile photo" class="w-10 rounded-full">

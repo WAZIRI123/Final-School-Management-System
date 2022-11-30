@@ -17,7 +17,7 @@
             <div x-data="{ linkActive: false }" class="relative">
                 <!-- start::Main link -->
                 <div @click="linkActive = !linkActive" class="cursor-pointer">
-                    <img src="{{auth()->user()->avatarUrl()}}" alt="profile photo" class="w-10 rounded-full">
+ 
                 </div>
                 <!-- end::Main link -->
 
