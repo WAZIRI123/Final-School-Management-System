@@ -7,7 +7,9 @@ use \Illuminate\View\View;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use App\Models\Parents;
 use App\Models\User;
+use App\Services\User\UserService;
 use Haruncpi\LaravelIdGenerator\IdGenerator;
+use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Validation\Rule;
@@ -96,9 +98,7 @@ class CrudChild extends Component
 
     public function showDeleteForm(Parents $parent): void
     {
-        $this->authorize('delete', [$parent->user, 'parent']);
-        $this->confirmingItemDeletion = true;
-        $this->parent = $parent;
+        App::make(UserService::class)->modalDeleteUser($parent);
     }
 
     public function deleteItem(Parents $parent): void

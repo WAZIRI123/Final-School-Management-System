@@ -86,6 +86,8 @@ class CrudChild extends Component
         $this->class= $class;
     }
 
+
+
     public function deleteItem(): void
     {
         $this->authorize('delete', [$this->class, 'class']);

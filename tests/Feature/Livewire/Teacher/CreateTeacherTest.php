@@ -13,6 +13,7 @@ use Livewire\Livewire;
 use Illuminate\Http\UploadedFile;
 use Tests\TestCase;
 
+
 class CreateTeacherTest extends TestCase
 {
     use RefreshDatabase;
@@ -91,21 +92,21 @@ class CreateTeacherTest extends TestCase
      Livewire::test(CrudChild::class)
          ->set('item.name', 'waziri')
          ->set('profile_picture', $image)
-         ->set('item.email', 'waziriallyami@gmail.com')
+         ->set('item.email', 'waziriallyam@gmail.com')
          ->set('item.admission_no', '0653062266')
          ->set('item.gender', 'male')
          ->set('item.phone', '0653039317')
          ->set('item.dateofbirth', '2000/02/20')
          ->set('item.current_address', 'moshi')
          ->set('item.permanent_address', 'moshi')
-         ->set('item.class_id', 1)
+         ->set('item.class_id', 2)
          ->call('createItem');
 
  
 
      // test if data exist in database
      $this->assertDatabaseHas('teachers', [
-         'class_id' => 1,
+         'class_id' => 2,
          'permanent_address' => 'moshi'
      ]);
  }
