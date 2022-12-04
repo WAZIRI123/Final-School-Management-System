@@ -98,6 +98,7 @@ class CrudChild extends Component
      * @var bool
      */
     public $confirmingItemEdit = false;
+
     public function mount(User $user)
     {
         $this->user =$user;
@@ -110,7 +111,9 @@ class CrudChild extends Component
 
     public function showDeleteForm(Teacher $teacher): void
     {
-        App::make(UserService::class)->modalDeleteUser($teacher);
+        $this->authorize('delete', [$teacher->user, 'teacher']);
+        $this->confirmingItemDeletion = true;
+        $this->teacher = $teacher;
     }
 
     public function deleteItem(Teacher $teacher): void

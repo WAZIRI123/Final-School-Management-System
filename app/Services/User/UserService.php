@@ -13,9 +13,8 @@ class UserService
  
     public function modalDeleteUser($model){
         $this->authorize('delete', [$model->user, 'model']);
-        $this->confirmingItemDeletion = true;
-        $this->parent = $model;
     }
+    
     
 
 }

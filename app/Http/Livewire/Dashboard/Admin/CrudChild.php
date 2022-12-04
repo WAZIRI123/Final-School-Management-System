@@ -98,22 +98,15 @@ class CrudChild extends Component
 
     public function showDeleteForm(Admin $admin): void
     {
-        App::make(UserService::class)->modalDeleteUser($admin);
-        
-        // $this->authorize('delete', [$admin->user, 'admin']);
-        // $this->confirmingItemDeletion = true;
-        // $this->admin = $admin;
+ 
+        $this->authorize('delete', [$admin->user, 'admin']);
+        $this->confirmingItemDeletion = true;
+        $this->admin = $admin;
 
         
     }
 
- /*
-    
-        $this->authorize('delete', [$model->user, 'model']);
-        $this->confirmingItemDeletion = true;
-        $this->parent = $model;
-    
-    */
+
 
     public function deleteItem(Admin $admin): void
     {
