@@ -8,7 +8,9 @@ use Livewire\Component;
 use \Illuminate\View\View;
 use App\Models\Teacher;
 use App\Models\User;
+use App\Services\User\UserService;
 use Haruncpi\LaravelIdGenerator\IdGenerator;
+use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Validation\Rule;
 use Illuminate\Support\Facades\Storage;
@@ -108,8 +110,7 @@ class CrudChild extends Component
 
     public function showDeleteForm(Teacher $teacher): void
     {
-        $this->confirmingItemDeletion = true;
-        $this->teacher = $teacher;
+        App::make(UserService::class)->modalDeleteUser($teacher);
     }
 
     public function deleteItem(Teacher $teacher): void
