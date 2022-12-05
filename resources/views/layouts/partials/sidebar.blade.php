@@ -214,11 +214,14 @@
 
                 <!-- end::Submenu link -->
         @endcan
+@if (auth()->user()->hasAnyRole(['Admin', 'Teacher','Parent','Student']))
 @can('menu-result')
 
 <x-side-menu.list-link route="dashboard.exams.result.index" title="Results" />
 
-@endcan
+@endcan 
+@endif
+
   
 
     </ul>
