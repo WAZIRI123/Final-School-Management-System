@@ -1058,7 +1058,7 @@ img {
 
 #mu-testimonial {
     background-attachment: fixed;
-    background-image: url("../img/testimonial-bg.jpg");
+    background-image: url("../storage/img/testimonial-bg.jpg");
     background-position: center center;
     background-size: cover;
     display: inline;
@@ -1077,6 +1077,10 @@ img {
     top: 0;
     bottom: 0;
     right: 0;
+}
+
+#mu-testimonial .container .mu-title h2 {
+    color: #FFF;
 }
 
 #mu-testimonial .mu-testimonial-area {
