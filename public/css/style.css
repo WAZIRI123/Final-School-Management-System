@@ -1058,8 +1058,10 @@ img {
 
 #mu-testimonial {
     background-attachment: fixed;
+    background-color: #7293a7;
     background-image: url("../storage/img/testimonial-bg.jpg");
     background-position: center center;
+    background-blend-mode: multiply;
     background-size: cover;
     display: inline;
     float: left;
@@ -1070,7 +1072,6 @@ img {
 }
 
 #mu-testimonial:after {
-    background-color: rgba(0, 0, 0, 0.8);
     content: '';
     position: absolute;
     left: 0;

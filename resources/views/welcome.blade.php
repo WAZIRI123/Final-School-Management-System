@@ -420,7 +420,7 @@
     <!-- Include all compiled plugins (below), or include individual files as needed -->
     <script src=" {{ asset('js/bootstrap.js') }}"></script>
     <!-- Slick slider -->
-    <script type="text/javascript" src="{{ asset('js/slick.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('js/slick.js') }}" defer></script>
     <!-- Counter -->
     <script type="text/javascript" src="{{ asset('js/waypoints.js') }}"></script>
     <script type="text/javascript" src="{{ asset('js/jquery.counterup.js') }}"></script>
