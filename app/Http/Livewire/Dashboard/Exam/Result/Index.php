@@ -66,17 +66,33 @@ class Index extends Component
 
     public function render()
     {
+        $studentsResult=ExamRecord::with(['exams', 'subjects', 'students','semester'])
+        ->where('academic_id', $this->academic?? auth()->user()
+        ->school->academicYear->id )
+        ->where('semester_id', $this->semester?? auth()->user()
+        ->school->semester->id )
+        ->where('class_id',auth()->user()->student->class_id)->get()->sortByDesc('marks');
+        $rank = 1;
+        foreach ($studentsResult as $result) {
+            $result->rank = $rank;
+            $rank++;
+            $result->save();
+        }
+   $students=$studentsResult->count();
+
 
         $results = ExamRecord::with(['classes', 'exams', 'subjects', 'students', 'semester'])
-            ->where('academic_id', $this->academic)
+            ->where('academic_id', $this->academic?? auth()->user()->school->academicYear->id )
             ->where('student_id', auth()->user()->student->id ?? $this->student)
+            ->where('semester_id', $this->semester?? auth()->user()
+            ->school->semester->id )
             ->when($this->q, function ($query) {
                 return $query->where(function ($query) {
                     $query->where('student_id', 'like', '%' . $this->q . '%');
                 });
             })
             ->orderBy('marks', 'DESC');
-
+    $studentrank=ExamRecord::find($results->get()->first()->id)->rank;
 
         $results = $results->paginate($this->per_page);
 
@@ -87,7 +103,7 @@ class Index extends Component
   $this->semester1_result= $semester1_result;
 
   $this->semester2_result= $semester2_result;
-        return view('livewire.dashboard.exam.result.index', ['semester1_result' => $semester1_result, 'semester2_result' => $semester2_result])->layoutData(['title' => 'Manage Exam Record | School Management System']);
+        return view('livewire.dashboard.exam.result.index', ['semester1_result' => $semester1_result, 'semester2_result' => $semester2_result,'rank'=>$studentrank,'studentss'=>$students])->layoutData(['title' => 'Manage Exam Record | School Management System']);
     }
 
 

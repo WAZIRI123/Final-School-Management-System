@@ -89,15 +89,21 @@
                             <tr> <td>semester 2 Result</td></tr>
                             <tr class="bg-secondary text-gray-100 font-bold">
                                 <td class="px-3 py-2 capitalize">Subjects</td>
+                               
                                 <td class="px-3 py-2 capitalize">Marks</td>
+                               
                                 <td class="px-3 py-2 capitalize">Remark</td>
+                                <td class="px-3 py-2 capitalize">Rank</td>
                             </tr>
                         </thead>
                         <tbody class="divide-y divide-blue-400">
                             @foreach($semester2_result as $result)
                             <tr class="hover:bg-blue-300 {{ ($loop->even ) ? " bg-blue-100" : "" }}">
                                 <td class="px-3 py-2 capitalize">{{ $result->subjects?->name }}</td>
+                          
                                 <td class="px-3 py-2 capitalize">{{ $result->marks }}</td>
+                              
+                            
                                 @switch($result->marks)
                                     @case($result->marks>=80)
                                     <td class="px-3 py-2 capitalize">Excellence</td>
@@ -126,9 +132,10 @@
                                     @default
                                         
                                 @endswitch
+                                <td class="px-3 py-2 capitalize">{{ $result->rank }}</td>
                             </tr>
                             @endforeach
-                            <td>Total Marks:{{ $semester2_result->count()*100 }}  Acquired: {{ $semester2_result->sum('marks') }}</td>
+                            <td>Total Marks:{{ $semester2_result->count()*100 }} <br> Acquired Marks: {{ $semester2_result->sum('marks') }} <br> Student Position: {{ $rank }} of {{ $studentss }} students</td>
                         </tbody>
                     </table>
                     @endif
