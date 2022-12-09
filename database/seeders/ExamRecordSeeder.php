@@ -5,6 +5,7 @@ namespace Database\Seeders;
 use App\Enums\ClassSectionEnum;
 use App\Models\ExamRecord;
 use Illuminate\Database\Seeder;
+use Faker\Factory as Faker;
 
 class ExamRecordSeeder extends Seeder
 {
@@ -15,6 +16,7 @@ class ExamRecordSeeder extends Seeder
      */
     public function run()
     {
+        $faker = \Faker\Factory::create();
         ExamRecord::firstOrCreate([
             'id'          => 1,
             'class_id' => '1',
@@ -24,7 +26,7 @@ class ExamRecordSeeder extends Seeder
             'subject_id' => '1',
             'student_id' => '1',
             'academic_id'=>'1',
-            'marks'=> 50
+            'marks'=> $faker->numberBetween(10,100)
         ]);
 
         ExamRecord::firstOrCreate([
@@ -36,7 +38,7 @@ class ExamRecordSeeder extends Seeder
             'subject_id' => '1',
             'student_id' => '1',
             'academic_id'=>'1',
-            'marks'=> 50
+            'marks'=>$faker->numberBetween(10,100)
         ]);
         ExamRecord::factory()->count(10)->create();
     }

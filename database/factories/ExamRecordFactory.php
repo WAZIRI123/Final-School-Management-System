@@ -16,16 +16,18 @@ class ExamRecordFactory extends Factory
      * @return array<string, mixed>
      */
     public function definition()
+    
     {
         return [
     
             'class_id' => '1',
-            'semester_id' => '1',
+            'semester_id' =>  $this->faker->numberBetween(1,2),
             'section_id' => ClassSectionEnum::A->value,
             'exam_id' => '1',
+            'academic_id' => '1',
             'subject_id' => '1',
             'student_id' => '1',
-            'marks'=> 50
+            'marks'=>  $this->faker->numberBetween(10,100)
         ];
     }
 }
