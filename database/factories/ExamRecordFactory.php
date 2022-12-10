@@ -26,7 +26,7 @@ class ExamRecordFactory extends Factory
             'exam_id' => '1',
             'academic_id' => '1',
             'subject_id' => '1',
-            'student_id' => '1',
+            'student_id' => $this->faker->numberBetween(1,2),
             'marks'=>  $this->faker->numberBetween(10,100)
         ];
     }

@@ -24,7 +24,7 @@ class ExamRecordSeeder extends Seeder
             'section_id' => ClassSectionEnum::A->value,
             'exam_id' => '1',
             'subject_id' => '1',
-            'student_id' => '1',
+            'student_id' => $faker->numberBetween(1,2),
             'academic_id'=>'1',
             'marks'=> $faker->numberBetween(10,100)
         ]);
@@ -36,7 +36,7 @@ class ExamRecordSeeder extends Seeder
             'section_id' => ClassSectionEnum::A->value,
             'exam_id' => '1',
             'subject_id' => '1',
-            'student_id' => '1',
+            'student_id' => $faker->numberBetween(1,2),
             'academic_id'=>'1',
             'marks'=>$faker->numberBetween(10,100)
         ]);

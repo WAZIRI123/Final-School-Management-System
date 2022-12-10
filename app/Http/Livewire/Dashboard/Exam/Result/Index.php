@@ -66,32 +66,51 @@ class Index extends Component
 
     public function render()
     {
-        $studentsResult=ExamRecord::with(['exams', 'subjects', 'students','semester'])
-        ->where('academic_id', $this->academic?? auth()->user()
-        ->school->academicYear->id )
-        ->where('semester_id', $this->semester?? auth()->user()
-        ->school->semester->id )
-        ->where('class_id',auth()->user()->student->class_id)->get()->sortByDesc('marks');
+        // $studentsResult=ExamRecord::with(['exams', 'subjects', 'students','semester'])
+        // ->where('academic_id', $this->academic?? auth()->user()
+        // ->school->academicYear->id )
+        // ->where('class_id',auth()->user()->student->class_id)->get();
+$students=Student::with('examrecords')->whereHas('user.school',
+fn($school)=>$school->where('id',auth()->user()->school->id)
+)->get();
+
+        dd(  $students);
+ 
+$semester1_students_result=$studentsResult->where('semester_id',1)->sortByDesc('marks');
+
+$semester2_students_result=$studentsResult->where('semester_id',2)->sortByDesc('marks');
+
         $rank = 1;
-        foreach ($studentsResult as $result) {
+        foreach ($semester1_students_result as $result) {
             $result->rank = $rank;
             $rank++;
             $result->save();
         }
-   $students=$studentsResult->count();
+
+        $rank = 1;
+        foreach ($semester2_students_result as $result) {
+            $result->rank = $rank;
+            $rank++;
+            $result->save();
+        }
+
+   $students_semester1_number=$semester1_students_result->students->count();
+
+   $students_semester2_number=$semester2_students_result->students->count();
+   dd( $students_semester2_number);
 
 
         $results = ExamRecord::with(['classes', 'exams', 'subjects', 'students', 'semester'])
             ->where('academic_id', $this->academic?? auth()->user()->school->academicYear->id )
             ->where('student_id', auth()->user()->student->id ?? $this->student)
-            ->where('semester_id', $this->semester?? auth()->user()
-            ->school->semester->id )
             ->when($this->q, function ($query) {
                 return $query->where(function ($query) {
                     $query->where('student_id', 'like', '%' . $this->q . '%');
                 });
             })
             ->orderBy('marks', 'DESC');
+
+            dd( $results->get());
     $studentrank=ExamRecord::find($results->get()->first()->id)->rank;
 
         $results = $results->paginate($this->per_page);
@@ -99,11 +118,12 @@ class Index extends Component
         $semester1_result = $results->where('semester_id', 1);
 
         $semester2_result = $results->where('semester_id', 2);
+       
 
   $this->semester1_result= $semester1_result;
 
   $this->semester2_result= $semester2_result;
-        return view('livewire.dashboard.exam.result.index', ['semester1_result' => $semester1_result, 'semester2_result' => $semester2_result,'rank'=>$studentrank,'studentss'=>$students])->layoutData(['title' => 'Manage Exam Record | School Management System']);
+        return view('livewire.dashboard.exam.result.index', ['semester1_result' => $semester1_result, 'semester2_result' => $semester2_result,'rank'=>$studentrank,'students_semester1_number'=>$students_semester1_number,'students_semester2_number'=>$students_semester2_number])->layoutData(['title' => 'Manage Exam Record | School Management System']);
     }
 
 
