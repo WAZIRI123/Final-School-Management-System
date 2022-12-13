@@ -30,6 +30,7 @@ return new class extends Migration
             $table->date('dateofbirth');
             $table->string('current_address');
             $table->string('permanent_address');
+            $table->integer('rank')->nullable();
             $table->timestamps();
             $table->softDeletes();
         });

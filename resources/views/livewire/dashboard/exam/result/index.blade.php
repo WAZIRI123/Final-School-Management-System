@@ -41,7 +41,7 @@
                                 <td class="px-3 py-2 capitalize">Subjects</td>
                                 <td class="px-3 py-2 capitalize">Marks</td>
                                 <td class="px-3 py-2 capitalize">Remark</td>
-                                <td class="px-3 py-2 capitalize">Rank</td>
+                               
                             </tr>
                         </thead>
                         <tbody class="divide-y divide-blue-400">
@@ -78,10 +78,10 @@
 
                                 @default                               
                             @endswitch
-                            <td class="px-3 py-2 capitalize">{{ $result->rank }}</td>
                             </tr>
                             @endforeach
-                            <td>Total Marks:{{ $semester1_result->count()*100 }} <br> Acquired Marks: {{ $semester1_result->sum('marks') }} <br> Student Position: {{ $rank }} of {{ $students_semester1_number }} students</td>
+                            <td>Total Marks:{{ $semester1_result->count()*100 }} <br> Acquired Marks: {{ $semester1_result->sum('marks') }}</td>
+                            
                         </tbody>
                     </table>
                     @endif
@@ -95,7 +95,7 @@
                                 <td class="px-3 py-2 capitalize">Marks</td>
                                
                                 <td class="px-3 py-2 capitalize">Remark</td>
-                                <td class="px-3 py-2 capitalize">Rank</td>
+ 
                             </tr>
                         </thead>
                         <tbody class="divide-y divide-blue-400">
@@ -134,10 +134,14 @@
                                     @default
                                         
                                 @endswitch
-                                <td class="px-3 py-2 capitalize">{{ $result->rank }}</td>
                             </tr>
                             @endforeach
-                            <td>Total Marks:{{ $semester2_result->count()*100 }} <br> Acquired Marks: {{ $semester2_result->sum('marks') }} <br> Student Position: {{ $rank }} of {{$students_semester2_number }} students</td>
+                            <div class="grid justify-items-center">
+                            <td>Total Marks:{{ $semester2_result->count()*100 }} <br> Acquired Marks: {{ $semester2_result->sum('marks') }}</td>
+
+                            <td>Student Position:{{ $student->rank }} /{{ $student->count() }}</td>
+
+                        </div>
                         </tbody>
                     </table>
                     @endif
