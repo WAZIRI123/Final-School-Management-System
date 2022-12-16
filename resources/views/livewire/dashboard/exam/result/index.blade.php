@@ -9,7 +9,7 @@
                 <div class="grid grid-cols-2 gap-8">
                     <div class="mt-4">
                         <x-tall-crud-label>Academic Year</x-tall-crud-label>
-                        <x-tall-crud-select class="block mt-1 w-full" wire:model="academic">
+                        <x-tall-crud-select class="block mt-1 w-full" wire:model="academic_year">
                             <option value="">Please Select</option>
                             @foreach($academics as $c)
                             <option value="{{$c->id}}">{{$c->name()}}</option>
@@ -142,6 +142,10 @@
                             <td>Student Position:{{ $student->rank }} /{{ $student->count() }}</td>
 
                         </div>
+                        
+                        @else
+
+                        <td>no result found for this academic year</td>
                         </tbody>
                     </table>
                     @endif

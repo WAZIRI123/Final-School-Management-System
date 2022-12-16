@@ -18,7 +18,7 @@ class Index extends Component
 
     public $semesters;
     public $semeste_id;
-    public $academics;
+    public $academic_year;
     public $academic;
     public $student_id;
 
@@ -49,7 +49,7 @@ class Index extends Component
 
     public function mount()
     {
-        $this->academics = AcademicYear::all();
+        $this->academics = AcademicYear::where('school_id',auth()->user()->school->id)->get();
         $this->semesters = Semester::all();
         $this->students = Student::with('user')->where('parent_id', auth()->user()->parent?->id)->get();
     }
@@ -80,11 +80,11 @@ $student=$students->where('id',$this->student??auth()->user()->student->id)->fir
 
 
 
-$student_result=$student->examrecords;
+$student_result=$student?->examrecords;
 
-$student_result_semester1=$student_result->where('semester_id',1);
+$student_result_semester1=$student_result?->where('semester_id',1)?? collect([]);
 
-$student_result_semester2=$student_result->where('semester_id',2);
+$student_result_semester2=$student_result?->where('semester_id',2)?? collect([]);
  
 
 
