@@ -529,6 +529,7 @@ class PermissionSeeder extends Seeder
             'read timetable',
             'read notice',
             'check result',
+            'read exam record'
         ]);
         //assign permissions to parent
         $parent = Role::where('name', 'parent')->first();

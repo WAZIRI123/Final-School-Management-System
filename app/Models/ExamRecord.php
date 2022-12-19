@@ -46,4 +46,10 @@ class ExamRecord extends Model
     {
         return $this->belongsTo(Semester::class, 'semester_id');
     }
+    // academicYear()
+    public function academicYear():BelongsTo
+    {
+        return $this->belongsTo(AcademicYear::class,'academic_id');
+    }
+
 }

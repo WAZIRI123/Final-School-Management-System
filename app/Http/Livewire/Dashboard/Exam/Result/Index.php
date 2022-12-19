@@ -64,7 +64,8 @@ class Index extends Component
 
     public function render()
     {
-   
+ $this->authorize('viewAny', [ExamRecord::class]);
+
 $students=Student::with('examrecords','class','examrecords.subjects')->where('class_id',$this->class ?? auth()->user()->student->class->id?? null)->whereHas('examrecords',fn($q)=>$q->where('academic_id',$this->academic_year?? auth()->user()->school->academicYear->id))->get()->sortByDesc(fn($student)=>$student->examrecords->sum('marks'));
 
 $rank=1;
