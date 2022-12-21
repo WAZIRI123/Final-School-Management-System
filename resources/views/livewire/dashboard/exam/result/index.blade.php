@@ -7,6 +7,7 @@
                     <div class="text-2xl" wire:click="test">Exam_Results</div>
                 </div>
                 <div class="grid grid-cols-2 gap-8">
+                    
                     <div class="mt-4">
                         <x-tall-crud-label>Academic Year</x-tall-crud-label>
                         <x-tall-crud-select class="block mt-1 w-full" wire:model="academic_year">
@@ -16,7 +17,9 @@
                             @endforeach
                         </x-tall-crud-select>
                         @error('academic') <x-tall-crud-error-message>{{$message}}</x-tall-crud-error-message> @enderror
+                        <x-tall-crud-button  wire:click="examRecords">Result</x-tall-crud-button>
                     </div>
+
                     @if (auth()->user()->hasRole('Parent'))
                     <div class="mt-4">
                         <x-tall-crud-label>Student</x-tall-crud-label>
@@ -35,7 +38,7 @@
                     <table class="w-full whitespace-no-wrap mt-4 mb-4 shadow-2xl" wire:loading.class.delay="opacity-50">
                        
                         <thead>
-                            @if ($semester1_result->count())
+                            @if ($student_result_semester1->count())
                             <tr> <td>semester 1 Result</td></tr>
                             <tr class="bg-secondary text-gray-100 font-bold">
                                 <td class="px-3 py-2 capitalize">Subjects</td>
@@ -46,8 +49,8 @@
                         </thead>
                         <tbody class="divide-y divide-blue-400">
 
-                         <button wire:click="pdfData()">print</button>
-                            @foreach($semester1_result as $result)
+                     
+                            @foreach($student_result_semester1 as $result)
                             <tr class="hover:bg-blue-300 {{ ($loop->even ) ? " bg-blue-100" : "" }}">
                                 <td class="px-3 py-2 capitalize">{{ $result->subjects?->name }}</td>
                                 <td class="px-3 py-2 capitalize">{{ $result->marks }}</td>
@@ -80,12 +83,12 @@
                             @endswitch
                             </tr>
                             @endforeach
-                            <td>Total Marks:{{ $semester1_result->count()*100 }} <br> Acquired Marks: {{ $semester1_result->sum('marks') }}</td>
+                            <td>Total Marks:{{ $student_result_semester1->count()*100 }} <br> Acquired </td>
                             
                         </tbody>
                     </table>
                     @endif
-                    @if (count($semester2_result))
+                    @if (count($student_result_semester2))
                     <table class="w-full whitespace-no-wrap mt-8 shadow-2xl" wire:loading.class.delay="opacity-50">
                         <thead>
                             <tr> <td>semester 2 Result</td></tr>
@@ -99,7 +102,7 @@
                             </tr>
                         </thead>
                         <tbody class="divide-y divide-blue-400">
-                            @foreach($semester2_result as $result)
+                            @foreach($student_result_semester2 as $result)
                             <tr class="hover:bg-blue-300 {{ ($loop->even ) ? " bg-blue-100" : "" }}">
                                 <td class="px-3 py-2 capitalize">{{ $result->subjects?->name }}</td>
                           
@@ -137,7 +140,10 @@
                             </tr>
                             @endforeach
                             <div class="grid justify-items-center">
-                            <td>Total Marks:{{ $semester2_result->count()*100 }} <br> Acquired Marks: {{ $semester2_result->sum('marks') }}</td>
+                            <td>Total Marks:{{ $student_result_semester2->count()*100 }} <br> Acquired 
+                            @dd($student_result_semester2)
+                            Marks: {{ 
+                                $student_result_semester2->sum('marks') }}</td>
 
                             <td>Student Position:{{ $student->rank }} /{{ $student->count() }}</td>
 

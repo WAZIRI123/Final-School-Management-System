@@ -7,7 +7,6 @@ use Illuminate\Database\Eloquent\Builder;
 use App\Models\ExamRecord;
 use App\Models\Semester;
 use App\Models\Student;
-use App\Services\Print\PrintService;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Livewire\Component;
 use Livewire\WithPagination;
@@ -21,6 +20,18 @@ class Index extends Component
     public $academic_year;
     public $academic;
     public $student_id;
+    
+    public $class;
+
+    public $student_result_semester1;
+
+    public $student_result_semester2;
+
+    public  $student;
+
+    public  $select_student;
+    
+    public  $students;
 
 
     /**
@@ -52,45 +63,43 @@ class Index extends Component
         $this->academics = AcademicYear::where('school_id',auth()->user()->school->id)->get();
         $this->semesters = Semester::all();
         $this->students = Student::with('user')->where('parent_id', auth()->user()->parent?->id)->get();
+
+        $this->student_result_semester1=collect([]);
+        $this->student_result_semester2=collect([]);
     }
 
-    public function pdfData()
+    public function examRecords()
     {
 
-       return  to_route('result-pdf')->with(['r1'=>$this->semester1_result,'r2'=>$this->semester2_result]);
-  
+        $this->authorize('viewAny', [ExamRecord::class]);
+
+        $this->students=Student::with('examrecords','class','examrecords.subjects')->where('class_id',$this->class ?? auth()->user()->student->class->id?? null)->whereHas('examrecords',fn($q)=>$q->where('academic_id',$this->academic_year?? auth()->user()->school->academicYear->id))->get()->sortByDesc(fn($student)=>$student->examrecords->sum('marks'));
+        $rank=1;
+        
+        foreach ($this->students as $result) {
+            $result->rank=$rank;
+            $result->save();
+            $rank++;
+        }
+        
+        
+        $this->student=$this->students->where('id',$this->select_student??auth()->user()->student->id)->first();
+        
+        
+        $student_result=$this->student?->examrecords;
+        
+        $this->student_result_semester1=$student_result?->where('semester_id',1)?? collect([]);
+
+     
+        
+        $this->student_result_semester2=$student_result?->where('semester_id',2)?? collect([]);
     }
 
 
     public function render()
     {
- $this->authorize('viewAny', [ExamRecord::class]);
 
-$students=Student::with('examrecords','class','examrecords.subjects')->where('class_id',$this->class ?? auth()->user()->student->class->id?? null)->whereHas('examrecords',fn($q)=>$q->where('academic_id',$this->academic_year?? auth()->user()->school->academicYear->id))->get()->sortByDesc(fn($student)=>$student->examrecords->sum('marks'));
-
-$rank=1;
-
-foreach ($students as $result) {
-    $result->rank=$rank;
-    $result->save();
-    $rank++;
-}
-
-
-$student=$students->where('id',$this->student??auth()->user()->student->id)->first();
-
-
-
-$student_result=$student?->examrecords;
-
-$student_result_semester1=$student_result?->where('semester_id',1)?? collect([]);
-
-$student_result_semester2=$student_result?->where('semester_id',2)?? collect([]);
- 
-
-
-
-        return view('livewire.dashboard.exam.result.index', ['semester1_result' => $student_result_semester1, 'semester2_result' => $student_result_semester2,'student'=>$student,'students'=>$students])->layoutData(['title' => 'Manage Exam Record | School Management System']);
+        return view('livewire.dashboard.exam.result.index')->layoutData(['title' => 'Manage Exam Record | School Management System']);
     }
 
 
