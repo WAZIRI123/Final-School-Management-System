@@ -17,7 +17,7 @@ abstract class TestCase extends BaseTestCase
     {
         parent::setUp();
         $this->refreshDatabase();
-        $this->seed([RolesAndPermissionsSeeder::class,PermissionSeeder::class]);
+        $this->seed();
     }
 
 

@@ -83,8 +83,10 @@
                             @endswitch
                             </tr>
                             @endforeach
-                            <td>Total Marks:{{ $student_result_semester1->count()*100 }} <br> Acquired </td>
-                            
+                            <td>Total Marks:{{ $student_result_semester1->count()*100 }} <br> Acquired 
+          
+                            Marks: {{ 
+                                $student_result_semester1->sum('marks') }}</td>
                         </tbody>
                     </table>
                     @endif
@@ -141,7 +143,7 @@
                             @endforeach
                             <div class="grid justify-items-center">
                             <td>Total Marks:{{ $student_result_semester2->count()*100 }} <br> Acquired 
-                            @dd($student_result_semester2)
+          
                             Marks: {{ 
                                 $student_result_semester2->sum('marks') }}</td>
 
