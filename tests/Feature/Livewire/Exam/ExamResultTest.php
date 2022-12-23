@@ -31,32 +31,8 @@ class ExamResultTest extends TestCase
            {
                $this->withoutExceptionHandling();
                 
-              $class=Classes::factory()->create(['id'=>1]);
 
-              $subject=Subject::factory()->create(['id'=>1]); 
-
-              $semester1=Semester::factory()->create(['id'=>1]); 
-
-              $semester2=Semester::factory()->create(['id'=>2]); 
-
-              
-              $student1=Student::factory()->create(['id'=>1]);
-
-              $academic_year=AcademicYear::factory()->create(['id'=>1]);
-                            
-              $student2=Student::factory()->create(['id'=>2]);  
-
-              $exam=Exam::factory()->create(['id'=>1]);
-
-    ExamRecord::factory()->for($class)->for($exam,'exams')->for($subject,'subjects')->for($student1,'students')->for($academic_year,'academicYear')->create(['semester_id'=>1]);
-
-    
-    ExamRecord::factory()->for($class)->for($exam,'exams')->for($subject,'subjects')->for($student1,'students')->for($academic_year,'academicYear')->create(['semester_id'=>2]);
-
-    ExamRecord::factory()->for($class)->for($exam,'exams')->for($subject,'subjects')->for($student2,'students')->for($academic_year,'academicYear')->create(['semester_id'=>1]);
-
-    ExamRecord::factory()->for($class)->for($exam,'exams')->for($subject,'subjects')->for($student2,'students')->for($academic_year,'academicYear')->create(['semester_id'=>2]);
-
+               $students =Student::factory()->count(2)->has(ExamRecord::factory()->for(Subject::factory(),'subjects')->count(5))->for(Classes::factory(),'class')->create();
 
                // make fake user && assign role && acting as that user
  
@@ -68,18 +44,13 @@ class ExamResultTest extends TestCase
                $user1->can('read exam record', [ExamRecord::class]);
 
        
-               Livewire::actingAs($user1)
+               $response=Livewire::actingAs($user1)
                    ->test(Index::class)
                    ->set('class', 1)
-                   ->set('section', ClassSectionEnum::A->value)
-                   ->set('exam', 1)
-                   ->set('subject', 1)
-                   ->set('student', [1,2,3,4,5,6,7,8,9,10,11,12])
-                   ->call('Markstudent');
-       
-               // test if data exist in database
-               $this->assertDatabaseHas('exam_records', [
-                   'class_id' => 1,
-               ]);
+                   ->set('academic_year', 1)
+                   ->set('select_student', 1)
+                   ->call('examRecords');
+   
+                dd (json_decode($response->lastResponse->content()));
            }
 }

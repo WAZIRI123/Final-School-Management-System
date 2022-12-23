@@ -60,9 +60,9 @@ class Index extends Component
 
     public function mount()
     {
-        $this->academics = AcademicYear::where('school_id',auth()->user()->school->id)->get();
+        $this->academics = AcademicYear::all();
         $this->semesters = Semester::all();
-        $this->students = Student::with('user')->where('parent_id', auth()->user()->parent?->id)->get();
+        $this->students = Student::with('user')->get();
 
         $this->student_result_semester1=collect([]);
         $this->student_result_semester2=collect([]);
