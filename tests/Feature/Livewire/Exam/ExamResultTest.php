@@ -30,13 +30,13 @@ class ExamResultTest extends TestCase
            public function authorized_user_can_view_Exam_result()
            {
                $this->withoutExceptionHandling();
-                
 
-               $students =Student::factory()->count(2)->has(ExamRecord::factory()->for(Subject::factory(),'subjects')->count(5))->for(Classes::factory(),'class')->create();
+               $students1 =Student::factory()->has(ExamRecord::factory()->count(5)->state(['marks'=>15]))->create();
+
+               $students2 =Student::factory()->has(ExamRecord::factory()->count(5)->state(['marks'=>95]))->create();
 
                // make fake user && assign role && acting as that user
  
-           
                $user1 = User::factory()->create();
                $user1->assignRole('student');
    
@@ -50,7 +50,12 @@ class ExamResultTest extends TestCase
                    ->set('academic_year', 1)
                    ->set('select_student', 1)
                    ->call('examRecords');
-   
-                dd (json_decode($response->lastResponse->content()));
+
+                   // assert if students sorted corretly
+                  $this->assertEquals([$students2->id,$students1->id],$response->viewData('students')->pluck('id')->toArray()) ;
+
+                   // assert if correctly number of exam_records returned for a student
+                  $this->assertEquals(5,$response->viewData('student_result')->count());
+                
            }
 }

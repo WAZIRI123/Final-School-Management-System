@@ -22,7 +22,7 @@ class Index extends Component
     public $student_id;
     
     public $class;
-
+    public $student_result;
     public $student_result_semester1;
 
     public $student_result_semester2;
@@ -74,6 +74,8 @@ class Index extends Component
         $this->authorize('viewAny', [ExamRecord::class]);
 
         $this->students=Student::with('examrecords','class','examrecords.subjects')->where('class_id',$this->class ?? auth()->user()->student->class->id?? null)->whereHas('examrecords',fn($q)=>$q->where('academic_id',$this->academic_year?? auth()->user()->school->academicYear->id))->get()->sortByDesc(fn($student)=>$student->examrecords->sum('marks'));
+
+        
         $rank=1;
         
         foreach ($this->students as $result) {
@@ -86,7 +88,7 @@ class Index extends Component
         $this->student=$this->students->where('id',$this->select_student??auth()->user()->student->id)->first();
         
         
-        $student_result=$this->student?->examrecords;
+        $this->student_result=$student_result=$this->student?->examrecords;
         
         $this->student_result_semester1=$student_result?->where('semester_id',1)?? collect([]);
 
