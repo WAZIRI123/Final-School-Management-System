@@ -31,8 +31,10 @@ class CreateAcademicYearTest extends TestCase
 
 
         // make fake user && assign role && acting as that user && academicyear create
-        $user = User::factory()->create();
+        $school = School::factory()->create();
 
+        $user = User::factory()->for($school)->create();
+        
         AcademicYear::factory()->create(['start_year' => '2000', 'school_id' => 1]);
 
         AcademicYear::factory()->create(['start_year' => '2001/02/20', 'school_id' => 2]);
@@ -40,7 +42,7 @@ class CreateAcademicYearTest extends TestCase
         $user->assignRole('Admin');
 
         // check if user has given permission/gate   
-        $user->can('viewAny', [academicyear::class, 'academic year']);
+        $user->can('viewAny', [academicyear::class]);
 
         Livewire::actingAs($user)
             ->test('dashboard.academic-year.crud')
@@ -123,10 +125,10 @@ class CreateAcademicYearTest extends TestCase
         // make fake user && assign role && acting as that user
         $user1 = User::factory()->create();
         $user1->assignRole('admin');
-        $academicyear = academicyear::factory()->create();
+        $academicyear = AcademicYear::factory()->create(['school_id'=>$user1->school_id]);
 
         // check if user has given permission/gate   
-        $user1->can('update', [$user1, 'academic year']);
+        $user1->can('update', [$academicyear]);
 
         // test
         Livewire::actingAs($user1)
