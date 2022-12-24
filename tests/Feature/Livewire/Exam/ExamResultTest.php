@@ -20,7 +20,7 @@ use Tests\TestCase;
 
 class ExamResultTest extends TestCase
 {
-    use RefreshDatabase;
+
     use FeatureTestTrait, AuthorizesRequests;
 
 

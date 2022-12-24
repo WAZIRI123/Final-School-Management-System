@@ -4,18 +4,17 @@ namespace Tests\Feature\Livewire\Exam;
 
 use App\Http\Livewire\Dashboard\Exam\CreateExam;
 use App\Models\Exam;
+use App\Models\Semester;
 use App\Models\User;
 use App\Traits\FeatureTestTrait;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
-use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Foundation\Testing\WithFaker;
 use Livewire\Livewire;
 use Tests\TestCase;
 
 class CreateExamTest extends TestCase
 {
-    use RefreshDatabase;
     use FeatureTestTrait, AuthorizesRequests;
+
 
         //test view all Exam cannot be accessed by unauthorised users
         public function test_view_all_Exam_cannot_be_accessed_by_unauthorised_users()
@@ -49,6 +48,7 @@ class CreateExamTest extends TestCase
             $this->withoutExceptionHandling();
             // make fake user && assign role && acting as that user
             $user1 = User::factory()->create();
+            $Semester=Semester::factory()->create();
             $user1->assignRole('admin');
     
             // check if user has given permission/gate   
@@ -58,7 +58,7 @@ class CreateExamTest extends TestCase
                 ->test(CreateExam::class)
                 ->set('item.name', 'waziri')
                 ->set('item.description', 'waziriallyamir@gmail.com')
-                ->set('item.semester_id', 1)
+                ->set('item.semester_id', $Semester->id)
                 ->set('item.start_date', '2023-01-01')
                 ->set('item.stop_date', '2023-01-31')
                 ->set('item.active', '1')
@@ -69,7 +69,7 @@ class CreateExamTest extends TestCase
             // test if data exist in database
             $this->assertDatabaseHas('exams', [
                 'name' => 'waziri',
-                'semester_id'=>1,
+                'semester_id'=>$Semester->id,
             ]);
         }
     
@@ -95,7 +95,7 @@ class CreateExamTest extends TestCase
             // make fake user && assign role && acting as that user
             $user1 = User::factory()->create();
             $user1->assignRole('admin');
-            $Exam = Exam::factory()->create();
+            $Exam = Exam::factory()->for(Semester::factory()->state(['school_id'=>$user1->school_id]),'semester')->create();
     
             // check if user has given permission/gate   
             $user1->can('update', [$user1, 'exam']);
@@ -133,7 +133,7 @@ class CreateExamTest extends TestCase
             $user = User::factory()->create();
             $user->assignRole('admin');
             $user->can('delete', [$user, 'exam']);
-            $Exam = Exam::factory()->create();
+            $Exam = Exam::factory()->for(Semester::factory()->state(['school_id'=>$user->school_id]),'semester')->create();
             // test
             Livewire::actingAs($user)
                 ->test(CreateExam::class, ['Exam' => $Exam])

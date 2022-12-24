@@ -89,7 +89,7 @@
             @foreach($results as $result)
                 <tr class="hover:bg-blue-300 {{ ($loop->even ) ? "bg-blue-100" : ""}}">
                     <td class="py-3 pl-2 capitalize" >{{ $loop->iteration }}</td>
-                    <td class="py-3 pl-2 capitalize" >{{ $result->parent->user->name }}</td>
+                    <td class="py-3 pl-2 capitalize" >{{ $result->parent?->user->name }}</td>
                     <td class="py-3 pl-2 capitalize" >{{ $result->user->name }}</td>
                     <td class="py-3 pl-2 capitalize" >{{ $result->admission_no }}</td>
                     <td class="py-3 pl-2 capitalize" >{{ $result->gender }}</td>

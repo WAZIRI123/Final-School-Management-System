@@ -6,7 +6,6 @@ use App\Http\Livewire\Dashboard\AcademicYear\CrudChild;
 use App\Http\Livewire\Dashboard\AcademicYear\SetAcademicYear;
 use App\Models\AcademicYear;
 use App\Models\School;
-use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Livewire\Livewire;
 use App\Traits\FeatureTestTrait;
@@ -15,7 +14,6 @@ use Tests\TestCase;
 
 class CreateAcademicYearTest extends TestCase
 {
-    use RefreshDatabase;
     use FeatureTestTrait, AuthorizesRequests;
 
     //test view all academicyear cannot be accessed by unauthorised users
