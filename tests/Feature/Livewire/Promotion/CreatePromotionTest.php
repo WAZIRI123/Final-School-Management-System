@@ -4,10 +4,12 @@ namespace Tests\Feature\Livewire\Promotion;
 
 use App\Http\Livewire\Dashboard\PromoteStudent\ManagePromotion;
 use App\Http\Livewire\Dashboard\PromoteStudent\PromoteStudent;
+use App\Models\AcademicYear;
+use App\Models\Classes;
 use App\Models\Promotion;
+use App\Models\School;
 use App\Models\Student;
 use App\Models\User;
-use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Livewire\Livewire;
 use App\Traits\FeatureTestTrait;
@@ -16,7 +18,7 @@ use Tests\TestCase;
 
 class CreatePromotionTest extends TestCase
 {
-    use RefreshDatabase;
+
     use FeatureTestTrait, AuthorizesRequests;
 
     /** @test  */
@@ -25,7 +27,15 @@ class CreatePromotionTest extends TestCase
         $this->withoutExceptionHandling();
 
         // make fake user && assign role && acting as that user
-        $user1 = User::factory()->create();
+        $school = School::factory()->create();
+        $AcademicYear=AcademicYear::factory()->for($school)->create();
+     
+       
+        $user1 = User::factory()->for($school)->create();
+      
+
+        $class1 = Classes::factory()->create();
+        $class2 = Classes::factory()->create();
         $user1->assignRole('admin');
         $user=User::factory()->create();
         $student = Student::factory()->for($user)->create();
@@ -36,11 +46,11 @@ class CreatePromotionTest extends TestCase
         Livewire::actingAs($user1)
             ->test(PromoteStudent::class,['student' => $student])
             ->set('old_section', \App\Enums\ClassSectionEnum::A)
-            ->set('old_class', 1)
-            ->set('new_class', 2)
+            ->set('old_class', $class1->id)
+            ->set('new_class', $class2->id)
             ->set('new_section', \App\Enums\ClassSectionEnum::A)
             ->set('selectedRows', [1])
-            ->call('promoteStudents');
+            ->call('promoteStudents')->assertHasNoErrors();
 
         // test if data exist in database
         $this->assertDatabaseHas('students', [
@@ -49,8 +59,8 @@ class CreatePromotionTest extends TestCase
 
         // test if data exist in database
         $this->assertDatabaseHas('promotions', [
-            'new_class_id' => 2,
-            'old_class_id' => 1,
+            'new_class_id' =>$class2->id,
+            'old_class_id' => $class1->id,
         ]);
     }
 

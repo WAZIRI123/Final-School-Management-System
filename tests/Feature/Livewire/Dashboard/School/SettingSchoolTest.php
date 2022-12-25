@@ -6,13 +6,12 @@ use App\Http\Livewire\Dashboard\School\SettingSchool;
 
 use App\Models\School;
 use App\Traits\FeatureTestTrait;
-use Illuminate\Foundation\Testing\RefreshDatabase;
 use Livewire\Livewire;
 use Tests\TestCase;
 
 class SettingSchoolTest extends TestCase
 {
-    use RefreshDatabase;
+
     
     use FeatureTestTrait;
 

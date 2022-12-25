@@ -7,7 +7,6 @@ use App\Models\Parents;
 use App\Models\User;
 use App\Traits\FeatureTestTrait;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
-use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Http\UploadedFile;
 use Livewire\Livewire;
@@ -15,7 +14,7 @@ use Tests\TestCase;
 
 class CreateParentTest extends TestCase
 {
-    use RefreshDatabase;
+
     use FeatureTestTrait, AuthorizesRequests;
 
 

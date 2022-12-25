@@ -12,7 +12,7 @@ use Tests\TestCase;
 
 class SetSchoolTest extends TestCase
 {
-    use RefreshDatabase;
+
     use FeatureTestTrait;
     //test authorised users can edit schools
 

@@ -46,7 +46,7 @@ class School extends Model
 
     public function academicYear()
     {
-        return $this->hasOne(AcademicYear::class, 'id', 'academic_year_id');
+        return $this->hasOne(AcademicYear::class);
     }
 
     public function semester()

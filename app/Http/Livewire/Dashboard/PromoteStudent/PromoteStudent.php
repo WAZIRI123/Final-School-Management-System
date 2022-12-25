@@ -121,16 +121,19 @@ class PromoteStudent extends Component
         $this->validate();
         //get all students for promotion
         $students =Student::whereIn('id', $this->selectedRows)->get();
-
-        $academicyear=auth()->user()->school->academic_year_id;
+       
+        $academicyear=auth()->user()->school->academicYear->id;
         //make sure academic year is present
         if ( $academicyear == null) {
             return session()->flash('danger', 'Academic year is not set');
         }
+
+       
        //make sure selectedRows is present
        if ( $this->selectedRows == null) {
         return session()->flash('danger', 'Please select student/students to promote');
     }
+  
         DB::beginTransaction();
         // update each student's class
         foreach ($students as $student) {

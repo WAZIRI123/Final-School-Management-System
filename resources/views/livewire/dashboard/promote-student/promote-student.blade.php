@@ -103,8 +103,8 @@
                     <td class="px-2 py-3 capitalize" >{{ $loop->iteration }}</td>
                     <td class="px-2 py-3 capitalize" >{{ $result->user->name }}</td>
                     <td class="px-2 py-3 capitalize" >{{ $result->admission_no }}</td>
-                    <td class="px-2 py-3 capitalize" >{{ $result->parent->user->name }}</td>
-                    <td class="px-2 py-3 capitalize" >{{$result->class->class_name }}</td>
+                    <td class="px-2 py-3 capitalize" >{{ $result->parent?->user->name }}</td>
+                    <td class="px-2 py-3 capitalize" >{{$result->class?->class_name }}</td>
                     <td class="px-2 py-3 capitalize" >{{ $result->gender }}</td>
                     <td class="px-2 py-3 capitalize" >{{ $result->section }}</td>
                     <td class="px-2 py-3 capitalize" >{{ $result->Status }}</td>
