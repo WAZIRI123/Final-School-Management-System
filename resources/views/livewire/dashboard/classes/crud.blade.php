@@ -39,7 +39,7 @@
             @foreach($results as $result)
                 <tr class="hover:bg-blue-300 {{ ($loop->even ) ? "bg-blue-100" : ""}}">
                     <td class="px-3 py-2 capitalize" >{{ $result->id }}</td>
-                    <td class="px-3 py-2 capitalize" >{{ $result->school->name }}</td>
+                    <td class="px-3 py-2 capitalize" >{{ $result->school?->name }}</td>
                     <td class="px-3 py-2 capitalize" >{{ $result->class_code }}</td>
                     <td class="px-3 py-2 capitalize" >{{ $result->class_name }}</td>
                     <td class="px-3 py-2 capitalize" >

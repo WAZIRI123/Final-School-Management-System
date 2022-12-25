@@ -37,7 +37,6 @@ class CrudChild extends Component
     return
     [
         'item.class_name' => 'required',
-        'item.section' => 'required',
         'item.class_code' => 'required',
         
     ];
@@ -49,7 +48,6 @@ class CrudChild extends Component
     protected $validationAttributes = [
         'item.class_name' => 'Class Name',
         'item.class_code' => 'Class Code',
-        'item.section' => 'Section',
 
     ];
 
@@ -115,7 +113,6 @@ class CrudChild extends Component
         $this->validate();
         Classes::create([
             'class_name' => $this->item['class_name'], 
-            'section' => $this->item['section'],
             'class_code' => $this->item['class_code'], 
             'school_id' => auth()->user()->school_id, 
         ]);
@@ -129,6 +126,7 @@ class CrudChild extends Component
         $this->authorize('update', [$classes, 'class']);
         $this->resetErrorBag();
         $this->item = $classes;
+       
         $this->confirmingItemEdit = true;
         $this->class= $classes;
     }

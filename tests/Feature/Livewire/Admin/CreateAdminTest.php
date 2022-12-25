@@ -4,6 +4,7 @@ namespace Tests\Feature\Livewire\Admin;
 
 use App\Http\Livewire\Dashboard\Admin\CrudChild;
 use App\Models\Admin;
+use App\Models\School;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
@@ -15,7 +16,7 @@ use Tests\TestCase;
 
 class CreateadminTest extends TestCase
 {
-    use RefreshDatabase;
+  
     use FeatureTestTrait, AuthorizesRequests;
  //test view all admins cannot be accessed by unauthorised users
 
@@ -82,7 +83,10 @@ class CreateadminTest extends TestCase
      $image = UploadedFile::fake()->image($imagename);
 
      // make fake user && assign permission && acting as that user
-     $user = User::factory()->create();
+     $school = School::factory()->create();
+
+     $user = User::factory()->for($school)->create();
+    
      $user->givePermissionTo('create admin');
      /** @var \Illuminate\Contracts\Auth\Authenticatable $user */
      $this->actingAs($user);

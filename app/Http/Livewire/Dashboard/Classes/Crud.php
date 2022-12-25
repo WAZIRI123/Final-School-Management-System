@@ -39,10 +39,6 @@ class Crud extends Component
     public $per_page = 15;
 
 
-    public function mount(): void
-    {
-
-    }
 
     public function render(): View
     {

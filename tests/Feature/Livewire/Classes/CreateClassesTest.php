@@ -4,16 +4,17 @@ namespace Tests\Feature\Livewire\classes;
 
 use App\Http\Livewire\Dashboard\classes\CrudChild;
 use App\Models\Classes;
+use App\Models\School;
 use App\Models\User;
 use App\Traits\FeatureTestTrait;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
-use Illuminate\Foundation\Testing\RefreshDatabase;
+
 use Livewire\Livewire;
 use Tests\TestCase;
 
 class CreateclassesTest extends TestCase
 {
-    use RefreshDatabase;
+
     use FeatureTestTrait, AuthorizesRequests;
 
 
@@ -88,7 +89,7 @@ class CreateclassesTest extends TestCase
         $user1->assignRole('admin');
 
         // check if user has given permission/gate   
-        $user1->can('create', [$user1, 'classes']);
+        $user1->can('create', [Classes::class, 'classes']);
 
         Livewire::actingAs($user1)
             ->test(CrudChild::class)
@@ -123,12 +124,16 @@ class CreateclassesTest extends TestCase
         $this->withoutExceptionHandling();
 
         // make fake user && assign role && acting as that user
-        $user1 = User::factory()->create();
+        $school = School::factory()->create();
+        $classes = Classes::factory()->for($school)->create();
+
+        $user1 = User::factory()->for($school)->create();
+
         $user1->assignRole('admin');
-        $classes = Classes::factory()->create();
+        
 
         // check if user has given permission/gate   
-        $user1->can('update', [$user1, 'classes']);
+        $user1->can('update', [$classes, 'classes']);
 
         // test
         Livewire::actingAs($user1)
@@ -137,7 +142,7 @@ class CreateclassesTest extends TestCase
 
             ->set('item.class_name', 'waziribig')
 
-            ->call('editItem');
+            ->call('editItem')->assertHasNoErrors();
 
         // test if data exist in database
         $this->assertDatabaseHas('classes', [
