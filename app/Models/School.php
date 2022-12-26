@@ -51,6 +51,6 @@ class School extends Model
 
     public function semester()
     {
-        return $this->hasOne(Semester::class, 'id', 'semester_id');
+        return $this->hasOne(Semester::class,'school_id','id');
     }
 }

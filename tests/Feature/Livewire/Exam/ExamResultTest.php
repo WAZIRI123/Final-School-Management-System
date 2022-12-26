@@ -13,8 +13,6 @@ use App\Models\Subject;
 use App\Models\User;
 use App\Traits\FeatureTestTrait;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
-use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Foundation\Testing\WithFaker;
 use Livewire\Livewire;
 use Tests\TestCase;
 
@@ -50,7 +48,6 @@ class ExamResultTest extends TestCase
                    ->set('academic_year', 1)
                    ->set('select_student', 1)
                    ->call('examRecords');
-
                    // assert if students sorted corretly
                   $this->assertEquals([$students2->id,$students1->id],$response->viewData('students')->pluck('id')->toArray()) ;
 

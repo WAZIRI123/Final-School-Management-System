@@ -3,20 +3,20 @@
 namespace Tests\Feature\Livewire\Teacher;
 
 use App\Http\Livewire\Dashboard\Teacher\CrudChild;
+use App\Models\School;
 use App\Models\Teacher;
 use App\Models\User;
-use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Support\Facades\Storage;
 use App\Traits\FeatureTestTrait;
 use Livewire\Livewire;
 use Illuminate\Http\UploadedFile;
+use Illuminate\Support\Facades\DB;
 use Tests\TestCase;
 
 
 class CreateTeacherTest extends TestCase
 {
-    use RefreshDatabase;
     use FeatureTestTrait, AuthorizesRequests;
  //test view all teachers cannot be accessed by unauthorised users
 
@@ -83,7 +83,8 @@ class CreateTeacherTest extends TestCase
      $image = UploadedFile::fake()->image($imagename);
 
      // make fake user && assign permission && acting as that user
-     $user = User::factory()->create();
+     $school = School::factory()->create();
+     $user = User::factory()->for($school)->create();
      $user->givePermissionTo('create teacher');
      /** @var \Illuminate\Contracts\Auth\Authenticatable $user */
      $this->actingAs($user);

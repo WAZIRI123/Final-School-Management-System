@@ -109,7 +109,7 @@ class CreateTimeTable extends Component
         $item = Timetable::create([
             'name' => $this->item['name'] , 
             'description' => $this->item['description'] , 
-            'semester_id' => auth()->user()->school->semester_id , 
+            'semester_id' => auth()->user()->school->semester->id , 
             'class_id' => $this->item['class_id'],
             'school_id' => auth()->user()->school->id,
         ]);

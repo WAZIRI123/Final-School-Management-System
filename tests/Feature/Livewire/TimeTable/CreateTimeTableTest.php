@@ -3,18 +3,19 @@
 namespace Tests\Feature\Livewire\TimeTable;
 
 use App\Http\Livewire\Dashboard\TimeTable\CreateTimeTable;
+use App\Models\Classes;
+use App\Models\School;
+use App\Models\Semester;
 use App\Models\Timetable;
 use App\Models\User;
 use App\Traits\FeatureTestTrait;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
-use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Livewire\Livewire;
 use Tests\TestCase;
 
 class CreateTimeTableTest extends TestCase
 {
-    use RefreshDatabase;
     use FeatureTestTrait, AuthorizesRequests;
 
         //test view all TimeTable cannot be accessed by unauthorised users
@@ -85,7 +86,10 @@ class CreateTimeTableTest extends TestCase
         public function authorized_user_can_create_TimeTable()
         {
             // make fake user && assign role && acting as that user
-            $user1 = User::factory()->create();
+            $school = School::factory()->create();
+            $semester = Semester::factory()->for($school)->create();
+            $user1 = User::factory()->for($school)->create();
+            $class = Classes::factory()->create();
             $user1->assignRole('admin');
     
             // check if user has given permission/gate   
@@ -95,14 +99,14 @@ class CreateTimeTableTest extends TestCase
                 ->test(CreateTimeTable::class)
                 ->set('item.name', 'waziri')
                 ->set('item.description', 'waziri ally')
-                ->set('item.class_id', 2)
+                ->set('item.class_id', $class->id)
                 ->set('item.semester_id', 2)
-                ->call('createItem');
+                ->call('createItem')->assertHasNoErrors();
     
             // test if data exist in database
             $this->assertDatabaseHas('TimeTables', [
                 'name' => 'waziri',
-                'class_id'=>2,
+                'class_id'=>$class->id,
             ]);
         }
     
@@ -126,9 +130,12 @@ class CreateTimeTableTest extends TestCase
             $this->withoutExceptionHandling();
     
             // make fake user && assign role && acting as that user
-            $user1 = User::factory()->create();
+            $school = School::factory()->create();
+
+            $class = Classes::factory()->for($school)->create();
+            $user1 = User::factory()->for($school)->create();
             $user1->assignRole('admin');
-            $TimeTable = TimeTable::factory(['semester_id'=>1,'class_id'=>1])->create();
+            $TimeTable = TimeTable::factory(['semester_id'=>1])->for($class,'MyClass')->create();
     
             // check if user has given permission/gate   
             $user1->can('update', [$user1, 'TimeTable']);
@@ -163,17 +170,21 @@ class CreateTimeTableTest extends TestCase
         public function test_authorised_users_can_delete_TimeTable()
         {
             // make fake user && assign role && acting as that user
-            $user = User::factory()->create();
-            $user->assignRole('admin');
-            $user->can('delete', [$user, 'TimeTable']);
-            $TimeTable = TimeTable::factory(['school_id'=>1,'semester_id'=>1,'class_id'=>1])->create();
+            $school = School::factory()->create();
+
+            $class = Classes::factory()->for($school)->create();
+            $user1 = User::factory()->for($school)->create();
+            $user1->assignRole('admin');
+            $timeTable = TimeTable::factory(['semester_id'=>1])->for($class,'MyClass')->create();
+            $user1->assignRole('admin');
+            $user1->can('delete', [ $timeTable, 'TimeTable']);
             // test
-            Livewire::actingAs($user)
-                ->test(CreateTimeTable::class, ['TimeTable' => $TimeTable])
-                ->call('showDeleteForm', $TimeTable)
+            Livewire::actingAs($user1)
+                ->test(CreateTimeTable::class, ['TimeTable' => $timeTable])
+                ->call('showDeleteForm', $timeTable)
                 ->call('deleteItem');
     
             // test if data is softdeleted
-            $this->assertSoftDeleted($TimeTable);
+            $this->assertSoftDeleted($timeTable);
         }
 }

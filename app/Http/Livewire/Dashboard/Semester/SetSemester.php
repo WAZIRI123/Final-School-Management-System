@@ -25,7 +25,7 @@ class SetSemester extends Component
     public function mount()
     {
         $this->semester =Semester::where('school_id',auth()->user()->school_id)->get();
-        $this->semester_id=School::find(auth()->user()->school_id)->semester_id;
+        $this->semester_id=School::find(auth()->user()->school_id)->semester?->id;
     }
 
     public function render()

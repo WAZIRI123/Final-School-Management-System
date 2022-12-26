@@ -6,14 +6,14 @@ use App\Http\Livewire\Dashboard\Profile;
 use App\Models\User;
 use App\Traits\FeatureTestTrait;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
-use Illuminate\Foundation\Testing\RefreshDatabase;
+
 use Illuminate\Foundation\Testing\WithFaker;
 use Livewire\Livewire;
 use Tests\TestCase;
 
 class ProfileTest extends TestCase
 {
-    use RefreshDatabase;
+ 
     use FeatureTestTrait, AuthorizesRequests;
 
         //test authorised users can edit parents

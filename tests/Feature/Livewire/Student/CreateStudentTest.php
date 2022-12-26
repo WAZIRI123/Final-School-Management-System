@@ -3,19 +3,18 @@
 namespace Tests\Feature\Livewire\Student;
 
 use App\Http\Livewire\Dashboard\Student\CrudChild;
+use App\Models\School;
 use App\Models\Student;
 use App\Models\User;
 use Tests\TestCase;
 use App\Traits\FeatureTestTrait;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
-use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\Storage;
 use Livewire\Livewire;
 
 class CreateStudentTest extends TestCase
 {
-    use RefreshDatabase;
     use FeatureTestTrait, AuthorizesRequests;
 
     //test view all students cannot be accessed by unauthorised users
@@ -86,7 +85,8 @@ class CreateStudentTest extends TestCase
         $image = UploadedFile::fake()->image('post-image.png');
 
         // make fake user && assign permission && acting as that user
-        $user = User::factory()->create();
+        $school = School::factory()->create();
+        $user = User::factory()->for( $school)->create();
         $user->givePermissionTo('create student');
         /** @var \Illuminate\Contracts\Auth\Authenticatable $user */
         $this->actingAs($user);

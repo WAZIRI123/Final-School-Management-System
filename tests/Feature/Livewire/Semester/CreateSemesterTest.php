@@ -34,9 +34,11 @@ class CreateSemesterTest extends TestCase
 
 
         // make fake user && assign role && acting as that user && Semester create
-        $user = User::factory()->create();
+        $school = School::factory()->create();
 
-        Semester::factory()->create(['name' => '2000', 'school_id' => 1]);
+        $user = User::factory()->for($school)->create();
+
+        Semester::factory()->for($school)->create(['name' => '2000', 'school_id' => 1]);
 
         Semester::factory()->create(['name' => '20045', 'school_id' => 2]);
 

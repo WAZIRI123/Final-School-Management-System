@@ -5,7 +5,7 @@ namespace Tests\Feature\Livewire\Subject;
 use App\Http\Livewire\Dashboard\Subject\CrudChild;
 use App\Models\Subject;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
-use Illuminate\Foundation\Testing\RefreshDatabase;
+
 use Livewire\Livewire;
 use App\Traits\FeatureTestTrait;
 use App\Models\User;
@@ -13,7 +13,7 @@ use Tests\TestCase;
 
 class CreateSubjectTest extends TestCase
 {
-    use RefreshDatabase;
+
     use FeatureTestTrait, AuthorizesRequests;
 
     //test view all subject cannot be accessed by unauthorised users
