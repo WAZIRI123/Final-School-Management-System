@@ -5,13 +5,13 @@ namespace Tests\Feature\Livewire\School;
 use App\Http\Livewire\Dashboard\School\CrudChild;
 use App\Models\School;
 use App\Traits\FeatureTestTrait;
-use Illuminate\Foundation\Testing\RefreshDatabase;
+
 use Livewire\Livewire;
 use Tests\TestCase;
 
 class CreateSchoolTest extends TestCase
 {
-    use RefreshDatabase;
+   
     use FeatureTestTrait;
 
     //test view all schools cannot be accessed by unauthorised users

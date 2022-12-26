@@ -4,8 +4,9 @@ namespace Tests\Feature\Livewire\Semester;
 
 use App\Http\Livewire\Dashboard\Semester\CrudChild;
 use App\Http\Livewire\Dashboard\Semester\SetSemester;
+use App\Models\School;
 use App\Models\Semester;
-use Illuminate\Foundation\Testing\RefreshDatabase;
+
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use App\Traits\FeatureTestTrait;
 use Livewire\Livewire;
@@ -15,7 +16,7 @@ use Tests\TestCase;
 
 class CreateSemesterTest extends TestCase
 {
-    use RefreshDatabase;
+ 
     use FeatureTestTrait, AuthorizesRequests;
 
     //test view all Semester cannot be accessed by unauthorised users
@@ -57,9 +58,11 @@ class CreateSemesterTest extends TestCase
             $this->withoutExceptionHandling();
     
             // make fake user && assign role && acting as that user
-            $user1 = User::factory()->create();
+            $school = School::factory()->create();
+            $user1 = User::factory()->for($school)->create();
             $user1->assignRole('admin');
-            $semester = Semester::factory()->create();
+
+            $semester = Semester::factory()->for($school)->create();
     
             // check if user has given permission/gate   
             $user1->can('set semester', [$user1, 'semester']);
