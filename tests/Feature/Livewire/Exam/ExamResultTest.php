@@ -32,7 +32,7 @@ class ExamResultTest extends TestCase
                $students1 =Student::factory()->has(ExamRecord::factory()->count(5)->state(['marks'=>15]))->create();
 
                $students2 =Student::factory()->has(ExamRecord::factory()->count(5)->state(['marks'=>95]))->create();
-
+             
                // make fake user && assign role && acting as that user
  
                $user1 = User::factory()->create();

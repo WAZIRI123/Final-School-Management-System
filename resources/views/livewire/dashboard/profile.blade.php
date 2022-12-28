@@ -14,7 +14,7 @@
                 <div class="grid grid-cols-2 gap-8">
                     <div class="flex flex-col my-4">
                         <label for="first_name_multiple_columns">First Name</label>
-                        <input type="text" name="name" wire:model="name" value="{{ old('name') }}" id="first_name_multiple_columns" class="flex-1 py-1 border-gray-300 mt-1 rounded focus:border-gray-300 focus:outline-none focus:ring-0" placeholder="Your First Name">
+                        <input type="text" name="name" wire:model.defer="name" value="{{ old('name') }}" id="first_name_multiple_columns" class="flex-1 py-1 border-gray-300 mt-1 rounded focus:border-gray-300 focus:outline-none focus:ring-0" placeholder="Your First Name">
 
                     </div>
 

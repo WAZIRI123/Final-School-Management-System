@@ -10,9 +10,9 @@
                
             </button>
         </div>
-        <div class="flex items-center"> <h1> Academic Year: {{ AcademicYear()->academicYear->name() }}
+        <div class="flex items-center"> <h1> Academic Year: {{ AcademicYear()?->academicYear->name() }}
             <br>
-           Semester: {{ AcademicYear()->semester?->name }}
+           Semester: {{ AcademicYear()?->semester?->name }}
         </h1> 
 
         </div>
