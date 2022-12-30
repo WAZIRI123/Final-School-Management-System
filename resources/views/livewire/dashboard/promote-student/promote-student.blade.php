@@ -95,6 +95,7 @@
                 <td class="px-2 py-2" >Status</td>
             </thead>
             <tbody class="divide-y divide-blue-400">
+            @if (count($results)>0)
             @foreach($results as $result)
                 <tr class="hover:bg-blue-300 {{ ($loop->even ) ? "bg-blue-100" : ""}}">
                     <td class="px-2 py-3 capitalize" >
@@ -110,7 +111,11 @@
                     <td class="px-2 py-3 capitalize" >{{ $result->Status }}</td>
                </tr>
             @endforeach
-            
+            @else
+            <tr>
+                <td>No students to promote</td>
+            </tr>
+            @endif
             </tbody>
         </table>
 

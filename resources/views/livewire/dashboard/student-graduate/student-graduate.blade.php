@@ -12,7 +12,7 @@
     <div class="grid grid-cols-2 gap-8">
         <div class="mt-4">
 
-            <x-tall-crud-label>Old Class</x-tall-crud-label>
+            <x-tall-crud-label>Students Class</x-tall-crud-label>
             <x-tall-crud-select class="block mt-1 w-full" wire:model="old_class">
                 <option value="">Please Select</option>
                 @foreach($class as $c)
@@ -22,7 +22,7 @@
             @error('old_class') <x-tall-crud-error-message>{{$message}}</x-tall-crud-error-message> @enderror
         </div>
         <div class="mt-4">
-            <x-tall-crud-label>Old Section</x-tall-crud-label>
+            <x-tall-crud-label>Students Section</x-tall-crud-label>
             <x-tall-crud-select class="block mt-1 w-full" wire:model="old_section">
                 <option value="">Please Select</option>
                 <option value="{{App\Enums\ClassSectionEnum::A->value}}">A</option>
@@ -73,6 +73,7 @@
                 <td class="px-2 py-2" >Status</td>
             </thead>
             <tbody class="divide-y divide-blue-400">
+            @if (count($results)>0)
             @foreach($results as $result)
                 <tr class="hover:bg-blue-300 {{ ($loop->even ) ? "bg-blue-100" : ""}}">
                     <td class="px-2 py-3 capitalize" >
@@ -87,7 +88,11 @@
                     <td class="px-2 py-3 capitalize" >{{ $result->Status }}</td>
                </tr>
             @endforeach
-            
+            @else
+            <tr>
+                <td>No students to graduate</td>
+            </tr>
+            @endif
             </tbody>
         </table>
 

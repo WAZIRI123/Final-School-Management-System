@@ -143,6 +143,10 @@ class PromoteStudent extends Component
                     'class_id' => $this->new_class,
                     'section'  => $this->new_section,
                 ]);
+                $student->load('academicYears')->academicYears()->syncWithoutDetaching([$academicyear => [
+                    'class_id'      => $this->new_class,
+                    'section_id'       =>$this->new_section,
+                ]]);
             }
                     // create promotion record
         Promotion::create([

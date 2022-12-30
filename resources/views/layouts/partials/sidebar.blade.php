@@ -20,6 +20,7 @@
 
         <p class="text-xs text-gray-600 mt-10 mb-2 px-6 uppercase">school activities</p>
 
+{{-- start menu wrapper --}}
         @can('menu-student')
         <div x-data="{ linkHover: false, linkActive: false }">
             <div @mouseover="linkHover = true" @mouseleave="linkHover = false" @click="linkActive = !linkActive"
@@ -79,7 +80,52 @@
             <!-- end::Submenu  graduations-->
         </div>
         @endcan
+ <!-- end::Menu link -->
 
+        <!-- start::Menu link -->
+        @can('menu-teacher')
+        <x-side-menu.div-link route="dashboard.teachers.index" title="Teacher" />
+        @endcan
+        <!-- end::Menu link -->
+        
+         <!-- start::Menu link -->
+         @can('menu-parent')
+         <x-side-menu.div-link route="dashboard.parents.index" title="Parent" />
+ 
+         @endcan
+         <!-- end::Menu link -->
+
+ <!-- start::Menu link -->
+        @can('menu-academic-year')
+        {{-- start menu wrapper --}}
+        <div x-data="{ linkHover: false, linkActive: false }">
+            <x-side-menu.menu-wrapper route="dashboard/academic" title="Academic" />
+            <!-- start::Submenu -->
+            <ul x-show="linkActive" x-collapse.duration.300ms="" class="text-gray-400"
+                style="overflow: hidden; height: 0px;">
+                @can('menu-subject')
+                <!-- start::Submenu link -->
+                <x-side-menu.list-link route="dashboard.subjects.index" title="Subject" />
+
+                <!-- end::Submenu link -->
+                @endcan
+                @can('menu-academic-year')
+                <!-- start::Submenu link -->
+                <x-side-menu.list-link route="dashboard.academic-years.index" title="Academic Year" />
+                <!-- end::Submenu link -->
+                @endcan
+                @can('menu-academic-year')
+                <!-- start::Submenu link -->
+                <x-side-menu.list-link route="dashboard.semesters.index" title="Semester" />
+
+                <!-- end::Submenu link -->
+                @endcan
+
+            </ul>
+            <!-- end::Submenu  graduations-->
+        </div>
+       {{-- end menu wrapper --}}
+       @endcan
         <!-- start::Menu link -->
         @can('menu-school')
         <x-side-menu.div-link route="dashboard.schools.index" title="School" />
@@ -134,22 +180,13 @@
         </div>
         @endcan
         <!-- end::Menu link -->
-        <!-- start::Menu link -->
-        @can('menu-parent')
-        <x-side-menu.div-link route="dashboard.parents.index" title="Parent" />
 
-        @endcan
-        <!-- end::Menu link -->
 
         <!-- start::Menu link -->
 
         <!-- end::Menu link -->
 
-        <!-- start::Menu link -->
-        @can('menu-teacher')
-        <x-side-menu.div-link route="dashboard.teachers.index" title="Teacher" />
-        @endcan
-        <!-- end::Menu link -->
+ 
 
                 <!-- start::Menu link -->
                 @can('menu-admin')
@@ -163,36 +200,7 @@
         @endcan
         <!-- end::Menu link -->
 
-        @can('menu-academic-year')
-        {{-- start menu wrapper --}}
-        <div x-data="{ linkHover: false, linkActive: false }">
-            <x-side-menu.menu-wrapper route="dashboard/academic" title="Academic" />
-            <!-- start::Submenu -->
-            <ul x-show="linkActive" x-collapse.duration.300ms="" class="text-gray-400"
-                style="overflow: hidden; height: 0px;">
-                @can('menu-subject')
-                <!-- start::Submenu link -->
-                <x-side-menu.list-link route="dashboard.subjects.index" title="Subject" />
 
-                <!-- end::Submenu link -->
-                @endcan
-                @can('menu-academic-year')
-                <!-- start::Submenu link -->
-                <x-side-menu.list-link route="dashboard.academic-years.index" title="Academic Year" />
-                <!-- end::Submenu link -->
-                @endcan
-                @can('menu-academic-year')
-                <!-- start::Submenu link -->
-                <x-side-menu.list-link route="dashboard.semesters.index" title="Semester" />
-
-                <!-- end::Submenu link -->
-                @endcan
-
-            </ul>
-            <!-- end::Submenu  graduations-->
-        </div>
-       {{-- end menu wrapper --}}
-       @endcan
  {{-- start menu wrapper --}}
  <div x-data="{ linkHover: false, linkActive: false }">
     <x-side-menu.menu-wrapper route="dashboard/exam" title="Exam" />
