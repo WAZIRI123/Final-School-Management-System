@@ -29,6 +29,10 @@ class ManagePromotion extends Component
      */
     public $sortBy = 'id';
 
+    public $selectedRows = [];
+
+    public $selectedAllRows = false;
+
     /**
      * @var bool
      */
@@ -51,10 +55,6 @@ class ManagePromotion extends Component
      */
     public $per_page = 15;
 
-
-    public function mount(): void
-    {
-    }
     public function promotionDetails(Promotion $promotion): void
     {
         $this->authorize('view', $promotion);
@@ -63,19 +63,24 @@ class ManagePromotion extends Component
         $this->promotion = $promotion;
     }
 
+    public function getPromotionsProperty()
+    {
+        $filterOnlyPromotionsWithinSchool = function ($query) {
+            $query->where('school_id', auth()->user()->school_id);
+        };
+
+        return $this->query()
+           ->with(['academicYear','oldClass', 'newClass','student','student.user'])
+            ->where('academic_year_id', auth()->user()->school->academicYear->id)
+            ->where('school_id', $filterOnlyPromotionsWithinSchool)
+            ->orderBy($this->sortBy, $this->sortAsc ? 'ASC' : 'DESC')
+            ->paginate($this->per_page);
+    }
+
 
     public function render(): View
     {
-        $results = $this->query()
-            ->with(['academicYear', 'oldClass', 'newClass','student','student.user'])
-            ->where('school_id', auth()->user()->school_id)
-            ->when($this->q, function ($query) {
-                return $query->where(function ($query) {
-                    $query->where('academic_year_id', 'like', '%' . $this->q . '%');
-                });
-            })
-            ->orderBy($this->sortBy, $this->sortAsc ? 'ASC' : 'DESC')
-            ->paginate($this->per_page);
+        $results = $this->promotions;
 
         return view('livewire.dashboard.promote-student.manage-promotion', [
             'results' => $results
@@ -100,6 +105,26 @@ class ManagePromotion extends Component
     public function updatingPerPage(): void
     {
         $this->resetPage();
+    }
+
+    public function resetPromotion(Promotion $promotion)
+    {
+        dd($results = $this->promotions);
+     $students = $this->query()->find($promotion->student_id);
+        $currentAcademicYear = auth()->user()->school->academicYear;
+
+        foreach ($students as $student) {
+            $student->studentRecord->load('academicYears')->academicYears()->syncWithoutDetaching([$currentAcademicYear->id => [
+                'my_class_id' => $promotion->old_class_id,
+                'section_id'  => $promotion->old_section_id,
+            ]]);
+            $student->studentRecord()->update([
+                'my_class_id' => $promotion->old_class_id,
+                'section_id'  => $promotion->old_section_id,
+            ]);
+        }
+
+        $promotion->delete();
     }
 
     public function query(): Builder

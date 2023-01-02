@@ -64,4 +64,34 @@ class CreatePromotionTest extends TestCase
         ]);
     }
 
+     /** @test  */
+     public function authorized_user_can_reset_promotion()
+     {
+         $this->withoutExceptionHandling();
+ 
+         // make fake user && assign role && acting as that user
+         $school = School::factory()->create();
+         $AcademicYear=AcademicYear::factory()->for($school)->create();
+      
+        
+         $user1 = User::factory()->for($school)->create();
+       
+ 
+         $class1 = Classes::factory()->create();
+         $class2 = Classes::factory()->create();
+         $user1->assignRole('admin');
+         $user=User::factory()->create();
+         $student = Student::factory()->for($user)->create();
+
+         $promotion=Promotion::factory()->for($student)->create();
+$promotion=Promotion::factory()->for($student)->create();
+         // check if user has given permission/gate   
+         $user1->can('promote', Promotion::class);
+ 
+         Livewire::actingAs($user1)
+             ->test(ManagePromotion::class)
+    
+             ->call('resetPromotion',$promotion);
+     }
+
 }

@@ -10,6 +10,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 class Promotion extends Model
 {
     use HasFactory,SoftDeletes;
+    
     protected $fillable = [
         'old_class_id',
         'new_class_id',
@@ -33,6 +34,7 @@ class Promotion extends Model
     {
         return $this->belongsTo(Classes::class, 'new_class_id');
     }
+
     public function student():BelongsTo
     {
         return $this->belongsTo(Student::class, 'student_id');

@@ -148,14 +148,14 @@ class PromoteStudent extends Component
                     'section_id'       =>$this->new_section,
                 ]]);
             }
-                    // create promotion record
-        Promotion::create([
-            'old_class_id'     => $this->old_class,
-            'new_class_id'     => $this->new_class,
-            'old_section'   => $this->old_section,
-            'new_section'   => $this->new_section,
-            'student_id'         => $student->id,
-            'academic_year_id' => $academicyear,
+         // create promotion record
+        Promotion::updateOrCreate([ 'student_id'=> $student->id,
+        'old_class_id'     => $this->old_class,
+        'new_class_id'     => $this->new_class,
+        'old_section'   => $this->old_section,
+        'new_section'   => $this->new_section,
+        'academic_year_id' => $academicyear],
+            [
             'school_id'        => auth()->user()->school_id,
         ]);
         }
@@ -164,8 +164,6 @@ class PromoteStudent extends Component
         $this->reset(['selectedRows']);
         $this->emitTo('livewire-toast', 'show', 'Record Updated Successfully');
     }
-
-
 
     public function UpdatedselectedAllRows($value)
     {

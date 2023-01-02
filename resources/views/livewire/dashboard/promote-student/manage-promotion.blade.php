@@ -24,9 +24,15 @@
     {{-- end modal --}}
 
     <div class="mt-6">
-        <div class="flex justify-between">
+        <div class="flex justify-around">
             <div class="flex">
                 <x-tall-crud-input-search />
+            </div>
+            <div x-data="{ dropdown: false }" class=" mr-auto ml-3 flex">
+                <div class="w-36 items-center flex bg-primary justify-between text-gray-100 rounded transition duration-150">
+                    <button class="flex-1 h-full hover:bg-primary-dark border-r rounded-l"wire:click="promoteStudents">Promote</button>
+                </div>
+                <span class="ml-2 my-auto">Selected {{ count($selectedRows) }} {{ Str::plural('student', count($selectedRows)) }}</span>
             </div>
             <div class="flex">
 
@@ -35,6 +41,10 @@
         </div>
         <table class="w-full my-8 whitespace-nowrap" wire:loading.class.delay="opacity-50">
             <thead class="bg-secondary text-gray-100 font-bold">
+                <td class="px-2 py-3 capitalize" >
+                    <input type="checkbox" name="checkbox_checked" id="checkbox_checked" class="ml-2 focus:ring-0"  wire:model="selectedAllRows">
+                    </td>
+                    
                 <td class="pl-2 py-2" >
                     <div class="flex items-center">
                         <button wire:click="sortBy('id')">Id</button>
