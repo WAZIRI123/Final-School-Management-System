@@ -84,14 +84,31 @@ class CreatePromotionTest extends TestCase
          $student = Student::factory()->for($user)->create();
 
          $promotion=Promotion::factory()->for($student)->create();
-$promotion=Promotion::factory()->for($student)->create();
+$promotion1=Promotion::factory()->for($student)->create();
          // check if user has given permission/gate   
          $user1->can('promote', Promotion::class);
  
          Livewire::actingAs($user1)
              ->test(ManagePromotion::class)
-    
-             ->call('resetPromotion',$promotion);
+             ->set('selectedRows',[1])
+             ->call('resetPromotion');
+
+             $studentYear =  $student->academicYears;
+
+             $this->assertTrue($studentYear->contains($promotion->first()->old_class_id));
+
+        // test if class_id and section changed
+        $this->assertDatabaseHas('students', [
+            'class_id' => $promotion->first()->old_class_id,
+            'section'  => $promotion->first()->old_section,
+        ]);
+
+            // test if data exist in database
+            $this->assertSoftDeleted($promotion);
      }
+
+
+    
+    
 
 }

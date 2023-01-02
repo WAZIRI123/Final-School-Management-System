@@ -65,14 +65,11 @@ class ManagePromotion extends Component
 
     public function getPromotionsProperty()
     {
-        $filterOnlyPromotionsWithinSchool = function ($query) {
-            $query->where('school_id', auth()->user()->school_id);
-        };
-
         return $this->query()
+
            ->with(['academicYear','oldClass', 'newClass','student','student.user'])
             ->where('academic_year_id', auth()->user()->school->academicYear->id)
-            ->where('school_id', $filterOnlyPromotionsWithinSchool)
+            ->where('school_id', auth()->user()->school_id)
             ->orderBy($this->sortBy, $this->sortAsc ? 'ASC' : 'DESC')
             ->paginate($this->per_page);
     }
@@ -107,24 +104,27 @@ class ManagePromotion extends Component
         $this->resetPage();
     }
 
-    public function resetPromotion(Promotion $promotion)
+    public function resetPromotion()
     {
-        dd($results = $this->promotions);
-     $students = $this->query()->find($promotion->student_id);
+$studentIds=Promotion::whereIn('id',$this->selectedRows)->pluck('student_id');
+$students=Student::whereIn('id',$studentIds)->get();
+
         $currentAcademicYear = auth()->user()->school->academicYear;
 
         foreach ($students as $student) {
-            $student->studentRecord->load('academicYears')->academicYears()->syncWithoutDetaching([$currentAcademicYear->id => [
-                'my_class_id' => $promotion->old_class_id,
-                'section_id'  => $promotion->old_section_id,
+              
+            $promotion=Promotion::where('student_id',$student->first()->id)->get();
+            $student->load('academicYears')->academicYears()->syncWithoutDetaching([$currentAcademicYear->id => [
+                'class_id' => $promotion->first()->old_class_id,
+                'section_id'  => $promotion->first()->old_section,
             ]]);
-            $student->studentRecord()->update([
-                'my_class_id' => $promotion->old_class_id,
-                'section_id'  => $promotion->old_section_id,
+            $student->update([
+                'class_id' => $promotion->first()->old_class_id,
+                'section'  => $promotion->first()->old_section,
             ]);
         }
+        $promotion->first()->delete();
 
-        $promotion->delete();
     }
 
     public function query(): Builder
