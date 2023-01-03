@@ -19,6 +19,7 @@ use Tests\TestCase;
 class CreatePromotionTest extends TestCase
 {
 
+
     use FeatureTestTrait, AuthorizesRequests;
 
     /** @test  */
@@ -87,11 +88,12 @@ class CreatePromotionTest extends TestCase
 $promotion1=Promotion::factory()->for($student)->create();
          // check if user has given permission/gate   
          $user1->can('promote', Promotion::class);
- 
+
          Livewire::actingAs($user1)
              ->test(ManagePromotion::class)
-             ->set('selectedRows',[1])
-             ->call('resetPromotion');
+             ->set('selectedRows',[ $promotion->id])
+             ->call('resetPromotion')->assertHasNoErrors();
+
 
              $studentYear =  $student->academicYears;
 

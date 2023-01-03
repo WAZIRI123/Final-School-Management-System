@@ -106,14 +106,18 @@ class ManagePromotion extends Component
 
     public function resetPromotion()
     {
-$studentIds=Promotion::whereIn('id',$this->selectedRows)->pluck('student_id');
+$studentIds=Promotion::whereIn('id',$this->selectedRows)->pluck('student_id')->toArray();
+
+
 $students=Student::whereIn('id',$studentIds)->get();
+
 
         $currentAcademicYear = auth()->user()->school->academicYear;
 
         foreach ($students as $student) {
-              
-            $promotion=Promotion::where('student_id',$student->first()->id)->get();
+            
+            $promotion=Promotion::where('student_id',$student->id)->get();
+
             $student->load('academicYears')->academicYears()->syncWithoutDetaching([$currentAcademicYear->id => [
                 'class_id' => $promotion->first()->old_class_id,
                 'section_id'  => $promotion->first()->old_section,
