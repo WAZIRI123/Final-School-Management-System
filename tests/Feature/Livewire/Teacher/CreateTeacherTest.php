@@ -9,6 +9,7 @@ use App\Models\User;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Support\Facades\Storage;
 use App\Traits\FeatureTestTrait;
+use Illuminate\Foundation\Testing\RefreshDatabase;
 use Livewire\Livewire;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\DB;
@@ -17,6 +18,7 @@ use Tests\TestCase;
 
 class CreateTeacherTest extends TestCase
 {
+    use RefreshDatabase;
     use FeatureTestTrait, AuthorizesRequests;
  //test view all teachers cannot be accessed by unauthorised users
 

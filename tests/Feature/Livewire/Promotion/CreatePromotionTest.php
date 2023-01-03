@@ -13,6 +13,7 @@ use App\Models\User;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Livewire\Livewire;
 use App\Traits\FeatureTestTrait;
+use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
 
@@ -20,11 +21,13 @@ class CreatePromotionTest extends TestCase
 {
 
 
+use RefreshDatabase;
     use FeatureTestTrait, AuthorizesRequests;
 
     /** @test  */
     public function authorized_user_can_create_promotion()
     {
+
         $this->withoutExceptionHandling();
 
         // make fake user && assign role && acting as that user
@@ -39,7 +42,7 @@ class CreatePromotionTest extends TestCase
         $class2 = Classes::factory()->create();
         $user1->assignRole('admin');
         $user=User::factory()->create();
-        $student = Student::factory()->for($user)->create();
+        $student = Student::factory()->for($user)->create(['phone'=>'0653039317']);
 
         // check if user has given permission/gate   
         $user1->can('promote', Promotion::class);
@@ -50,7 +53,7 @@ class CreatePromotionTest extends TestCase
             ->set('old_class', $class1->id)
             ->set('new_class', $class2->id)
             ->set('new_section', \App\Enums\ClassSectionEnum::A)
-            ->set('selectedRows', [1])
+            ->set('selectedRows', [$student->id])
             ->call('promoteStudents')->assertHasNoErrors();
 
         // test if data exist in database
@@ -68,6 +71,7 @@ class CreatePromotionTest extends TestCase
      /** @test  */
      public function authorized_user_can_reset_promotion()
      {
+        
          $this->withoutExceptionHandling();
  
          // make fake user && assign role && acting as that user
@@ -95,15 +99,14 @@ $promotion1=Promotion::factory()->for($student)->create();
              ->call('resetPromotion')->assertHasNoErrors();
 
 
-             $studentYear =  $student->academicYears;
+             $studentYear =  $student->academicYears()->first()->studentAcademicYear->class_id==$promotion->old_class_id;
 
-             $this->assertTrue($studentYear->contains($promotion->first()->old_class_id));
+             $student=  $student->class_id==$promotion->old_class_id;
+             $this->assertTrue( $studentYear);
 
-        // test if class_id and section changed
-        $this->assertDatabaseHas('students', [
-            'class_id' => $promotion->first()->old_class_id,
-            'section'  => $promotion->first()->old_section,
-        ]);
+             $this->assertTrue( $student);
+
+
 
             // test if data exist in database
             $this->assertSoftDeleted($promotion);

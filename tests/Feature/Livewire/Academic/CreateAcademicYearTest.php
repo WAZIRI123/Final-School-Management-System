@@ -10,10 +10,12 @@ use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Livewire\Livewire;
 use App\Traits\FeatureTestTrait;
 use App\Models\User;
+use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 
 class CreateAcademicYearTest extends TestCase
 {
+    use RefreshDatabase;
     use FeatureTestTrait, AuthorizesRequests;
 
     //test view all academicyear cannot be accessed by unauthorised users

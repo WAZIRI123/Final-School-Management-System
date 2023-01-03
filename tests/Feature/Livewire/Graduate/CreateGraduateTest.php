@@ -8,12 +8,13 @@ use App\Models\Student;
 use App\Models\User;
 use App\Traits\FeatureTestTrait;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
+use Illuminate\Foundation\Testing\RefreshDatabase;
 use Livewire\Livewire;
 use Tests\TestCase;
 
 class CreateGraduateTest extends TestCase
 {
-
+    use RefreshDatabase;
     use FeatureTestTrait, AuthorizesRequests;
 
     /** @test  */

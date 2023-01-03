@@ -13,11 +13,13 @@ use App\Models\Subject;
 use App\Models\User;
 use App\Traits\FeatureTestTrait;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
+use Illuminate\Foundation\Testing\RefreshDatabase;
 use Livewire\Livewire;
 use Tests\TestCase;
 
 class ExamResultTest extends TestCase
 {
+    use RefreshDatabase;
 
     use FeatureTestTrait, AuthorizesRequests;
 

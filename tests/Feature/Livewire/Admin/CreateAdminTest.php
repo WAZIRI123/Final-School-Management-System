@@ -16,7 +16,7 @@ use Tests\TestCase;
 
 class CreateadminTest extends TestCase
 {
-  
+    use RefreshDatabase;
     use FeatureTestTrait, AuthorizesRequests;
  //test view all admins cannot be accessed by unauthorised users
 

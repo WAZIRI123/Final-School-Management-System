@@ -11,13 +11,14 @@ use App\Models\User;
 use App\Models\WeekDay;
 use App\Traits\FeatureTestTrait;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
+use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Livewire\Livewire;
 use Tests\TestCase;
 
 class CreateTimeTableTimeSlotTest extends TestCase
 {
-
+    use RefreshDatabase;
     use FeatureTestTrait, AuthorizesRequests;
 
         //test view all TimeTableTimeSlot cannot be accessed by unauthorised users

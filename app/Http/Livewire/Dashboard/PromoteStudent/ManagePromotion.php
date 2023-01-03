@@ -127,6 +127,7 @@ $students=Student::whereIn('id',$studentIds)->get();
                 'section'  => $promotion->first()->old_section,
             ]);
         }
+
         $promotion->first()->delete();
 
     }

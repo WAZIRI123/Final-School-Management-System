@@ -14,11 +14,13 @@ use App\Models\User;
 use App\Traits\FeatureTestTrait;
 use GuzzleHttp\Promise\Create;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
+use Illuminate\Foundation\Testing\RefreshDatabase;
 use Livewire\Livewire;
 use Tests\TestCase;
 
 class ExamManageTest extends TestCase
 {
+    use RefreshDatabase;
     use FeatureTestTrait, AuthorizesRequests;
 
         

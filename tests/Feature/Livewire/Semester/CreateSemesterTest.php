@@ -11,12 +11,13 @@ use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use App\Traits\FeatureTestTrait;
 use Livewire\Livewire;
 use App\Models\User;
+use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
 
 class CreateSemesterTest extends TestCase
 {
- 
+    use RefreshDatabase;
     use FeatureTestTrait, AuthorizesRequests;
 
     //test view all Semester cannot be accessed by unauthorised users
