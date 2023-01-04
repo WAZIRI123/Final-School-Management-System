@@ -31,9 +31,16 @@ class ExamResultTest extends TestCase
            {
                $this->withoutExceptionHandling();
 
-               $students1 =Student::factory()->has(ExamRecord::factory()->count(5)->state(['marks'=>15]))->create();
 
-               $students2 =Student::factory()->has(ExamRecord::factory()->count(5)->state(['marks'=>95]))->create();
+               $class=Classes::factory()->create();
+
+               $academicYear=AcademicYear::factory()->create();
+
+               $students1 =Student::factory()->state(['class_id'=> $class->id]) ->has(ExamRecord::factory()->count(5)
+               ->state(['marks'=>15,'academic_id'=>$academicYear->id]))->create();
+
+               $students2 =Student::factory()->state(['class_id'=> $class->id]) ->has(ExamRecord::factory()->count(5)
+               ->state(['marks'=>95,'academic_id'=>$academicYear->id]))->create();
              
                // make fake user && assign role && acting as that user
  
@@ -46,14 +53,14 @@ class ExamResultTest extends TestCase
        
                $response=Livewire::actingAs($user1)
                    ->test(Index::class)
-                   ->set('class', 1)
-                   ->set('academic_year', 1)
-                   ->set('select_student', 1)
+                   ->set('class', $class->id)
+                   ->set('academic_year',$academicYear->id)
+                   ->set('select_student', $students1->id)
                    ->call('examRecords');
 
                   
-                   // assert if students sorted corretly
-                  $this->assertEquals([$students2->id,$students1->id],$response->viewData('students')->pluck('id')->take(2)->toArray());
+               // assert if students sorted corretly
+               $this->assertEquals([$students2->id,$students1->id],$response->viewData('students')->pluck('id')->take(2)->toArray());
 
                    // assert if correctly number of exam_records returned for a student
                   $this->assertEquals(5,$response->viewData('student_result')->count());
