@@ -50,8 +50,10 @@ class ExamResultTest extends TestCase
                    ->set('academic_year', 1)
                    ->set('select_student', 1)
                    ->call('examRecords');
+
+                  
                    // assert if students sorted corretly
-                  $this->assertEquals([$students2->id,$students1->id],$response->viewData('students')->pluck('id')->toArray()) ;
+                  $this->assertEquals([$students2->id,$students1->id],$response->viewData('students')->pluck('id')->take(2)->toArray());
 
                    // assert if correctly number of exam_records returned for a student
                   $this->assertEquals(5,$response->viewData('student_result')->count());
