@@ -109,7 +109,7 @@ class ManagePromotion extends Component
 $studentIds=Promotion::whereIn('id',$this->selectedRows)->pluck('student_id')->toArray();
 
 
-$students=Student::whereIn('id',$studentIds)->get();
+      $students=Student::whereIn('id',$studentIds)->get();
 
 
         $currentAcademicYear = auth()->user()->school->academicYear;
@@ -126,11 +126,28 @@ $students=Student::whereIn('id',$studentIds)->get();
                 'class_id' => $promotion->first()->old_class_id,
                 'section'  => $promotion->first()->old_section,
             ]);
+            $promotion->first()->delete();
         }
 
-        $promotion->first()->delete();
+       
+
+        $this->reset(['selectedRows','selectedAllRows']);
+
+        $this->emitTo('livewire-toast', 'show', 'Record Updated Successfully');
 
     }
+
+    public function UpdatedselectedAllRows($value)
+    {
+        if ($value) {
+            $this->selectedRows = $this->promotions->pluck('id')->map(function ($id) {
+                return (string) $id;
+            });
+        } else {
+            $this->reset(['selectedRows', 'selectedAllRows']);
+        }
+    }
+
 
     public function query(): Builder
     {

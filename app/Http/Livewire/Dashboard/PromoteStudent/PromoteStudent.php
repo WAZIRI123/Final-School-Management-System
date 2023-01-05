@@ -132,6 +132,7 @@ class PromoteStudent extends Component
        //make sure selectedRows is present
        if ( $this->selectedRows == null) {
         return session()->flash('danger', 'Please select student/students to promote');
+  
     }
   
         DB::beginTransaction();
@@ -161,7 +162,7 @@ class PromoteStudent extends Component
         }
 
         DB::commit();
-        $this->reset(['selectedRows']);
+        $this->reset(['selectedRows', 'selectedAllRows']);
         $this->emitTo('livewire-toast', 'show', 'Record Updated Successfully');
     }
 

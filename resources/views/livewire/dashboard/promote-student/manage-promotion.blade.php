@@ -30,7 +30,7 @@
             </div>
             <div x-data="{ dropdown: false }" class=" mr-auto ml-3 flex">
                 <div class="w-36 items-center flex bg-primary justify-between text-gray-100 rounded transition duration-150">
-                    <button class="flex-1 h-full hover:bg-primary-dark border-r rounded-l"wire:click="promoteStudents">Promote</button>
+                    <button class="flex-1 h-full hover:bg-primary-dark border-r rounded-l"wire:click="resetPromotion">Reset Promotion</button>
                 </div>
                 <span class="ml-2 my-auto">Selected {{ count($selectedRows) }} {{ Str::plural('student', count($selectedRows)) }}</span>
             </div>
@@ -67,7 +67,10 @@
             <tbody class="divide-y divide-blue-400">
             @foreach($results as $result)
                 <tr class="hover:bg-blue-300 {{ ($loop->even ) ? "bg-blue-100" : ""}}">
-                    <td class="px-2 py-2 capitalize" >{{ $result->id }}</td>
+                    <td class="px-2 py-3 capitalize" >
+                        <input type="checkbox" name="checkbox_checked" id="{{ $result->id }}" value="{{ $result->id }}" class="ml-2 focus:ring-0"  wire:model="selectedRows" >
+                        </td>
+                        <td class="px-2 py-3 capitalize" >{{ $loop->iteration }}</td>
                     <td class="px-2 py-2 capitalize" >{{ $result->student->user->name }}</td>
                     <td class="px-2 py-2 capitalize" >{{ $result->oldClass?->class_name}}</td>
                     <td class="px-2 py-2 capitalize" >{{ $result->newClass?->class_name  }}</td>

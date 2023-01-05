@@ -88,7 +88,7 @@
                     </div>
                 </td>
                 <td class="px-2 py-2" >Admission </td>
-                <td class="px-2 py-2" >Parent </td>
+                <td class="px-2 py-2" >Parent</td>
                 <td class="px-2 py-2" >Class</td>
                 <td class="px-2 py-2" >Gender</td>
                 <td class="px-2 py-2" >Section</td>
