@@ -58,7 +58,6 @@ class ExamResultTest extends TestCase
                    ->set('select_student', $students1->id)
                    ->call('examRecords');
 
-                  
                // assert if students sorted corretly
                $this->assertEquals([$students2->id,$students1->id],$response->viewData('students')->pluck('id')->take(2)->toArray());
 

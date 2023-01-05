@@ -5,11 +5,13 @@ namespace Tests\Feature\Livewire\ExamRecord;
 use App\Enums\ClassSectionEnum;
 use App\Http\Livewire\Dashboard\Exam\Marking\ManageExamMarkChild;
 use App\Http\Livewire\Dashboard\Exam\Marking\MarkExam;
+use App\Models\Classes;
 use App\Models\Exam;
 use App\Models\ExamRecord;
 use App\Models\School;
 use App\Models\Semester;
 use App\Models\Student;
+use App\Models\Subject;
 use App\Models\User;
 use App\Traits\FeatureTestTrait;
 use GuzzleHttp\Promise\Create;
@@ -71,7 +73,11 @@ class ExamManageTest extends TestCase
         {
             $this->withoutExceptionHandling();
 
-            $students = Student::factory()->create();
+            $class = Classes::factory()->create();
+
+            $students = Student::factory()->create(['class_id'=>$class->id]);
+
+            $subject = Subject::factory()->create();
             // make fake user && assign role && acting as that user
            
             $school=School::factory()->create();
@@ -83,23 +89,25 @@ class ExamManageTest extends TestCase
            
 
             $exam=Exam::factory()->create(['semester_id'=> $semester->id]);
+
             $user->assignRole('admin');
 
             // check if user has given permission/gate   
             $user->can('create', [$user, 'exam record']);
     
+    
             Livewire::actingAs($user)
                 ->test(MarkExam::class)
-                ->set('class', 1)
+                ->set('class',$students->class_id)
                 ->set('section', ClassSectionEnum::A->value)
-                ->set('exam', 1)
-                ->set('subject', 1)
+                ->set('exam', $exam->id)
+                ->set('subject',  $subject->id)
                 ->set('student', [$students->id])
-                ->call('Markstudent');
+                ->call('Markstudent')->assertHasNoErrors();
     
             // test if data exist in database
             $this->assertDatabaseHas('exam_records', [
-                'class_id' => 1,
+                'class_id' =>$students->class_id,
             ]);
         }
     
@@ -122,7 +130,14 @@ class ExamManageTest extends TestCase
         {
             $this->withoutExceptionHandling();
     
+
             // make fake user && assign role && acting as that user 0747 711 421
+
+            $class = Classes::factory()->create();
+
+            $students = Student::factory()->create(['class_id'=>$class->id]);
+
+
             $school=School::factory()->create();
 
             $semester=Semester::factory()->create(['school_id'=>$school->id]);
@@ -131,7 +146,7 @@ class ExamManageTest extends TestCase
 
             $user1->assignRole('admin');
 
-            $ExamRecord = ExamRecord::factory()->create(['semester_id'=>$semester->id]);
+            $ExamRecord = ExamRecord::factory()->create(['semester_id'=>$semester->id,'class_id'=>$students->class_id]);
     
             // check if user has given permission/gate   
             $user1->can('update', [$user1, 'exam record']);

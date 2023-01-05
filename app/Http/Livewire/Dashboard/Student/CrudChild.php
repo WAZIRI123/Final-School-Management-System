@@ -72,7 +72,7 @@ class CrudChild extends Component
      * @var array
      */
     protected $validationAttributes = [
-        'item.name' => 'Name',
+        'item.name' => 'name',
         'item.email' => 'Email',
         'item.admission_no' => 'Admission No',
         'item.parent_id' => 'Parent Id',
